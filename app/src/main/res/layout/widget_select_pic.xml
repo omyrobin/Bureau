@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="@color/colorDivider"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:id="@+id/mSelectTakePhotoTv"
+        android:text="@string/select_take_photo"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
+    
+    <TextView 
+        android:id="@+id/mSelectPhotoAlbumTv"
+        android:layout_marginTop="15dp"
+        android:text="@string/select_photo_album"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
+    
+    <TextView 
+        android:id="@+id/mSelectCancelTv"
+        android:layout_marginTop="15dp"
+        android:text="@string/cancle"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17sp"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
+
+</LinearLayout>

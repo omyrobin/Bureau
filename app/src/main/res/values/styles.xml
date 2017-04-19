@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="editTextColor">@color/colorText</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseAppTheme"></style>
+
+    <style name="BaseDiaLog" parent="Theme.AppCompat.Light.Dialog"></style>
+
+    <style name="BaseDiaLog.Select">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
+
+    <!-- ActionSheet进出动画 -->
+    <style name="ActionSheetDialogAnimation" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+
+</resources>
