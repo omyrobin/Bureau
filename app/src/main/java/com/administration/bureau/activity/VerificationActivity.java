@@ -14,11 +14,14 @@ import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.eventbus.UserLogoutEvent;
 import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.DeleteService;
 import com.administration.bureau.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -105,6 +108,14 @@ public class VerificationActivity extends BaseActivity{
             protected void onSuccess(Boolean aBoolean) {
                 if(aBoolean){
                     ToastUtil.showShort("信息已核销，请重新提交申请资料");
+                    //销毁用户提交资料
+                    App.getInstance().status = -1;
+                    App.getInstance().certificate_image = "";
+                    App.getInstance().chinese_name = "";
+                    App.getInstance().reject_reason = "";
+                    App.getInstance().id = -1;
+                    //TODO 刷新信息
+                    EventBus.getDefault().post(new UserLogoutEvent());
                     finish();
                 }
             }
