@@ -113,6 +113,9 @@
     <string name="language_settings">语言设置</string>
     <string name="user_feedback">用户反馈</string>
     <string name="about_us">关于我们</string>
+    <string name="whether_out_of_the_current_account">是否退出当前账户</string>
+    <string name="not_submit_registration">（未提交审核资料）</string>
+    <string name="wait_for_review">（等待审核）</string>
 
 
 </resources>

@@ -114,5 +114,8 @@
 	<string name="language_settings">Language settings</string>
 	<string name="user_feedback">User feedback</string>
 	<string name="about_us">About Us</string>
+	<string name="whether_out_of_the_current_account">(Whether out of the current account)</string>
+	<string name="not_submit_registration">(Not submit registration)</string>
+	<string name="wait_for_review">(wait for review)</string>
 
 </resources>

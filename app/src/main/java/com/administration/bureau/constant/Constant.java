@@ -1,5 +1,7 @@
 package com.administration.bureau.constant;
 
+import com.administration.bureau.App;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -24,9 +26,7 @@ public class Constant {
 
     public static final String SAVE_USER_REGISTER_INFO = "SAVE_USER_REGISTER_INFO";//保存用户申请资料
 
-    public static final int ZH_CN = 0;//中文
-
-    public static final int EN = 1;//英文
+    public static final String LOCALE = "LOCALE";
 
     public static String [] languages = new String[]{"zh-CN", "en"};
 }

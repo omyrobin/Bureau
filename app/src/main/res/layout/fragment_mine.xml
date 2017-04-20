@@ -12,6 +12,7 @@
         android:orientation="horizontal"
         android:layout_height="150dp">
         <ImageView
+            android:src="@drawable/icon_user_face"
             android:id="@+id/user_face_img"
             android:layout_gravity="center_vertical"
             android:layout_width="80dp"

@@ -38,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/icon_user_face" />
 
             </RelativeLayout>
 
@@ -62,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/icon_user_face" />
 
             </RelativeLayout>
 

@@ -18,23 +18,32 @@
         android:layout_width="match_parent"
         android:layout_height="55dp">
         <TextView
+            android:padding="5dp"
             android:id="@+id/homepage_tv"
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:drawableTop="@drawable/selector_tab_homepage"
+            android:textColor="@color/selector_tab_color"
             android:layout_height="match_parent"
             android:gravity="center" />
 
         <TextView
+            android:padding="5dp"
             android:id="@+id/message_tv"
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:drawableTop="@drawable/selector_tab_message"
+            android:textColor="@color/selector_tab_color"
             android:layout_height="match_parent"
             android:gravity="center" />
 
         <TextView
+            android:padding="5dp"
             android:id="@+id/mine_tv"
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:drawableTop="@drawable/selector_tab_my"
+            android:textColor="@color/selector_tab_color"
             android:layout_height="match_parent"
             android:gravity="center" />
 

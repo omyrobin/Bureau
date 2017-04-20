@@ -33,8 +33,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.OnClick;
 import retrofit2.Response;
 import rx.Observable;
@@ -48,6 +50,8 @@ public class MainActivity extends BaseActivity {
     TextView messageTv;
     @BindView(R.id.mine_tv)
     TextView mineTv;
+    @BindViews({R.id.homepage_tv, R.id.message_tv, R.id.mine_tv})
+    List<TextView> tabViws;
 
     private HomePageFragment homePageFragment;
 
@@ -94,6 +98,7 @@ public class MainActivity extends BaseActivity {
             messageFragment = (MessageFragment) getSupportFragmentManager().findFragmentByTag(1+"");
             mineFragment = (MineFragment) getSupportFragmentManager().findFragmentByTag(2+"");
         }
+        tabViws.get(currPos).setSelected(true);
         addToFragmentList();
         addFragmentToActivity(currPos);
     }
@@ -242,10 +247,22 @@ public class MainActivity extends BaseActivity {
                 currPos = 2;
                 break;
         }
-        if(prePos != currPos)
+        tabSelector();
+        if(prePos != currPos){
             addFragmentToActivity(currPos);
+        }
+        prePos = currPos;
     }
 
+    private void tabSelector(){
+        for (int i = 0; i < tabViws.size() ; i++){
+            if(i == currPos)
+                tabViws.get(i).setSelected(true);
+            else
+                tabViws.get(i).setSelected(false);
+        }
+
+    }
 
     //TODO 应用被强杀,重走登陆流程
     @Override

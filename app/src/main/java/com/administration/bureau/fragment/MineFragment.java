@@ -98,6 +98,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     public void onMessageEvent(LanguageEvent event){
         containerView.removeAllViews();
         initContainerView();
+        initUserView();
     }
 
     @Override
@@ -113,11 +114,11 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
             userNameTv.setText(App.getInstance().chinese_name);
         }
         if(App.getInstance().status == 3){
-            userStatusTv.setText("（电子证书可以下载）");
+            userStatusTv.setText(R.string.electronic_certificate_download);
         }else if(App.getInstance().status == 0){
-            userStatusTv.setText("（等待审核）");
+            userStatusTv.setText(R.string.wait_for_review);
         }else if(App.getInstance().status == -1){
-            userStatusTv.setText("（未提交审核资料）");
+            userStatusTv.setText(R.string.not_submit_registration);
         }
     }
 
@@ -156,37 +157,14 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_LANGUAGE:
-                if(App.locale == 0 )
+                if(App.locale == 0 ){
                     App.locale = 1;
-                else
+                } else{
                     App.locale = 0;
+                }
                 App.getInstance().initLocale();
-
+                SharedPreferencesUtil.setParam(getActivity(),Constant.LOCALE,App.locale);
                 EventBus.getDefault().post(new LanguageEvent());
-
-//                View languageView = LayoutInflater.from(getActivity()).inflate(R.layout.widget_language,null);
-//                radioGroup = (RadioGroup) languageView.findViewById(R.id.language_rg);
-//                RadioButton radioButton = (RadioButton) languageView.findViewById(R.id.chinese_rb);
-//                radioGroup.check(radioButton.getId());
-//                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//                        ToastUtil.showShort("" + checkedId);
-//                    }
-//                });
-//
-//
-//
-//                AlertDialog dialog = new AlertDialog.Builder(getActivity())
-//                        .setView(R.layout.widget_language)
-//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                dialog.dismiss();
-//                            }
-//                        })
-//                        .setNegativeButton("取消",null).create();
-//                dialog.show();
                 break;
 
             case MINE_FEEDBACK:
@@ -201,22 +179,33 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
 
     @OnClick(R.id.log_out_tv)
     public void logOut(){
-        //销毁用户相关信息
-        App.getInstance().setUserEntity(null);
-        SharedPreferencesUtil.setParam(getActivity(), Constant.USER_ID, -1);
-        SharedPreferencesUtil.setParam(getActivity(), Constant.USER_PHONE, "");
-        SharedPreferencesUtil.setParam(getActivity(), Constant.USER_TOKEN, "");
-        //销毁用户提交资料
-        App.getInstance().status = -1;
-        App.getInstance().certificate_image = "";
-        App.getInstance().chinese_name = "";
-        App.getInstance().reject_reason = "";
-        App.getInstance().id = -1;
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.hint))
+                .setMessage(getString(R.string.whether_out_of_the_current_account))
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //销毁用户相关信息
+                        App.getInstance().setUserEntity(null);
+                        SharedPreferencesUtil.setParam(getActivity(), Constant.USER_ID, -1);
+                        SharedPreferencesUtil.setParam(getActivity(), Constant.USER_PHONE, "");
+                        SharedPreferencesUtil.setParam(getActivity(), Constant.USER_TOKEN, "");
+                        //销毁用户提交资料
+                        App.getInstance().status = -1;
+                        App.getInstance().certificate_image = "";
+                        App.getInstance().chinese_name = "";
+                        App.getInstance().reject_reason = "";
+                        App.getInstance().id = -1;
 
-        changeUserInfo();
+                        changeUserInfo();
 
-        //TODO 通知刷新
-        EventBus.getDefault().post(new UserLogoutEvent());
+                        //TODO 通知刷新
+                        EventBus.getDefault().post(new UserLogoutEvent());
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancle),null).create();
+        dialog.show();
     }
 
     private void changeUserInfo(){
