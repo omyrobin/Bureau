@@ -60,9 +60,13 @@ public class HomePageFragment extends BaseFragment{
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("房山出入境");
+        setLanguageText();
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    public void setLanguageText() {
+        titleTv.setText(R.string.entry_and_exit_administration_bureau);
     }
 
     @Override
@@ -76,7 +80,7 @@ public class HomePageFragment extends BaseFragment{
         homepageRv.setLayoutManager(manager);
     }
 
-    private void requestBannerData(){
+    public void requestBannerData(){
         Observable<Response<BaseResponse<ArrayList<BannerEntity>>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getBanner("banner", Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArrayList<BannerEntity>>(getActivity()) {
             @Override
@@ -155,4 +159,5 @@ public class HomePageFragment extends BaseFragment{
     public HomePageAdapter getAdapter() {
         return adapter;
     }
+
 }

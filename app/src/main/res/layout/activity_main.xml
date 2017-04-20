@@ -22,24 +22,21 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/home" />
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/message_tv"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/message" />
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/mine_tv"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/my" />
+            android:gravity="center" />
 
     </LinearLayout>
 

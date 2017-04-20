@@ -21,6 +21,8 @@ import com.administration.bureau.activity.CertificateActivity;
 import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.VerificationActivity;
 import com.administration.bureau.constant.Constant;
+import com.administration.bureau.entity.eventbus.LanguageEvent;
+import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
@@ -31,6 +33,7 @@ import com.administration.bureau.widget.RowActionEnum;
 import com.administration.bureau.widget.RowDescript;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -69,6 +72,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
 
     @Override
     protected void initContent(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         initContainerView();
     }
 
@@ -76,16 +80,24 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         ArrayList<GroupDescript> groupDescripts = new ArrayList<>();
         ArrayList<RowDescript> descript = new ArrayList<>();
 
-        descript.add(new RowDescript(R.mipmap.ic_launcher, "注册登记资料", RowActionEnum.MINE_REGIEST));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, "信息核销", RowActionEnum.MINE_INFO_VER));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, "电子证书", RowActionEnum.MINE_CERTIFICATE));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, "语言设置", RowActionEnum.MINE_LANGUAGE));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, "用户反馈", RowActionEnum.MINE_FEEDBACK));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, "关于我们", RowActionEnum.MINE_ABOUTUS));
+        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.registration_information), RowActionEnum.MINE_REGIEST));
+        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.write_off_info), RowActionEnum.MINE_INFO_VER));
+        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.electronic_certificate), RowActionEnum.MINE_CERTIFICATE));
+        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.language_settings), RowActionEnum.MINE_LANGUAGE));
+        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.user_feedback), RowActionEnum.MINE_FEEDBACK));
+        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.about_us), RowActionEnum.MINE_ABOUTUS));
         groupDescripts.add(new GroupDescript(descript));
 
         containerView.initData(groupDescripts, this);
         containerView.notifyDataChange();
+
+        logOutTv.setText(R.string.log_out);
+    }
+
+    @Subscribe
+    public void onMessageEvent(LanguageEvent event){
+        containerView.removeAllViews();
+        initContainerView();
     }
 
     @Override
@@ -144,29 +156,37 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_LANGUAGE:
-                View languageView = LayoutInflater.from(getActivity()).inflate(R.layout.widget_language,null);
-                radioGroup = (RadioGroup) languageView.findViewById(R.id.language_rg);
-                RadioButton radioButton = (RadioButton) languageView.findViewById(R.id.chinese_rb);
-                radioGroup.check(radioButton.getId());
-                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                        ToastUtil.showShort("" + checkedId);
-                    }
-                });
+                if(App.locale == 0 )
+                    App.locale = 1;
+                else
+                    App.locale = 0;
+                App.getInstance().initLocale();
 
+                EventBus.getDefault().post(new LanguageEvent());
 
-
-                AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                        .setView(R.layout.widget_language)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton("取消",null).create();
-                dialog.show();
+//                View languageView = LayoutInflater.from(getActivity()).inflate(R.layout.widget_language,null);
+//                radioGroup = (RadioGroup) languageView.findViewById(R.id.language_rg);
+//                RadioButton radioButton = (RadioButton) languageView.findViewById(R.id.chinese_rb);
+//                radioGroup.check(radioButton.getId());
+//                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+//                        ToastUtil.showShort("" + checkedId);
+//                    }
+//                });
+//
+//
+//
+//                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+//                        .setView(R.layout.widget_language)
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        })
+//                        .setNegativeButton("取消",null).create();
+//                dialog.show();
                 break;
 
             case MINE_FEEDBACK:
@@ -206,5 +226,9 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         initUserView();
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 }

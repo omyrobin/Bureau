@@ -78,7 +78,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("境外人员办理注册登记");
+        titleTv.setText(R.string.registeration);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

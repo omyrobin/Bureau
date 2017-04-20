@@ -10,7 +10,8 @@
         android:layout_height="10dp"/>
 
     <TextView
-        android:id="@+id/article_bigtitle_tv"
+        android:id="@+id/travel_bigtitle_tv"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/shape_homepage_article"
@@ -18,7 +19,6 @@
         android:gravity="center|left"
         android:padding="10dp"
         android:paddingBottom="10dp"
-        android:text="@string/fangshang_tourist_culture"
         android:textColor="@color/colorText"
         android:textSize="16sp"
         android:textStyle="bold" />

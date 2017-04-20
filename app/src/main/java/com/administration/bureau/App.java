@@ -1,6 +1,8 @@
 package com.administration.bureau;
 
 import android.app.Application;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
@@ -14,6 +16,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by omyrobin on 2017/3/30.
@@ -78,6 +81,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mApp = this;
+        initLocale();
         initAppInfo();
         initUserEntity();
         //文件工具类初始化
@@ -89,6 +93,18 @@ public class App extends Application {
             infoEntity = new UserRegisterInfoEntity();
         }
         setInfoEntity(infoEntity);
+    }
+
+    public void initLocale(){
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        //应用用户选择语言
+        if(locale == 0)
+            config.locale = Locale.CHINA;
+        else if(locale == 1)
+            config.locale = Locale.ENGLISH;
+        resources.updateConfiguration(config, dm);
     }
 
     private void initUserEntity(){

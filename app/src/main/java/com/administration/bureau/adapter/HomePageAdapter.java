@@ -64,9 +64,9 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     private volatile int currentPos;
 
-    private ArrayList<ArticleEntity.DataBean> news;
+    private ArrayList<ArticleEntity.DataBean> news = new ArrayList<>();
 
-    private ArrayList<ArticleEntity.DataBean> travels;
+    private ArrayList<ArticleEntity.DataBean> travels = new ArrayList<>();
 
     private ArticleEntity newsData;
 
@@ -80,10 +80,37 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         handler = new ViewPagerHandler((MainActivity)context);
     }
 
+    public void setNewsData(ArticleEntity newsData) {
+        this.newsData = newsData;
+        news = newsData.getData();
+        notifyDataSetChanged();
+    }
+
+    public void setTravelData(ArticleEntity travelData) {
+        this.travelData = travelData;
+        travels = travelData.getData();
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
-        return news !=null ? news.size() + 3: 1;
+        if(travels.isEmpty())
+            return news !=null ? news.size() + 2: 1;
+        else
+            return news !=null ? news.size() + 3: 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0){
+            return BANNER_ITEM;
+        }else if(position > 0 && position <= news.size()){
+            return NEWS;
+        }else if(!travels.isEmpty() && position == news.size() + 1 ){
+            return TRAVEL;
+        }else{
+            return LAST;
+        }
     }
 
     @Override
@@ -124,12 +151,15 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 }else{
                     ((BannerViewHolder) holder).registerTv.setText(R.string.registeration);
                 }
+                ((BannerViewHolder) holder).lawTv.setText(R.string.foreign_laws);
+                ((BannerViewHolder) holder).messageBoardTv.setText(R.string.leave_message);
             }
         }else if(holder instanceof NewsViewHolder){
             if(position != 1){
                 ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.GONE);
             }else{
                 ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.VISIBLE);
+                ((NewsViewHolder) holder).newsBigTitleTv.setText(R.string.fangshan_news);
             }
             Glide.with(context).load(news.get(position-1).getCover()).into(((NewsViewHolder) holder).newsPicImg);
             ((NewsViewHolder) holder).newsTitleTv.setText(news.get(position - 1).getTitle());
@@ -141,36 +171,16 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 }
             });
         }else if(holder instanceof TravelViewHolder){
+            ((TravelViewHolder) holder).travelBigTitleTv.setVisibility(View.VISIBLE);
+            ((TravelViewHolder) holder).travelBigTitleTv.setText(R.string.fangshang_tourist_culture);
             ((TravelViewHolder) holder).travelrv.setLayoutManager(new GridLayoutManager(context,3));
             ((TravelViewHolder) holder).travelrv.setAdapter(new TravelAdapter());
         }else if(holder instanceof LastViewHolder){
-
+            ((LastViewHolder) holder).publicNotiveTv.setText(R.string.public_notice);
+            ((LastViewHolder) holder).serviceInfoTv.setText(R.string.service_information);
+            ((LastViewHolder) holder).reminderTv.setText(R.string.reminder);
+            ((LastViewHolder) holder).moreTv.setText(R.string.more);
         }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if(position == 0){
-            return BANNER_ITEM;
-        }else if(position > 0 && position <= news.size()){
-            return NEWS;
-        }else if(position == news.size() + 1 ){
-            return TRAVEL;
-        }else{
-            return LAST;
-        }
-    }
-
-    public void setNewsData(ArticleEntity newsData) {
-        this.newsData = newsData;
-        news = newsData.getData();
-        notifyDataSetChanged();
-    }
-
-    public void setTravelData(ArticleEntity travelData) {
-        this.travelData = travelData;
-        travels = travelData.getData();
-        notifyDataSetChanged();
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder{
@@ -230,8 +240,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     }
 
     class TravelViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.article_bigtitle_tv)
-        TextView atricelBigTitleTv;
+        @BindView(R.id.travel_bigtitle_tv)
+        TextView travelBigTitleTv;
         @BindView(R.id.travel_rv)
         RecyclerView travelrv;
 

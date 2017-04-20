@@ -136,12 +136,13 @@
         android:textColor="@color/colorWhite"
         android:layout_marginTop="30dp"
         android:text="@string/registeration_info"
-        android:paddingLeft="70dp"
-        android:paddingRight="70dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

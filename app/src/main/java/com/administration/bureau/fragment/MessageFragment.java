@@ -52,9 +52,13 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("消息");
+        setLanguageText();
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    public void setLanguageText(){
+        titleTv.setText(R.string.message);
     }
 
     @Override

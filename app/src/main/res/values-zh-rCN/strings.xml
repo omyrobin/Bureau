@@ -2,14 +2,17 @@
 <resources>
 
 	<string name="app_name">房山出入境</string>
+	<string name="entry_and_exit_administration_bureau">出入境管理局</string>
 	<string name="select_photo_album">从相册选择</string>
 	<string name="select_take_photo">拍照</string>
 	<string name="select_pic">选择图片</string>
 	<string name="cancle">取消</string>
+
+	<string name="registeration">境外人员办理注册登记</string>
 	<string name="check_state_wait">审核状态：等待审核</string>
 	<string name="check_state_reject">审核状态：申请被拒绝</string>
 	<string name="electronic_certificate_download">电子证书可下载</string>
-	<string name="registeration">境外人员办理注册登记</string>
+
 	<string name="my_photo">本人照片</string>
 	<string name="passport_photo">护照信息页照片</string>
 	<string name="country">国家</string>
@@ -30,6 +33,7 @@
 	<string name="my_phone_number">本人联系电话</string>
 	<string name="emergency_contact">紧急联系人</string>
 	<string name="emergency_phone">紧急联系人的联系电话</string>
+
 	<string name="entry_page_photo">入境页照片</string>
 	<string name="visa_photo">签证页照片</string>
 	<string name="visa_note_type">签证（注）种类</string>
@@ -38,56 +42,78 @@
 	<string name="entry_port">入境口岸</string>
 	<string name="stay_reason">停留事由</string>
 	<string name="stay_valid">停留有效期</string>
+
 	<string name="check_in_date">入住日期</string>
 	<string name="check_out_date">拟定离开日期</string>
 	<string name="address">详细地址</string>
+	<string name="police_station">所属派出所</string>
+	<string name="community">所属社区</string>
+	<string name="housing_type">住房种类</string>
 	<string name="landlord_phone_number">房主联系电话</string>
 	<string name="landlord_gender">房主性别</string>
 	<string name="landlord_name">房主中文姓名</string>
 	<string name="landlord_identity">房主身份证号</string>
 	<string name="landlord_country">房主国家</string>
-	<string name="housing_type">住房种类</string>
-	<string name="community">所属社区</string>
-	<string name="police_station">所属派出所</string>
+
 	<string name="home">首页</string>
 	<string name="message">消息</string>
 	<string name="my">我的</string>
+
 	<string name="registeration_info">提交登记注册资料</string>
+
 	<string name="phone_number">请输入手机号</string>
 	<string name="code">输入验证码</string>
 	<string name="get_code">获取验证码</string>
+	<string name="register">注册</string>
+
 	<string name="date_of_departure">离开日期</string>
 	<string name="reason_for_leaving">离开事由</string>
 	<string name="destination">去往目的地</string>
+
 	<string name="log_out">退出登录</string>
-	<string name="fangshan_news">房山新闻</string>
+
 	<string name="foreign_laws">涉外法律法规</string>
 	<string name="leave_message">留言板</string>
+	<string name="fangshan_news">房山新闻</string>
+	<string name="fangshang_tourist_culture">房山旅游文化</string>
 	<string name="public_notice">公示公告</string>
 	<string name="service_information">服务指南</string>
 	<string name="reminder">温馨提示</string>
 	<string name="more">更多</string>
-	<string name="fangshang_tourist_culture">房山旅游文化</string>
+
 	<string name="please_select">请选择</string>
-	<string name="base_info">基本信息</string>
-	<string name="next_table">下一张表</string>
+
+	<string name="preview_electronic_certificate">预览电子证书</string>
 	<string name="download">下载</string>
-	<string name="electronic_certificate">预览电子证书</string>
 	<string name="show_back">查看背面</string>
 	<string name="show_front">查看正面</string>
 	<string name="downloading">下载中...</string>
+
+	<string name="base_info">基本信息</string>
 	<string name="visa_note_info">入住及签证（注）信息</string>
 	<string name="hotel_information">住宿信息</string>
-	<string name="submit">提交</string>
 	<string name="completed">（填写完毕）</string>
 	<string name="not_yet_completed">（尚未填写完毕）</string>
-	<string name="register">注册</string>
-	<string name="write_off_info">信息核销</string>
+
+	<string name="submit">提交</string>
+	<string name="next_table">下一张表</string>
+
+
+
 	<string name="hint">提示</string>
 	<string name="confirm">确定</string>
+
 	<string name="information_off">信息已核销，请重新提交申请资料</string>
 	<string name="network_is_not_available">网络不可用</string>
 	<string name="request_failed">请求失败，请稍后再试...</string>
+
+	//我的
+	<string name="registration_information">注册登记资料</string>
+	<string name="write_off_info">信息核销</string>
+	<string name="electronic_certificate">电子证书</string>
+	<string name="language_settings">语言设置</string>
+	<string name="user_feedback">用户反馈</string>
+	<string name="about_us">关于我们</string>
 
 
 </resources>

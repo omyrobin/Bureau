@@ -15,6 +15,7 @@ import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.SpinnerData;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
+import com.administration.bureau.entity.eventbus.LanguageEvent;
 import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
 import com.administration.bureau.entity.eventbus.UserRegisterEvent;
@@ -76,7 +77,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initializeToolbar() {
-
+        homepageTv.setText(R.string.home);
+        messageTv.setText(R.string.message);
+        mineTv.setText(R.string.my);
     }
 
     @Override
@@ -140,8 +143,20 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe
     public void onMessageEvent(UserLogoutEvent event){
-        if(homePageFragment.getAdapter() != null)
+        if(homePageFragment != null)
             homePageFragment.getAdapter().notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void onMessageEvent(LanguageEvent event){
+        initializeToolbar();
+        if(homePageFragment != null){
+            homePageFragment.setLanguageText();
+            homePageFragment.requestBannerData();
+        }
+        if(messageFragment != null){
+            messageFragment.setLanguageText();
+        }
     }
 
     @Subscribe
