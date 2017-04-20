@@ -1,5 +1,6 @@
 package com.administration.bureau.model;
 
+import com.administration.bureau.entity.ArticleDetialEntity;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
 import com.administration.bureau.entity.BaseResponse;
@@ -26,7 +27,7 @@ public interface GetService {
     Observable<Response<BaseResponse<ArrayList<BannerEntity>>>> getBanner(@Url String banner);
 
     @GET
-    Observable<Response<BaseResponse<ArticleEntity>>> getArticle(@Url String banner);
+    Observable<Response<BaseResponse<ArticleEntity>>> getArticle(@Url String banner,@Query("type") int type);
 
     @GET("user/{user_id}/registrant")
     @Headers({"Content-Type: application/json","Accept: application/json"})
@@ -38,4 +39,8 @@ public interface GetService {
 
     @GET
     Observable<Response<BaseResponse<ArticleEntity>>> getLawsArticle(@Url String banner, @Query("type") int type);
+
+    @GET("article/{article_id}")
+    Observable<Response<BaseResponse<ArticleDetialEntity>>> getArticleDetial(@Path("article_id") int article_id);
+
 }

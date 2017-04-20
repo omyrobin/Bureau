@@ -80,7 +80,7 @@ public class HomePageFragment extends BaseFragment{
             @Override
             protected void onSuccess(ArrayList<BannerEntity> bannerEntities) {
                 setAdapterToMessageRv(initBannerData(bannerEntities));
-                requestArticleData();
+                requestNewsData();
             }
 
             @Override
@@ -90,12 +90,28 @@ public class HomePageFragment extends BaseFragment{
         });
     }
 
-    private void requestArticleData(){
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getArticle("article");
+    private void requestNewsData(){
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getArticle("article",2);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {
-                adapter.setArticleEntity(articleEntity);
+                adapter.setNewsData(articleEntity);
+                requestTravelData();
+            }
+
+            @Override
+            protected void onFailure(String message) {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void requestTravelData(){
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getArticle("article",3);
+        RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
+            @Override
+            protected void onSuccess(ArticleEntity articleEntity) {
+                adapter.setTravelData(articleEntity);
             }
 
             @Override

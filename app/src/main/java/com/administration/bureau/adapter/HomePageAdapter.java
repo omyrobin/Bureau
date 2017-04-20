@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.administration.bureau.App;
 import com.administration.bureau.R;
+import com.administration.bureau.activity.ArticleDetialActivity;
 import com.administration.bureau.activity.CertificateActivity;
 import com.administration.bureau.activity.LawsActivity;
 import com.administration.bureau.activity.MainActivity;
@@ -67,6 +68,10 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     private ArrayList<ArticleEntity.DataBean> travels;
 
+    private ArticleEntity newsData;
+
+    private ArticleEntity travelData;
+
 
     public HomePageAdapter(Context context, ArrayList<BannerEntity> bannerEntities) {
         this.context = context;
@@ -101,7 +106,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof BannerViewHolder){
             if(bannerEntities != null && !bannerEntities.isEmpty()){
                 bannerAdaper = new BannerAdapter();
@@ -122,13 +127,19 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             }
         }else if(holder instanceof NewsViewHolder){
             if(position != 1){
-                ((NewsViewHolder) holder).atricelBigTitleTv.setVisibility(View.GONE);
+                ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.GONE);
             }else{
-                ((NewsViewHolder) holder).atricelBigTitleTv.setVisibility(View.VISIBLE);
+                ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.VISIBLE);
             }
-            Glide.with(context).load(news.get(position-1).getCover()).into(((NewsViewHolder) holder).atricelPicImg);
-            ((NewsViewHolder) holder).atricelTitleTv.setText(news.get(position - 1).getTitle());
-            ((NewsViewHolder) holder).atricelDateTv.setText(news.get(position - 1).getCreated_at());
+            Glide.with(context).load(news.get(position-1).getCover()).into(((NewsViewHolder) holder).newsPicImg);
+            ((NewsViewHolder) holder).newsTitleTv.setText(news.get(position - 1).getTitle());
+            ((NewsViewHolder) holder).newsDateTv.setText(news.get(position - 1).getCreated_at());
+            ((NewsViewHolder) holder).newsLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ArticleDetialActivity.newInstance(context,news.get(position - 1).getId());
+                }
+            });
         }else if(holder instanceof TravelViewHolder){
             ((TravelViewHolder) holder).travelrv.setLayoutManager(new GridLayoutManager(context,3));
             ((TravelViewHolder) holder).travelrv.setAdapter(new TravelAdapter());
@@ -150,30 +161,29 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void setArticleEntity(ArticleEntity articleEntity) {
-        this.articleEntity = articleEntity;
-        news = new ArrayList<>();
-        travels = new ArrayList<>();
-        ArrayList<ArticleEntity.DataBean>  dataBeans = articleEntity.getData();
-        for (int i=0 ;i<articleEntity.getData().size(); i++){
-            if(dataBeans.get(i).getType() == 1){
-                news.add(dataBeans.get(i));
-            }else if(dataBeans.get(i).getType() == 3){
-                travels.add(dataBeans.get(i));
-            }
-        }
+    public void setNewsData(ArticleEntity newsData) {
+        this.newsData = newsData;
+        news = newsData.getData();
+        notifyDataSetChanged();
+    }
+
+    public void setTravelData(ArticleEntity travelData) {
+        this.travelData = travelData;
+        travels = travelData.getData();
         notifyDataSetChanged();
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.article_bigtitle_tv)
-        TextView atricelBigTitleTv;
-        @BindView(R.id.article_pic_img)
-        ImageView atricelPicImg;
-        @BindView(R.id.article_title_tv)
-        TextView atricelTitleTv;
-        @BindView(R.id.article_date_tv)
-        TextView atricelDateTv;
+        @BindView(R.id.news_layout)
+        ViewGroup newsLayout;
+        @BindView(R.id.news_bigtitle_tv)
+        TextView newsBigTitleTv;
+        @BindView(R.id.news_pic_img)
+        ImageView newsPicImg;
+        @BindView(R.id.news_title_tv)
+        TextView newsTitleTv;
+        @BindView(R.id.news_date_tv)
+        TextView newsDateTv;
 
         public NewsViewHolder(View itemView) {
             super(itemView);
@@ -240,7 +250,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
             TextView textView = ((TravelItemViewHolder)holder).tv;
             ViewGroup.LayoutParams params_tv = textView.getLayoutParams();
@@ -254,6 +264,13 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             params_img.height = (int)(App.width*0.4);
             imageView.setLayoutParams(params_img);
             Glide.with(context).load(travels.get(position).getCover()).into(imageView);
+
+            ((TravelItemViewHolder)holder).travelLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ArticleDetialActivity.newInstance(context,travels.get(position).getId());
+                }
+            });
         }
 
         @Override
@@ -263,6 +280,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         class TravelItemViewHolder extends RecyclerView.ViewHolder{
 
+            @BindView(R.id.travel_layout)
+            ViewGroup travelLayout;
             @BindView(R.id.travel_item_pic_image)
             ImageView image;
             @BindView(R.id.travel_item_title_tv)

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.administration.bureau.R;
+import com.administration.bureau.activity.ArticleDetialActivity;
 import com.administration.bureau.entity.ArticleEntity;
 import com.bumptech.glide.Glide;
 
@@ -34,16 +35,21 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View articleView = LayoutInflater.from(context).inflate(R.layout.item_homepage_article, null);
+        View articleView = LayoutInflater.from(context).inflate(R.layout.item_article, null);
         return new ArticleViewHolder(articleView);
     }
 
     @Override
-    public void onBindViewHolder(ArticleViewHolder holder, int position) {
-        holder.atricelBigTitleTv.setVisibility(View.GONE);
+    public void onBindViewHolder(ArticleViewHolder holder, final int position) {
         Glide.with(context).load(datas.get(position).getCover()).into((holder.atricelPicImg));
         holder.atricelTitleTv.setText(datas.get(position).getTitle());
         holder.atricelDateTv.setText(datas.get(position ).getCreated_at());
+        holder.articleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArticleDetialActivity.newInstance(context,datas.get(position).getId());
+            }
+        });
     }
 
     @Override
@@ -52,9 +58,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     }
 
     class ArticleViewHolder extends RecyclerView.ViewHolder{
-
-        @BindView(R.id.article_bigtitle_tv)
-        TextView atricelBigTitleTv;
+        @BindView(R.id.article_layout)
+        ViewGroup articleLayout;
         @BindView(R.id.article_pic_img)
         ImageView atricelPicImg;
         @BindView(R.id.article_title_tv)

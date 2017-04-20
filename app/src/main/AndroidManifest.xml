@@ -68,6 +68,11 @@
             android:name=".activity.LawsActivity"
             android:launchMode="singleTop">
         </activity>
+
+        <activity
+            android:name=".activity.ArticleDetialActivity"
+            android:launchMode="singleTop">
+        </activity>
     </application>
 
 </manifest>

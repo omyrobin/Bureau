@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/news_layout"
+    android:id="@+id/article_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/news_bigtitle_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/shape_homepage_article"
-        android:drawablePadding="15dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:paddingBottom="10dp"
-        android:text="房山新闻"
-        android:textColor="@color/colorText"
-        android:textSize="16sp"
-        android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,24 +11,24 @@
 
         <ImageView
             android:layout_margin="10dp"
-            android:id="@+id/news_pic_img"
+            android:id="@+id/article_pic_img"
             android:src="@mipmap/ic_launcher"
             android:scaleType="fitXY"
             android:layout_width="50dp"
             android:layout_height="50dp" />
 
         <TextView
-            android:id="@+id/news_title_tv"
-            android:layout_toRightOf="@id/news_pic_img"
+            android:id="@+id/article_title_tv"
+            android:layout_toRightOf="@id/article_pic_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingMultiplier="1.4"
             android:padding="10dp" />
 
         <TextView
-            android:layout_toRightOf="@id/news_pic_img"
-            android:layout_below="@id/news_title_tv"
-            android:id="@+id/news_date_tv"
+            android:layout_toRightOf="@id/article_pic_img"
+            android:layout_below="@id/article_title_tv"
+            android:id="@+id/article_date_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
