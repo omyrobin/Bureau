@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="离开日期" />
+            android:text="@string/date_of_departure" />
 
         <EditText
             android:id="@+id/leave_date_et"
@@ -30,7 +30,7 @@
             android:editable="false"
             android:background="@null"
             android:gravity="right|center"
-            android:hint="未设置  "
+            android:hint="@string/not_set"
             android:textColor="@color/colorText"
             android:textSize="12sp" />
 
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="离开事由" />
+            android:text="@string/reason_for_leaving" />
 
         <EditText
             android:id="@+id/leave_reason_et"
@@ -58,7 +58,7 @@
             android:layout_centerVertical="true"
             android:background="@null"
             android:gravity="right|center"
-            android:hint="未设置  "
+            android:hint="@string/not_set"
             android:textColor="@color/colorText"
             android:textSize="12sp" />
 
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="目的地" />
+            android:text="@string/destination" />
 
         <EditText
             android:id="@+id/destination_et"
@@ -86,7 +86,7 @@
             android:layout_centerVertical="true"
             android:background="@null"
             android:gravity="right|center"
-            android:hint="未设置  "
+            android:hint="@string/not_set"
             android:textColor="@color/colorText"
             android:textSize="12sp" />
 

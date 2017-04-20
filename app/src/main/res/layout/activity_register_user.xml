@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:backgroundTint="@color/colorAccent"
-        android:hint="请输入手机号"
+        android:hint="@string/phone_number"
         android:inputType="phone" />
 
     <LinearLayout
@@ -24,7 +24,7 @@
 
         <EditText
             android:backgroundTint="@color/colorAccent"
-            android:hint="输入验证码"
+            android:hint="@string/code"
             android:id="@+id/auth_code_et"
             android:inputType="number"
             android:layout_weight="1"
@@ -38,7 +38,7 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
             android:gravity="center"
-            android:text="获取验证码"
+            android:text="@string/get_code"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 

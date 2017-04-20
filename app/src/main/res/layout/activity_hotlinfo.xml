@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="入住日期" />
+                    android:text="@string/check_in_date" />
 
                 <EditText
                     android:id="@+id/check_in_date_et"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:editable="false"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="拟定离开日期" />
+                    android:text="@string/check_out_date" />
 
                 <EditText
                     android:id="@+id/check_out_date_et"
@@ -69,7 +69,7 @@
                     android:background="@null"
                     android:gravity="right"
                     android:editable="false"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
 
 
@@ -86,14 +86,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="详细地址" />
+                    android:text="@string/address" />
 
                 <EditText
                     android:id="@+id/house_address_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:background="@null"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
@@ -114,14 +114,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="所属派出所" />
+                    android:text="@string/police_station" />
 
                 <EditText
                     android:id="@+id/police_station_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -139,14 +139,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="所属社区" />
+                    android:text="@string/community" />
 
                 <EditText
                     android:id="@+id/community_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -164,14 +164,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="住房种类" />
+                    android:text="@string/housing_type" />
 
                 <EditText
                     android:id="@+id/house_type_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -189,14 +189,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="房主国家" />
+                    android:text="@string/landlord_country" />
 
                 <EditText
                     android:id="@+id/landlord_country_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="房主身份证号" />
+                    android:text="@string/landlord_identity" />
 
                 <EditText
                     android:id="@+id/landlord_identity_et"
@@ -224,7 +224,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -239,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="房主中文姓名" />
+                    android:text="@string/landlord_name" />
 
                 <EditText
                     android:id="@+id/landlord_name_et"
@@ -249,7 +249,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -264,14 +264,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="房主性别" />
+                    android:text="@string/landlord_gender" />
 
                 <EditText
                     android:id="@+id/landlord_gender_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -289,7 +289,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="房主联系电话" />
+                    android:text="@string/landlord_phone_number" />
 
                 <EditText
                     android:id="@+id/landlord_phone_et"
@@ -300,7 +300,7 @@
                     android:background="@null"
                     android:inputType="phone"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 

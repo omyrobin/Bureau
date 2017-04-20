@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.ArticleAdapter;
+import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.http.ProgressSubscriber;
@@ -39,7 +41,7 @@ public class LawsActivity extends BaseActivity{
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("涉外法律法规");
+        titleTv.setText(R.string.foreign_laws);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,7 +62,7 @@ public class LawsActivity extends BaseActivity{
 
     private void requestLawsData(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",1);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",1, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(this) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {

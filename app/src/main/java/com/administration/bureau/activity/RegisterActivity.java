@@ -91,9 +91,9 @@ public class RegisterActivity extends BaseActivity {
             rejectReasonTv.setVisibility(View.VISIBLE);
             rejectReasonTv.setText(App.getInstance().reject_reason);
         }
-        baseInfoTv.setText("基本信息");
-        entryVisaTv.setText("入住及签证（注）信息");
-        hotlInfoTv.setText("住宿信息");
+        baseInfoTv.setText(R.string.base_info);
+        entryVisaTv.setText(R.string.visa_note_info);
+        hotlInfoTv.setText(R.string.hotel_information);
     }
 
     @Override
@@ -102,26 +102,26 @@ public class RegisterActivity extends BaseActivity {
         ToastUtil.isShow = false;
         Log.i("TAG", "onResume");
         if(isBaseInfoCompleted()){
-            baseInfoCompletedTv.setText("（填写完毕）");
+            baseInfoCompletedTv.setText(R.string.completed);
             baseInfoCompletedTv.setTextColor(Color.GREEN);
         }else{
-            baseInfoCompletedTv.setText("（尚未填写完毕）");
+            baseInfoCompletedTv.setText(R.string.not_yet_completed);
             baseInfoCompletedTv.setTextColor(Color.RED);
         }
 
         if(isEntryVisaCompleted()){
-            entryVisaCompletedTv.setText("（填写完毕）");
+            entryVisaCompletedTv.setText(R.string.completed);
             entryVisaCompletedTv.setTextColor(Color.GREEN);
         }else{
-            entryVisaCompletedTv.setText("（尚未填写完毕）");
+            entryVisaCompletedTv.setText(R.string.not_yet_completed);
             entryVisaCompletedTv.setTextColor(Color.RED);
         }
 
         if(isHotlInfoCompleted()){
-            hotlInfoCompletedTv.setText("（填写完毕）");
+            hotlInfoCompletedTv.setText(R.string.completed);
             hotlInfoCompletedTv.setTextColor(Color.GREEN);
         }else{
-            hotlInfoCompletedTv.setText("（尚未填写完毕）");
+            hotlInfoCompletedTv.setText(R.string.not_yet_completed);
             hotlInfoCompletedTv.setTextColor(Color.RED);
         }
 

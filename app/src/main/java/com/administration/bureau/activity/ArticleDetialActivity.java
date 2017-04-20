@@ -7,8 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
+import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.ArticleDetialEntity;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.http.ProgressSubscriber;
@@ -66,7 +68,7 @@ public class ArticleDetialActivity extends BaseActivity {
 
     private void requestArticleDetial(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleDetialEntity>>> observable = getService.getArticleDetial(article_id);
+        Observable<Response<BaseResponse<ArticleDetialEntity>>> observable = getService.getArticleDetial(article_id, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleDetialEntity>(this) {
             @Override
             protected void onSuccess(ArticleDetialEntity articleDetialEntity) {

@@ -1,10 +1,17 @@
 package com.administration.bureau.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.administration.bureau.App;
@@ -28,6 +35,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -46,6 +55,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     TextView userNameTv;
     @BindView(R.id.user_status_tv)
     TextView userStatusTv;
+    RadioGroup radioGroup;
 
     @Override
     protected int getLayoutId() {
@@ -69,6 +79,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         descript.add(new RowDescript(R.mipmap.ic_launcher, "注册登记资料", RowActionEnum.MINE_REGIEST));
         descript.add(new RowDescript(R.mipmap.ic_launcher, "信息核销", RowActionEnum.MINE_INFO_VER));
         descript.add(new RowDescript(R.mipmap.ic_launcher, "电子证书", RowActionEnum.MINE_CERTIFICATE));
+        descript.add(new RowDescript(R.mipmap.ic_launcher, "语言设置", RowActionEnum.MINE_LANGUAGE));
         descript.add(new RowDescript(R.mipmap.ic_launcher, "用户反馈", RowActionEnum.MINE_FEEDBACK));
         descript.add(new RowDescript(R.mipmap.ic_launcher, "关于我们", RowActionEnum.MINE_ABOUTUS));
         groupDescripts.add(new GroupDescript(descript));
@@ -132,6 +143,32 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 }
                 break;
 
+            case MINE_LANGUAGE:
+                View languageView = LayoutInflater.from(getActivity()).inflate(R.layout.widget_language,null);
+                radioGroup = (RadioGroup) languageView.findViewById(R.id.language_rg);
+                RadioButton radioButton = (RadioButton) languageView.findViewById(R.id.chinese_rb);
+                radioGroup.check(radioButton.getId());
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        ToastUtil.showShort("" + checkedId);
+                    }
+                });
+
+
+
+                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setView(R.layout.widget_language)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("取消",null).create();
+                dialog.show();
+                break;
+
             case MINE_FEEDBACK:
 
                 break;
@@ -168,4 +205,6 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         App.getInstance().certificate_image = "";
         initUserView();
     }
+
+
 }

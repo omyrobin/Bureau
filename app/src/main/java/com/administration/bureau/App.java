@@ -23,6 +23,8 @@ public class App extends Application {
 
     //用来判断是否被强杀的状态标识
     public static int mAppStatus = -1;
+    //应用内语言
+    public static int locale = 1;
 
     private static App mApp;
 

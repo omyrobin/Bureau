@@ -29,6 +29,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RetrofitManager {
 
     public static final String HEADER_CONTENT_TYPE = "Content-Type";
+    public static final String HEADER_ACCEPT = "Accept";
     public static final String HEADER_CONTENT_RANGE = "Content-Range";
     public static final String HEADER_CONTENT_ENCODING = "Content-Encoding";
     public static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
@@ -77,8 +78,9 @@ public class RetrofitManager {
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request()
                                 .newBuilder()
-                                .addHeader(HEADER_CONTENT_TYPE, "application/x-www-from-urlencoded; charset=UTF-8")
-//                                .addHeader("Connection", "Keep-Alive")
+//                                .addHeader(HEADER_CONTENT_TYPE, "application/x-www-from-urlencoded; charset=UTF-8")
+                                .addHeader(HEADER_CONTENT_TYPE, "application/json; charset=UTF-8")
+                                .addHeader(HEADER_ACCEPT, "application/json")
                                 .build();
                         return chain.proceed(request);
                     }

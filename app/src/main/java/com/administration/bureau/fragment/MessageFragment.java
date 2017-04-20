@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.administration.bureau.App;
 import com.administration.bureau.BaseFragment;
 import com.administration.bureau.R;
+import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BannerEntity;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.MessageEntity;
@@ -73,7 +74,7 @@ public class MessageFragment extends BaseFragment {
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
         int user_id = App.getInstance().getUserEntity().getUser().getId();
         String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
-        Observable<Response<BaseResponse<MessageEntity>>> observable = getService.getMessage(user_id, token);
+        Observable<Response<BaseResponse<MessageEntity>>> observable = getService.getMessage(user_id, token, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<MessageEntity>(getActivity()) {
             @Override
             protected void onSuccess(MessageEntity messageEntity) {

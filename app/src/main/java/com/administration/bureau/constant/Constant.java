@@ -1,5 +1,8 @@
 package com.administration.bureau.constant;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 /**
  * Created by omyrobin on 2017/4/7.
  */
@@ -20,4 +23,10 @@ public class Constant {
     public static final String USER_TOKEN = "USER_TOKEN";//用户Token
 
     public static final String SAVE_USER_REGISTER_INFO = "SAVE_USER_REGISTER_INFO";//保存用户申请资料
+
+    public static final int ZH_CN = 0;//中文
+
+    public static final int EN = 1;//英文
+
+    public static String [] languages = new String[]{"zh-CN", "en"};
 }

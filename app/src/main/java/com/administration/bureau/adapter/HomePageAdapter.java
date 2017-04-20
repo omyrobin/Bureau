@@ -116,13 +116,13 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 bannerVp.setCurrentItem(1,false);
                 bannerVp.setOffscreenPageLimit(5);
                 if(App.getInstance().status == 0){
-                    ((BannerViewHolder) holder).registerTv.setText("审核状态：等待审核");
+                    ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_wait);
                 }else if(App.getInstance().status == 1){
-                    ((BannerViewHolder) holder).registerTv.setText("审核状态：申请被拒绝");
+                    ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_reject);
                 }else if(App.getInstance().status == 3){
-                    ((BannerViewHolder) holder).registerTv.setText("电子证书可下载");
+                    ((BannerViewHolder) holder).registerTv.setText(R.string.electronic_certificate_download);
                 }else{
-                    ((BannerViewHolder) holder).registerTv.setText("境外人员办理注册登记");
+                    ((BannerViewHolder) holder).registerTv.setText(R.string.registeration);
                 }
             }
         }else if(holder instanceof NewsViewHolder){
@@ -275,7 +275,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         @Override
         public int getItemCount() {
-            return travels.size();
+            return travels!=null ? travels.size() : 0;
         }
 
         class TravelItemViewHolder extends RecyclerView.ViewHolder{

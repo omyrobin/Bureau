@@ -135,7 +135,7 @@
         android:textSize="16sp"
         android:textColor="@color/colorWhite"
         android:layout_marginTop="30dp"
-        android:text="提交登记注册资料"
+        android:text="@string/registeration_info"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
         android:paddingTop="10dp"

@@ -56,8 +56,8 @@ public class VerificationActivity extends BaseActivity{
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("信息核销");
-        actionTv.setText("提交");
+        titleTv.setText(R.string.write_off_info);
+        actionTv.setText(R.string.submit);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -66,15 +66,15 @@ public class VerificationActivity extends BaseActivity{
 
     @OnClick(R.id.toolbar_action_tv)
     public void actionTo(){
-        AlertDialog dialog = new AlertDialog.Builder(this).setTitle("提示").setMessage("信息核销后，电子证书立即作废，是否进行信息核销")
-                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+        AlertDialog dialog = new AlertDialog.Builder(this).setTitle(getString(R.string.hint)).setMessage("信息核销后，电子证书立即作废，是否进行信息核销")
+                .setNegativeButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteInfo();
                         dialog.dismiss();
                     }
                 })
-                .setPositiveButton("取消",null).create();
+                .setPositiveButton(getString(R.string.cancle),null).create();
         dialog.show();
     }
 
@@ -107,7 +107,7 @@ public class VerificationActivity extends BaseActivity{
             @Override
             protected void onSuccess(Boolean aBoolean) {
                 if(aBoolean){
-                    ToastUtil.showShort("信息已核销，请重新提交申请资料");
+                    ToastUtil.showShort(getString(R.string.information_off));
                     //销毁用户提交资料
                     App.getInstance().status = -1;
                     App.getInstance().certificate_image = "";

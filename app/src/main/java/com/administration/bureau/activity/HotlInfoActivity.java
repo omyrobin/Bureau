@@ -74,8 +74,8 @@ public class HotlInfoActivity extends BaseActivity {
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("住宿信息");
-        actionTv.setText("提交");
+        titleTv.setText(R.string.hotel_information);
+        actionTv.setText(R.string.submit);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

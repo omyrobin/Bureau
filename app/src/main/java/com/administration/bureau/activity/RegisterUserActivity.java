@@ -45,7 +45,7 @@ public class RegisterUserActivity extends BaseActivity{
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("注册");
+        titleTv.setText(R.string.register);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

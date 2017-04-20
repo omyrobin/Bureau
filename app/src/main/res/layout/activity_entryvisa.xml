@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="入境页照片" />
+                    android:text="@string/entry_page_photo" />
 
                 <ImageView
                     android:id="@+id/entry_page_img"
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="签证页照片" />
+                    android:text="@string/visa_photo" />
 
                 <ImageView
                     android:id="@+id/visa_page_img"
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="签证（注）种类" />
+                    android:text="@string/visa_note_type" />
 
                 <EditText
                     android:id="@+id/visa_type_et"
@@ -88,7 +88,7 @@
                     android:gravity="right"
                     android:editable="false"
                     android:background="@null"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
 
 
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="签证（注）有效期" />
+                    android:text="@string/visa_note_valid" />
 
                 <EditText
                     android:id="@+id/visa_expired_date_et"
@@ -133,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="入境日期" />
+                    android:text="@string/entry_date" />
 
                 <EditText
                     android:id="@+id/entry_date_et"
@@ -144,7 +144,7 @@
                     android:gravity="right"
                     android:editable="false"
                     android:background="@null"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
 
 
@@ -161,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="入境口岸" />
+                    android:text="@string/entry_port" />
 
                 <EditText
                     android:id="@+id/entry_port_et"
@@ -172,7 +172,7 @@
                     android:gravity="right"
                     android:editable="false"
                     android:background="@null"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="停留事由" />
+                    android:text="@string/stay_reason" />
 
                 <EditText
                     android:id="@+id/stay_reason_et"
@@ -198,7 +198,7 @@
                     android:gravity="right"
                     android:editable="false"
                     android:background="@null"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp"/>
             </RelativeLayout>
 
@@ -213,7 +213,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="停留有效期" />
+                    android:text="@string/stay_valid" />
 
                 <EditText
                     android:id="@+id/stay_expired_date_et"
@@ -224,7 +224,7 @@
                     android:background="@null"
                     android:editable="false"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 

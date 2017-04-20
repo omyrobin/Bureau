@@ -16,7 +16,7 @@
         android:gravity="center"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
-        android:text="境外人员办理注册登记"
+        android:text="@string/registeration"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
     
@@ -32,7 +32,7 @@
             android:gravity="center"
             android:background="@color/colorLBanner"
             android:textColor="@color/colorWhite"
-            android:text="涉外法律法规"
+            android:text="@string/foreign_laws"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
@@ -48,7 +48,7 @@
             android:gravity="center"
             android:background="@color/colorRBanner"
             android:textColor="@color/colorWhite"
-            android:text="留言板"
+            android:text="@string/leave_message"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />

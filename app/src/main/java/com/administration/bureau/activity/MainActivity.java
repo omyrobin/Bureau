@@ -153,7 +153,9 @@ public class MainActivity extends BaseActivity {
         if(App.getInstance().getUserEntity() == null)
             return;
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<UserRegisterInfoEntity>>> observable = getService.getStatus(App.getInstance().getUserEntity().getUser().getId(),"Bearer "+ App.getInstance().getUserEntity().getToken());
+        int user_id = App.getInstance().getUserEntity().getUser().getId();
+        String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
+        Observable<Response<BaseResponse<UserRegisterInfoEntity>>> observable = getService.getStatus(user_id,token, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<UserRegisterInfoEntity>(this) {
             @Override
             protected void onSuccess(UserRegisterInfoEntity userRegisterInfoEntity) {
@@ -175,7 +177,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void reqeustSpinnerData(){
-        Observable<Response<BaseResponse<SpinnerData>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getSpinnerData("config");
+        Observable<Response<BaseResponse<SpinnerData>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getSpinnerData("config", Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<SpinnerData>(this) {
             @Override
             protected void onSuccess(SpinnerData spinnerData) {

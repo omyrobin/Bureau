@@ -21,26 +21,26 @@ import rx.Observable;
 
 public interface GetService {
     @GET
-    Observable<Response<BaseResponse<SpinnerData>>> getSpinnerData(@Url String config);
+    Observable<Response<BaseResponse<SpinnerData>>> getSpinnerData(@Url String config, @Header("Accept-Language") String language);
 
     @GET
-    Observable<Response<BaseResponse<ArrayList<BannerEntity>>>> getBanner(@Url String banner);
+    Observable<Response<BaseResponse<ArrayList<BannerEntity>>>> getBanner(@Url String banner, @Header("Accept-Language") String language);
 
     @GET
-    Observable<Response<BaseResponse<ArticleEntity>>> getArticle(@Url String banner,@Query("type") int type);
+    Observable<Response<BaseResponse<ArticleEntity>>> getArticle(@Url String banner,@Query("type") int type, @Header("Accept-Language") String language);
 
     @GET("user/{user_id}/registrant")
-    @Headers({"Content-Type: application/json","Accept: application/json"})
-    Observable<Response<BaseResponse<UserRegisterInfoEntity>>> getStatus(@Path("user_id") int user_id, @Header("Authorization") String token);
+//    @Headers("Accept: application/json")
+    Observable<Response<BaseResponse<UserRegisterInfoEntity>>> getStatus(@Path("user_id") int user_id, @Header("Authorization") String token, @Header("Accept-Language") String language);
 
     @GET("user/{user_id}/notification")
-    @Headers({"Content-Type: application/json","Accept: application/json"})
-    Observable<Response<BaseResponse<MessageEntity>>> getMessage(@Path("user_id") int user_id, @Header("Authorization") String token);
+//    @Headers("Accept: application/json")
+    Observable<Response<BaseResponse<MessageEntity>>> getMessage(@Path("user_id") int user_id, @Header("Authorization") String token, @Header("Accept-Language") String language);
 
     @GET
-    Observable<Response<BaseResponse<ArticleEntity>>> getLawsArticle(@Url String banner, @Query("type") int type);
+    Observable<Response<BaseResponse<ArticleEntity>>> getLawsArticle(@Url String banner, @Query("type") int type, @Header("Accept-Language") String language);
 
     @GET("article/{article_id}")
-    Observable<Response<BaseResponse<ArticleDetialEntity>>> getArticleDetial(@Path("article_id") int article_id);
+    Observable<Response<BaseResponse<ArticleDetialEntity>>> getArticleDetial(@Path("article_id") int article_id, @Header("Accept-Language") String language);
 
 }

@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="本人照片" />
+                    android:text="@string/my_photo" />
 
                 <ImageView
                     android:id="@+id/avatar_img"
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="护照信息页照片" />
+                    android:text="@string/passport_photo" />
 
                 <ImageView
                     android:id="@+id/passport_info_img"
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="国家" />
+                    android:text="@string/country" />
 
                 <EditText
                     android:id="@+id/country_et"
@@ -89,7 +89,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:editable="false"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
 
@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="证件类型" />
+                    android:text="@string/certificates_type" />
 
                 <EditText
                     android:id="@+id/credential_type_et"
@@ -118,7 +118,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:editable="false"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp"  />
 
@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="证件号码" />
+                    android:text="@string/certificates_number" />
 
                 <EditText
                     android:id="@+id/credential_et"
@@ -146,7 +146,7 @@
                     android:layout_centerVertical="true"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
 
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="证件有效期" />
+                    android:text="@string/validity_certificate" />
 
                 <EditText
                     android:id="@+id/credential_expired_date_et"
@@ -175,7 +175,7 @@
                     android:background="@null"
                     android:editable="false"
                     android:gravity="right"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
             </RelativeLayout>
@@ -191,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="人员类型" />
+                    android:text="@string/personnel_type" />
 
                 <EditText
                     android:id="@+id/person_type_et"
@@ -202,7 +202,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:editable="false"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp"  />
             </RelativeLayout>
@@ -218,7 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="人员地域类型" />
+                    android:text="@string/personnel_area_type" />
 
                 <EditText
                     android:id="@+id/person_area_type_et"
@@ -229,7 +229,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:editable="false"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp"  />
             </RelativeLayout>
@@ -245,7 +245,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="英文姓" />
+                    android:text="@string/first_name" />
 
                 <EditText
                     android:id="@+id/firstname_et"
@@ -255,7 +255,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -270,7 +270,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="英文名" />
+                    android:text="@string/last_name" />
 
                 <EditText
                     android:id="@+id/lastname_et"
@@ -280,7 +280,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -295,7 +295,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="中文名" />
+                    android:text="@string/chinest_name" />
 
                 <EditText
                     android:id="@+id/chinese_name_et"
@@ -305,7 +305,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -320,7 +320,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="性别" />
+                    android:text="@string/gender" />
 
                 <EditText
                     android:id="@+id/gender_et"
@@ -331,7 +331,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:editable="false"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
             </RelativeLayout>
@@ -347,7 +347,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="出生日期" />
+                    android:text="@string/date_of_birth" />
 
                 <EditText
                     android:id="@+id/birthday_et"
@@ -358,7 +358,7 @@
                     android:background="@null"
                     android:editable="false"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
             </RelativeLayout>
@@ -374,7 +374,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="出生地" />
+                    android:text="@string/place_of_birth" />
 
                 <EditText
                     android:id="@+id/birthplace_et"
@@ -384,7 +384,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -399,7 +399,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="职业" />
+                    android:text="@string/occupation" />
 
                 <EditText
                     android:id="@+id/occupation_et"
@@ -410,7 +410,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:editable="false"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="12sp"   />
             </RelativeLayout>
@@ -426,7 +426,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="工作机构" />
+                    android:text="@string/working_mechanism" />
 
                 <EditText
                     android:id="@+id/working_organization_et"
@@ -436,7 +436,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -451,7 +451,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="本人联系电话" />
+                    android:text="@string/my_phone_number" />
 
                 <EditText
                     android:id="@+id/phone_et"
@@ -462,7 +462,7 @@
                     android:background="@null"
                     android:inputType="phone"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -477,7 +477,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="紧急联系人" />
+                    android:text="@string/emergency_contact" />
 
                 <EditText
                     android:id="@+id/emergency_contact_et"
@@ -487,7 +487,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -502,7 +502,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="紧急联系人的联系电话" />
+                    android:text="@string/emergency_phone" />
 
                 <EditText
                     android:id="@+id/emergency_phone_et"
@@ -513,7 +513,7 @@
                     android:background="@null"
                     android:inputType="phone"
                     android:gravity="right|center"
-                    android:hint="未设置  "
+                   android:hint="@string/not_set"
                     android:textSize="12sp" />
             </RelativeLayout>
 

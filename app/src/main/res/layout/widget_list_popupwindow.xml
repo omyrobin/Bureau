@@ -9,7 +9,7 @@
         android:padding="10dp"
         android:gravity="center"
         android:textSize="18sp"
-        android:text="请选择"
+        android:text="@string/please_select"
         android:textColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

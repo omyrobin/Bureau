@@ -119,8 +119,8 @@ public class BaseInfoActivity extends BaseActivity {
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("基本信息");
-        actionTv.setText("下一张表");
+        titleTv.setText(R.string.base_info);
+        actionTv.setText(R.string.next_table);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

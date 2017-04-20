@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.administration.bureau.App;
 import com.administration.bureau.BaseFragment;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.HomePageAdapter;
+import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
 import com.administration.bureau.entity.BaseResponse;
@@ -75,7 +77,7 @@ public class HomePageFragment extends BaseFragment{
     }
 
     private void requestBannerData(){
-        Observable<Response<BaseResponse<ArrayList<BannerEntity>>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getBanner("banner");
+        Observable<Response<BaseResponse<ArrayList<BannerEntity>>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getBanner("banner", Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArrayList<BannerEntity>>(getActivity()) {
             @Override
             protected void onSuccess(ArrayList<BannerEntity> bannerEntities) {
@@ -91,7 +93,8 @@ public class HomePageFragment extends BaseFragment{
     }
 
     private void requestNewsData(){
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getArticle("article",2);
+        GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",2, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {
@@ -107,7 +110,8 @@ public class HomePageFragment extends BaseFragment{
     }
 
     private void requestTravelData(){
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getArticle("article",3);
+        GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",3, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {

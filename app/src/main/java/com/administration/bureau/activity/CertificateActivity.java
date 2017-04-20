@@ -47,8 +47,8 @@ public class CertificateActivity extends BaseActivity {
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("预览电子证书");
-        actionTv.setText("下载");
+        titleTv.setText(R.string.electronic_certificate);
+        actionTv.setText(R.string.download);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,7 +64,7 @@ public class CertificateActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        ceriflcateChangeTv.setText("查看背面");
+        ceriflcateChangeTv.setText(R.string.show_back);
         previewCertificater();
     }
 
@@ -76,10 +76,10 @@ public class CertificateActivity extends BaseActivity {
     public void previewBackCertificater(){
         isBack = !isBack;
         if(isBack){
-            ceriflcateChangeTv.setText("查看正面");
+            ceriflcateChangeTv.setText(R.string.show_front);
             Glide.with(this).load(Url.GENERATE).into(certificateImg);
         }else{
-            ceriflcateChangeTv.setText("查看背面");
+            ceriflcateChangeTv.setText(R.string.show_back);
             previewCertificater();
         }
 
@@ -116,7 +116,7 @@ public class CertificateActivity extends BaseActivity {
     private void circle() {
         myDialog = new ProgressDialog(this); // 获取对象
         myDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // 设置样式为圆形样式
-        myDialog.setMessage("下载中..."); // 设置进度条的提示信息
+        myDialog.setMessage(getString(R.string.downloading)); // 设置进度条的提示信息
         myDialog.setIndeterminate(false); // 设置进度条是否为不明确
         myDialog.setCancelable(true); // 设置进度条是否按返回键取消
 

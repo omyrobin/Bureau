@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="首页 " />
+            android:text="@string/home" />
 
         <TextView
             android:id="@+id/message_tv"
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="消息" />
+            android:text="@string/message" />
 
         <TextView
             android:id="@+id/mine_tv"
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="我的" />
+            android:text="@string/my" />
 
     </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.content.Context;
 
 
 import com.administration.bureau.App;
+import com.administration.bureau.R;
 import com.administration.bureau.utils.NetworkUtil;
 
 import rx.Subscriber;
@@ -20,7 +21,10 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
 
     private Dialog dialogHandler;
 
+    private Context context;
+
     public ProgressSubscriber(Context context) {
+        this.context = context;
         //TODO create dialog to show
 //        dialogHandler = new ProgressDialog(context);
     }
@@ -58,11 +62,11 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
     public void onError(Throwable e) {
         e.printStackTrace();
         if (!NetworkUtil.isConnected(App.getInstance().getApplicationContext())) {
-            onFailure("网络不可用");
+            onFailure(context.getString(R.string.network_is_not_available));
         } else if (e instanceof RuntimeException) {
             onFailure(e.getMessage());
         } else {
-            onFailure("请求失败，请稍后再试...");
+            onFailure(context.getString(R.string.request_failed));
         }
         dismissProgressDialog();
     }

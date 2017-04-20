@@ -84,8 +84,8 @@ public class EntryVisaActivity extends BaseActivity {
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("入住及签证（注）信息");
-        actionTv.setText("下一张表");
+        titleTv.setText(R.string.visa_note_info);
+        actionTv.setText(R.string.next_table);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

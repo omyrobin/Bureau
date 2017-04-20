@@ -21,7 +21,7 @@
             android:gravity="center"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
-            android:text="公示公告"
+            android:text="@string/public_notice"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
@@ -37,7 +37,7 @@
             android:gravity="center"
             android:background="@color/colorLBanner"
             android:textColor="@color/colorWhite"
-            android:text="服务指南"
+            android:text="@string/service_information"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
@@ -56,7 +56,7 @@
             android:gravity="center"
             android:background="@color/colorLBanner"
             android:textColor="@color/colorWhite"
-            android:text="温馨提示"
+            android:text="@string/reminder"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
@@ -72,7 +72,7 @@
             android:gravity="center"
             android:background="@color/colorRBanner"
             android:textColor="@color/colorWhite"
-            android:text="更多"
+            android:text="@string/more"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
