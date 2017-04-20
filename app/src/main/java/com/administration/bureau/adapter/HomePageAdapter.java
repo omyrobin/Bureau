@@ -22,9 +22,9 @@ import com.administration.bureau.activity.LawsActivity;
 import com.administration.bureau.activity.MainActivity;
 import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.RegisterUserActivity;
+import com.administration.bureau.activity.PublicNotiveActivity;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
-import com.administration.bureau.utils.ToastUtil;
 import com.bumptech.glide.Glide;
 
 import java.lang.ref.WeakReference;
@@ -208,10 +208,10 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         @OnClick({R.id.public_notive_tv, R.id.service_info_tv, R.id.reminder_tv, R.id.more_tv})
         public void actionTo(TextView textView){
-            ToastUtil.showShort(textView.getText().toString());
             switch (textView.getId()){
                 case R.id.public_notive_tv:
-
+                    Intent intent = new Intent(context, PublicNotiveActivity.class);
+                    context.startActivity(intent);
                     break;
 
                 case R.id.service_info_tv:
