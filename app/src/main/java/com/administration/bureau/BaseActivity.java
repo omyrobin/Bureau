@@ -261,7 +261,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
     protected void registrationInfo(){
         PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
-        Observable<Response<BaseResponse<UserRegisterInfoEntity>>> observable =  postService.registerInfo(App.getInstance().getUserEntity().getUser().getId(), getRequestParams(), "Bearer "+ App.getInstance().getUserEntity().getToken());
+        int user_id = App.getInstance().getUserEntity().getUser().getId();
+        String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
+        Observable<Response<BaseResponse<UserRegisterInfoEntity>>> observable =  postService.registerInfo(user_id, getRequestParams(), token);
         RetrofitClient.client().request(observable, new ProgressSubscriber<UserRegisterInfoEntity>(this) {
             @Override
             protected void onSuccess(UserRegisterInfoEntity userRegisterInfoEntity) {

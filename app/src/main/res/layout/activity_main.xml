@@ -16,7 +16,7 @@
     <LinearLayout
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="60dp">
         <TextView
             android:padding="5dp"
             android:id="@+id/homepage_tv"

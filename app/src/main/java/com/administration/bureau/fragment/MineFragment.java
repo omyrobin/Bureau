@@ -18,7 +18,9 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseFragment;
 import com.administration.bureau.R;
 import com.administration.bureau.activity.CertificateActivity;
+import com.administration.bureau.activity.FeedbackActivity;
 import com.administration.bureau.activity.RegisterActivity;
+import com.administration.bureau.activity.RegisterUserActivity;
 import com.administration.bureau.activity.VerificationActivity;
 import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
@@ -58,7 +60,8 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     TextView userNameTv;
     @BindView(R.id.user_status_tv)
     TextView userStatusTv;
-    RadioGroup radioGroup;
+
+    int select;
 
     @Override
     protected int getLayoutId() {
@@ -110,6 +113,9 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     }
 
     private void initUserView(){
+        if(App.getInstance().getUserEntity()!=null){
+            logOutTv.setVisibility(View.VISIBLE);
+        }
         if(!TextUtils.isEmpty(App.getInstance().chinese_name)){
             userNameTv.setText(App.getInstance().chinese_name);
         }
@@ -127,14 +133,19 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         Intent intent = null;
         switch (action){
             case MINE_REGIEST:
-                if(App.getInstance().status == 3){
-                    intent = new Intent(getActivity(), CertificateActivity.class);
+                if(App.getInstance().getUserEntity() == null){
+                    intent = new Intent(getActivity(), RegisterUserActivity.class);
                     startActivity(intent);
-                }else if(App.getInstance().status == 0){
-                    ToastUtil.showShort(getString(R.string.please_wait));
                 }else{
-                    intent = new Intent(getActivity(), RegisterActivity.class);
-                    startActivity(intent);
+                    if(App.getInstance().status == 3){
+                        intent = new Intent(getActivity(), CertificateActivity.class);
+                        startActivity(intent);
+                    }else if(App.getInstance().status == 0){
+                        ToastUtil.showShort(getString(R.string.please_wait));
+                    }else{
+                        intent = new Intent(getActivity(), RegisterActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 break;
 
@@ -157,23 +168,51 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_LANGUAGE:
-                if(App.locale == 0 ){
-                    App.locale = 1;
-                } else{
-                    App.locale = 0;
-                }
-                App.getInstance().initLocale();
-                SharedPreferencesUtil.setParam(getActivity(),Constant.LOCALE,App.locale);
-                EventBus.getDefault().post(new LanguageEvent());
+                showLanguage();
                 break;
 
             case MINE_FEEDBACK:
-
+                intent = new Intent(getActivity(), FeedbackActivity.class);
+                startActivity(intent);
                 break;
 
             case MINE_ABOUTUS:
 
                 break;
+        }
+    }
+
+    private void showLanguage(){
+        select = App.locale;
+        View language = LayoutInflater.from(getActivity()).inflate(R.layout.widget_language, null);
+        RadioGroup radioGroup = (RadioGroup) language.findViewById(R.id.language_rg);
+        RadioButton radioButton0 = (RadioButton) language.findViewById(R.id.chinese_rb);
+        RadioButton radioButton1 = (RadioButton) language.findViewById(R.id.english_rb);
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.please_select))
+                .setView(language)
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        App.locale = select == 0 ? 0 : 1;
+                        App.getInstance().initLocale();
+                        SharedPreferencesUtil.setParam(getActivity(),Constant.LOCALE,App.locale);
+                        EventBus.getDefault().post(new LanguageEvent());
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancle),null).create();
+        dialog.show();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                select = checkedId == R.id.chinese_rb ?  0 : 1;
+            }
+        });
+        if(select== 0){
+            radioButton0.setChecked(true);
+        }else{
+            radioButton1.setChecked(true);
         }
     }
 
@@ -201,6 +240,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
 
                         //TODO 通知刷新
                         EventBus.getDefault().post(new UserLogoutEvent());
+                        logOutTv.setVisibility(View.GONE);
                         dialog.dismiss();
                     }
                 })

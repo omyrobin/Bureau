@@ -2,6 +2,7 @@ package com.administration.bureau.model;
 
 import com.administration.bureau.App;
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.ContentEntity;
 import com.administration.bureau.entity.UploadEntity;
 import com.administration.bureau.entity.UserEntity;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
@@ -40,4 +41,7 @@ public interface PostService {
     @POST("user/{user_id}/registrant")
     @FormUrlEncoded
     Observable<Response<BaseResponse<UserRegisterInfoEntity>>> registerInfo(@Path("user_id") int user_id, @FieldMap Map<String, Object> params, @Header("Authorization") String token);
+    @POST("user/{user_id}/message")
+    @FormUrlEncoded
+    Observable<Response<BaseResponse<ContentEntity>>> sendMessage(@Path("user_id") int user_id, @Field("content") String content, @Header("Authorization") String token);
 }

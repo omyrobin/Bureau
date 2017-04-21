@@ -122,6 +122,9 @@
 	<string name="please_wait">Please patience waiting for audit</string>
 	<string name="no_electronic_certificate">Has not yet been generated electronic certificate</string>
 
-
+	<string name="feedback">Feedback</string>
+	<string name="send">Send</string>
+	<string name="send_success">Send success</string>
+	<string name="send_failure">Send failure</string>
 
 </resources>

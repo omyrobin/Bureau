@@ -20,6 +20,7 @@ import com.administration.bureau.activity.ArticleDetialActivity;
 import com.administration.bureau.activity.CertificateActivity;
 import com.administration.bureau.activity.LawsActivity;
 import com.administration.bureau.activity.MainActivity;
+import com.administration.bureau.activity.MessageBoardActivity;
 import com.administration.bureau.activity.MoreActivity;
 import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.RegisterUserActivity;
@@ -59,8 +60,6 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     private ArrayList<BannerEntity> bannerEntities;
 
     private ViewPager bannerVp;
-
-    private ArticleEntity articleEntity;
 
     private BannerAdapter bannerAdaper;
 
@@ -370,7 +369,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                     break;
 
                 case R.id.message_board_tv:
-
+                    intent = new Intent(context, MessageBoardActivity.class);
+                    context.startActivity(intent);
                     break;
             }
         }

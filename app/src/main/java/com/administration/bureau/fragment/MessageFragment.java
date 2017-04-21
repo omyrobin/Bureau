@@ -45,7 +45,9 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
     @BindView(R.id.message_re_layout)
     SwipeRefreshLayout messageRelayout;
     @BindView(R.id.empty_view_layout)
-    View empty_view_layout;
+    View emptyViewLayout;
+    @BindView(R.id.empty_view_tv)
+    TextView emptyViewTv;
 
     @Override
     protected int getLayoutId() {
@@ -61,6 +63,7 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
 
     public void setLanguageText(){
         titleTv.setText(R.string.message);
+        emptyViewTv.setText(R.string.no_message);
     }
 
     @Override
@@ -101,9 +104,9 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
             @Override
             protected void onSuccess(MessageEntity messageEntity) {
                 if(messageEntity.getData() == null || messageEntity.getData().isEmpty()){
-                    empty_view_layout.setVisibility(View.VISIBLE);
+                    emptyViewLayout.setVisibility(View.VISIBLE);
                 }else{
-                    empty_view_layout.setVisibility(View.GONE);
+                    emptyViewLayout.setVisibility(View.GONE);
                 }
                 messageRv.setAdapter(new MessageAdapter(messageEntity));
                 messageRelayout.setRefreshing(false);

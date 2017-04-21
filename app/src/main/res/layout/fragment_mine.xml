@@ -10,13 +10,13 @@
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="150dp">
+        android:layout_height="130dp">
         <ImageView
             android:src="@drawable/icon_user_face"
             android:id="@+id/user_face_img"
             android:layout_gravity="center_vertical"
-            android:layout_width="80dp"
-            android:layout_height="80dp" />
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
 
         <TextView
             android:textColor="@color/colorWhite"

@@ -98,6 +98,16 @@
             android:name=".activity.TravelActivity"
             android:launchMode="singleTop">
         </activity>
+
+        <activity
+            android:name=".activity.FeedbackActivity"
+            android:launchMode="singleTop">
+        </activity>
+
+        <activity
+            android:name=".activity.MessageBoardActivity"
+            android:launchMode="singleTop">
+        </activity>
     </application>
 
 </manifest>

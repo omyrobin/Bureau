@@ -121,5 +121,10 @@
     <string name="please_wait">请耐心等待审核</string>
     <string name="no_electronic_certificate">您尚未生成电子证书</string>
 
+    <string name="feedback">反馈</string>
+    <string name="send">发送</string>
+    <string name="send_success">发送成功</string>
+    <string name="send_failure">发送失败</string>
+
 
 </resources>
