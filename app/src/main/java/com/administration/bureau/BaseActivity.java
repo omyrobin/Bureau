@@ -354,10 +354,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort("人员类型不能为空");
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getPerson_area_type())){
-            ToastUtil.showShort("人员地域类型不能为空");
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getPerson_area_type())){
+//            ToastUtil.showShort("人员地域类型不能为空");
+//            return false;
+//        }
         if(TextUtils.isEmpty(infoEntity.getLastname())){
             ToastUtil.showShort("英文名不能为空");
             return false;

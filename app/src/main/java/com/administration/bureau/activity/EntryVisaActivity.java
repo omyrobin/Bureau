@@ -17,6 +17,7 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.DataAdapter;
+import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.DataEntity;
 import com.administration.bureau.entity.UploadEntity;
@@ -243,7 +244,7 @@ public class EntryVisaActivity extends BaseActivity {
         Toast.makeText(this, untreatedFile, Toast.LENGTH_SHORT).show();
         File file = new File(untreatedFile);
         // 创建 RequestBody，用于封装构建RequestBody
-        RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/from-data"), file);
         // MultipartBody.Part  和后端约定好Key，这里的partName是用file
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 

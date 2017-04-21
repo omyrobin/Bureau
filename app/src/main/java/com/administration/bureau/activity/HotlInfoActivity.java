@@ -45,8 +45,8 @@ public class HotlInfoActivity extends BaseActivity {
     @BindView(R.id.police_station_et)
     EditText policeStationEt;
     //所属社区
-    @BindView(R.id.community_et)
-    EditText communityEt;
+//    @BindView(R.id.community_et)
+//    EditText communityEt;
     //住房种类
     @BindView(R.id.house_type_et)
     EditText houseTypeEt;
@@ -102,7 +102,7 @@ public class HotlInfoActivity extends BaseActivity {
     protected void initializeActivity(Bundle savedInstanceState) {
     }
 
-    @OnTouch({R.id.police_station_et,R.id.community_et,R.id.house_type_et,R.id.landlord_country_et,R.id.landlord_gender_et})
+    @OnTouch({R.id.police_station_et,R.id.house_type_et,R.id.landlord_country_et,R.id.landlord_gender_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
@@ -115,22 +115,22 @@ public class HotlInfoActivity extends BaseActivity {
                         public void itemClickPosition(DataEntity dataEntity) {
                             policeStationEt.setText(dataEntity.getValue());
                             infoEntity.setPolice_station(dataEntity.getKey());
-                            communityEt.setText("");
+//                            communityEt.setText("");
                             infoEntity.setCommunity("");
                         }
                     });
                     break;
 
-                case R.id.community_et:
-                    DataAdapter dataAdapter = new DataAdapter(this, transformToList(App.getInstance().getAllCommunity().get(infoEntity.getPolice_station())));
-                    dialog = new ListAlertDialog(this, dataAdapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            communityEt.setText(dataEntity.getValue());
-                            infoEntity.setCommunity(dataEntity.getKey());
-                        }
-                    });
-                    break;
+//                case R.id.community_et:
+//                    DataAdapter dataAdapter = new DataAdapter(this, transformToList(App.getInstance().getAllCommunity().get(infoEntity.getPolice_station())));
+//                    dialog = new ListAlertDialog(this, dataAdapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            communityEt.setText(dataEntity.getValue());
+//                            infoEntity.setCommunity(dataEntity.getKey());
+//                        }
+//                    });
+//                    break;
 
                 case R.id.house_type_et:
                     adapter = new DataAdapter(this, transformToList(App.getInstance().getHouse_type()));
@@ -186,9 +186,9 @@ public class HotlInfoActivity extends BaseActivity {
         if(!TextUtils.isEmpty(infoEntity.getPolice_station())){
             policeStationEt.setText(App.getInstance().getPolice_station().get(infoEntity.getPolice_station()));
         }
-        if(!TextUtils.isEmpty(infoEntity.getCommunity())){
-            communityEt.setText(App.getInstance().getAllCommunity().get(infoEntity.getPolice_station()).get(infoEntity.getCommunity()));
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getCommunity())){
+//            communityEt.setText(App.getInstance().getAllCommunity().get(infoEntity.getPolice_station()).get(infoEntity.getCommunity()));
+//        }
         if(!TextUtils.isEmpty(infoEntity.getHouse_type())){
             houseTypeEt.setText(App.getInstance().getHouse_type().get(infoEntity.getHouse_type()));
         }

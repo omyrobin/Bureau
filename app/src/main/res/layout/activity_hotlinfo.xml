@@ -122,13 +122,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:hint="@string/not_set"
+                    android:background="@null"
                     android:textSize="12sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -148,10 +149,11 @@
                     android:gravity="right"
                     android:hint="@string/not_set"
                     android:textSize="12sp"
+                    android:background="@null"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -173,6 +175,7 @@
                     android:gravity="right"
                     android:hint="@string/not_set"
                     android:textSize="12sp"
+                    android:background="@null"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -198,6 +201,7 @@
                     android:gravity="right"
                     android:hint="@string/not_set"
                     android:textSize="12sp"
+                    android:background="@null"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -273,6 +277,7 @@
                     android:gravity="right"
                     android:hint="@string/not_set"
                     android:textSize="12sp"
+                    android:background="@null"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />

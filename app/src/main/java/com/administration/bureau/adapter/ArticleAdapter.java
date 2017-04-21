@@ -2,6 +2,7 @@ package com.administration.bureau.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +29,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     private List<ArticleEntity.DataBean> datas;
 
-    public ArticleAdapter(Context context, List<ArticleEntity.DataBean> datas) {
+    private boolean show;
+
+    public ArticleAdapter(Context context, List<ArticleEntity.DataBean> datas, boolean show) {
         this.context = context;
         this.datas = datas;
+        this.show = show;
     }
 
     @Override
@@ -41,9 +45,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public void onBindViewHolder(ArticleViewHolder holder, final int position) {
-        Glide.with(context).load(datas.get(position).getCover()).into((holder.atricelPicImg));
+        if(!TextUtils.isEmpty(datas.get(position).getCover())){
+            Glide.with(context).load(datas.get(position).getCover()).into((holder.atricelPicImg));
+        }else{
+            holder.atricelPicImg.setVisibility(View.GONE);
+        }
+        if(show) {
+            holder.atricelDateTv.setText(datas.get(position).getCreated_at());
+        }else {
+            holder.atricelDateTv.setVisibility(View.GONE);
+        }
+
         holder.atricelTitleTv.setText(datas.get(position).getTitle());
-        holder.atricelDateTv.setText(datas.get(position ).getCreated_at());
         holder.articleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

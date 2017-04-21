@@ -39,6 +39,5 @@ public interface PostService {
 
     @POST("user/{user_id}/registrant")
     @FormUrlEncoded
-//    @Headers("Accept: application/json")
     Observable<Response<BaseResponse<UserRegisterInfoEntity>>> registerInfo(@Path("user_id") int user_id, @FieldMap Map<String, Object> params, @Header("Authorization") String token);
 }

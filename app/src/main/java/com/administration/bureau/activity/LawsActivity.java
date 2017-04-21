@@ -1,6 +1,7 @@
 package com.administration.bureau.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,13 +27,15 @@ import rx.Observable;
  * Created by omyrobin on 2017/4/19.
  */
 
-public class LawsActivity extends BaseActivity{
+public class LawsActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title_tv)
     TextView titleTv;
     @BindView(R.id.laws_rv)
     RecyclerView lawsRv;
+    @BindView(R.id.laws_re_layout)
+    SwipeRefreshLayout lawsReLayout;
 
     @Override
     protected int getLayoutId() {
@@ -51,13 +54,30 @@ public class LawsActivity extends BaseActivity{
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
+        initRefreshLayout();
         initLayoutManager();
-        requestLawsData();
+    }
+
+    private void initRefreshLayout(){
+        lawsReLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimary,R.color.colorPrimary);
+        lawsReLayout.setOnRefreshListener(this);
     }
 
     private void initLayoutManager(){
         LinearLayoutManager manager = new LinearLayoutManager(this);
         lawsRv.setLayoutManager(manager);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lawsReLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                lawsReLayout.setRefreshing(true);
+                requestLawsData();
+            }
+        });
     }
 
     private void requestLawsData(){
@@ -66,14 +86,19 @@ public class LawsActivity extends BaseActivity{
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(this) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {
-                lawsRv.setAdapter(new ArticleAdapter(LawsActivity.this, articleEntity.getData()));
+                lawsRv.setAdapter(new ArticleAdapter(LawsActivity.this, articleEntity.getData(),false));
+                lawsReLayout.setRefreshing(false);
             }
 
             @Override
             protected void onFailure(String message) {
-
+                lawsReLayout.setRefreshing(false);
             }
         });
     }
 
+    @Override
+    public void onRefresh() {
+        requestLawsData();
+    }
 }

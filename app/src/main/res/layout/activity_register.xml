@@ -17,13 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/base_info_layout"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:background="@color/colorWhite"
         android:padding="5dp" >
 
@@ -31,16 +29,17 @@
             android:id="@+id/base_info_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textColor="@color/colorText"
+            android:layout_centerVertical="true"
             android:paddingLeft="10dp" />
 
         <TextView
+            android:layout_toRightOf="@id/base_info_tv"
             android:id="@+id/base_info_completed_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textColor="@color/colorText"
+            android:layout_centerVertical="true"
             android:paddingLeft="10dp" />
 
 
@@ -50,17 +49,16 @@
             android:layout_height="35dp"
             android:background="@null"
             android:src="@drawable/more"
-            android:layout_gravity="right|center_vertical" />
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/entry_visa_layout"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:background="@color/colorWhite"
         android:padding="5dp" >
 
@@ -70,14 +68,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/colorText"
+            android:layout_centerVertical="true"
             android:paddingLeft="10dp" />
 
         <TextView
+            android:layout_toRightOf="@id/entry_visa_tv"
             android:id="@+id/entry_visa_completed_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/colorText"
+            android:layout_centerVertical="true"
             android:paddingLeft="10dp" />
 
 
@@ -87,17 +88,16 @@
             android:layout_height="35dp"
             android:background="@null"
             android:src="@drawable/more"
-            android:layout_gravity="right|center_vertical" />
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/hotel_info_layout"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:background="@color/colorWhite"
         android:padding="5dp" >
 
@@ -105,16 +105,17 @@
             android:id="@+id/hotel_info_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textColor="@color/colorText"
+            android:layout_centerVertical="true"
             android:paddingLeft="10dp" />
 
         <TextView
+            android:layout_toRightOf="@id/hotel_info_tv"
             android:id="@+id/hotel_info_completed_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textColor="@color/colorText"
+            android:layout_centerVertical="true"
             android:paddingLeft="10dp" />
 
 
@@ -124,9 +125,10 @@
             android:layout_height="35dp"
             android:background="@null"
             android:src="@drawable/more"
-            android:layout_gravity="right|center_vertical" />
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/registration_info_tv"

@@ -1,12 +1,13 @@
 package com.administration.bureau.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,13 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseFragment;
 import com.administration.bureau.R;
 import com.administration.bureau.constant.Constant;
-import com.administration.bureau.entity.BannerEntity;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.MessageEntity;
 import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.GetService;
-import com.administration.bureau.utils.ToastUtil;
-
-import java.util.ArrayList;
+import com.administration.bureau.widget.EmptyRecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,14 +34,18 @@ import rx.Observable;
  * Created by omyrobin on 2017/4/4.
  */
 
-public class MessageFragment extends BaseFragment {
+public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title_tv)
     TextView titleTv;
     @BindView(R.id.message_rv)
-    RecyclerView messageRv;
+    EmptyRecyclerView messageRv;
+    @BindView(R.id.message_re_layout)
+    SwipeRefreshLayout messageRelayout;
+    @BindView(R.id.empty_view_layout)
+    View empty_view_layout;
 
     @Override
     protected int getLayoutId() {
@@ -63,13 +65,29 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void initContent(@Nullable Bundle savedInstanceState) {
+        initRefreshLayout();
         initLayoutManager();
-        requestMessageData();
+        autoRefresh();
+    }
+
+    private void initRefreshLayout(){
+        messageRelayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimary,R.color.colorPrimary);
+        messageRelayout.setOnRefreshListener(this);
     }
 
     private void initLayoutManager(){
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         messageRv.setLayoutManager(manager);
+    }
+
+    private void autoRefresh(){
+        messageRelayout.post(new Runnable() {
+            @Override
+            public void run() {
+                messageRelayout.setRefreshing(true);
+                requestMessageData();
+            }
+        });
     }
 
     private void requestMessageData(){
@@ -82,14 +100,26 @@ public class MessageFragment extends BaseFragment {
         RetrofitClient.client().request(observable, new ProgressSubscriber<MessageEntity>(getActivity()) {
             @Override
             protected void onSuccess(MessageEntity messageEntity) {
+                if(messageEntity.getData() == null || messageEntity.getData().isEmpty()){
+                    empty_view_layout.setVisibility(View.VISIBLE);
+                }else{
+                    empty_view_layout.setVisibility(View.GONE);
+                }
                 messageRv.setAdapter(new MessageAdapter(messageEntity));
+                messageRelayout.setRefreshing(false);
             }
 
             @Override
             protected void onFailure(String message) {
-
+                messageRelayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        messageRelayout.setRefreshing(true);
+        requestMessageData();
     }
 
     class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder>{

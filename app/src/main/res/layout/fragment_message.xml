@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/tool_bar"/>
+    <include layout="@layout/tool_bar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/message_rv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/message_re_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E4E4E4">
+
+            <com.administration.bureau.widget.EmptyRecyclerView
+                android:id="@+id/message_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.administration.bureau.widget.EmptyRecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <include
+            android:id="@+id/empty_view_layout"
+            layout="@layout/empty_message_view"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

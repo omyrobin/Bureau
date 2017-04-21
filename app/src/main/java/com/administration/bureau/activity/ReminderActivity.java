@@ -27,7 +27,7 @@ import rx.Observable;
  * Created by omyrobin on 2017/4/19.
  */
 
-public class PublicNotiveActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class ReminderActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title_tv)
@@ -44,7 +44,7 @@ public class PublicNotiveActivity extends BaseActivity implements SwipeRefreshLa
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText(R.string.public_notice);
+        titleTv.setText(R.string.reminder);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -81,11 +81,11 @@ public class PublicNotiveActivity extends BaseActivity implements SwipeRefreshLa
 
     private void requestLawsData(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",4, Constant.languages[0]);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",6, Constant.languages[0]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(this) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {
-                lawsRv.setAdapter(new ArticleAdapter(PublicNotiveActivity.this, articleEntity.getData(),true));
+                lawsRv.setAdapter(new ArticleAdapter(ReminderActivity.this, articleEntity.getData(),true));
                 lawsReLayout.setRefreshing(false);
             }
 

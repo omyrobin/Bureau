@@ -75,7 +75,7 @@ public class BitmapUtil {
 		bitmap = BitmapFactory.decodeFile(beforeFilePath, options);
 		int w = options.outWidth;
 		int y = options.outHeight;
-		int b = w/240;
+		int b = w/120;
 		File f = new File(beforeFilePath);
 		long mb = 1024 * 1024;
 		long fSize = f.length();

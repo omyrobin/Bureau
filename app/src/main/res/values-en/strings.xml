@@ -114,8 +114,14 @@
 	<string name="language_settings">Language settings</string>
 	<string name="user_feedback">User feedback</string>
 	<string name="about_us">About Us</string>
-	<string name="whether_out_of_the_current_account">(Whether out of the current account)</string>
+	<string name="whether_out_of_the_current_account">Whether out of the current account</string>
 	<string name="not_submit_registration">(Not submit registration)</string>
 	<string name="wait_for_review">(wait for review)</string>
+
+	<string name="no_message">No Message</string>
+	<string name="please_wait">Please patience waiting for audit</string>
+	<string name="no_electronic_certificate">Has not yet been generated electronic certificate</string>
+
+
 
 </resources>

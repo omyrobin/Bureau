@@ -80,12 +80,12 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         ArrayList<GroupDescript> groupDescripts = new ArrayList<>();
         ArrayList<RowDescript> descript = new ArrayList<>();
 
-        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.registration_information), RowActionEnum.MINE_REGIEST));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.write_off_info), RowActionEnum.MINE_INFO_VER));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.electronic_certificate), RowActionEnum.MINE_CERTIFICATE));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.language_settings), RowActionEnum.MINE_LANGUAGE));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.user_feedback), RowActionEnum.MINE_FEEDBACK));
-        descript.add(new RowDescript(R.mipmap.ic_launcher, getString(R.string.about_us), RowActionEnum.MINE_ABOUTUS));
+        descript.add(new RowDescript(R.drawable.icon_settings, getString(R.string.registration_information), RowActionEnum.MINE_REGIEST));
+        descript.add(new RowDescript(R.drawable.icon_settings, getString(R.string.write_off_info), RowActionEnum.MINE_INFO_VER));
+        descript.add(new RowDescript(R.drawable.icon_settings, getString(R.string.electronic_certificate), RowActionEnum.MINE_CERTIFICATE));
+        descript.add(new RowDescript(R.drawable.icon_settings, getString(R.string.language_settings), RowActionEnum.MINE_LANGUAGE));
+        descript.add(new RowDescript(R.drawable.icon_settings, getString(R.string.user_feedback), RowActionEnum.MINE_FEEDBACK));
+        descript.add(new RowDescript(R.drawable.icon_settings, getString(R.string.about_us), RowActionEnum.MINE_ABOUTUS));
         groupDescripts.add(new GroupDescript(descript));
 
         containerView.initData(groupDescripts, this);
@@ -131,7 +131,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                     intent = new Intent(getActivity(), CertificateActivity.class);
                     startActivity(intent);
                 }else if(App.getInstance().status == 0){
-                    ToastUtil.showShort("请耐心等待审核");
+                    ToastUtil.showShort(getString(R.string.please_wait));
                 }else{
                     intent = new Intent(getActivity(), RegisterActivity.class);
                     startActivity(intent);
@@ -143,7 +143,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                     intent = new Intent(getActivity(), VerificationActivity.class);
                     startActivity(intent);
                 }else{
-                    ToastUtil.showShort("您尚未生成电子证书");
+                    ToastUtil.showShort(getString(R.string.no_electronic_certificate));
                 }
                 break;
 
@@ -152,7 +152,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                     intent = new Intent(getActivity(), CertificateActivity.class);
                     startActivity(intent);
                 }else{
-                    ToastUtil.showShort("电子证书不可用");
+                    ToastUtil.showShort(getString(R.string.no_electronic_certificate));
                 }
                 break;
 

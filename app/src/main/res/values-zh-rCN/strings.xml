@@ -118,5 +118,9 @@
 	<string name="not_submit_registration">（未提交审核资料）</string>
 	<string name="wait_for_review">（等待审核）</string>
 
+	<string name="no_message">当前无消息</string>
+	<string name="please_wait">请耐心等待审核</string>
+	<string name="no_electronic_certificate">您尚未生成电子证书</string>
+
 
 </resources>

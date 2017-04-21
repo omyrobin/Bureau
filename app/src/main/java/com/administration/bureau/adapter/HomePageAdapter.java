@@ -20,9 +20,13 @@ import com.administration.bureau.activity.ArticleDetialActivity;
 import com.administration.bureau.activity.CertificateActivity;
 import com.administration.bureau.activity.LawsActivity;
 import com.administration.bureau.activity.MainActivity;
+import com.administration.bureau.activity.MoreActivity;
 import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.RegisterUserActivity;
 import com.administration.bureau.activity.PublicNotiveActivity;
+import com.administration.bureau.activity.ReminderActivity;
+import com.administration.bureau.activity.ServiceInfoActivity;
+import com.administration.bureau.activity.TravelActivity;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
 import com.bumptech.glide.Glide;
@@ -171,10 +175,18 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 }
             });
         }else if(holder instanceof TravelViewHolder){
-            ((TravelViewHolder) holder).travelBigTitleTv.setVisibility(View.VISIBLE);
+            ((TravelViewHolder) holder).travelBigTitleLayout.setVisibility(View.VISIBLE);
             ((TravelViewHolder) holder).travelBigTitleTv.setText(R.string.fangshang_tourist_culture);
+            ((TravelViewHolder) holder).travelBigMoreTv.setText(R.string.more);
             ((TravelViewHolder) holder).travelrv.setLayoutManager(new GridLayoutManager(context,3));
             ((TravelViewHolder) holder).travelrv.setAdapter(new TravelAdapter());
+            ((TravelViewHolder) holder).travelBigMoreTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, TravelActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }else if(holder instanceof LastViewHolder){
             ((LastViewHolder) holder).publicNotiveTv.setText(R.string.public_notice);
             ((LastViewHolder) holder).serviceInfoTv.setText(R.string.service_information);
@@ -218,30 +230,35 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         @OnClick({R.id.public_notive_tv, R.id.service_info_tv, R.id.reminder_tv, R.id.more_tv})
         public void actionTo(TextView textView){
+            Intent intent = null;
             switch (textView.getId()){
                 case R.id.public_notive_tv:
-                    Intent intent = new Intent(context, PublicNotiveActivity.class);
-                    context.startActivity(intent);
+                    intent = new Intent(context, PublicNotiveActivity.class);
                     break;
 
                 case R.id.service_info_tv:
-
+                    intent = new Intent(context, ServiceInfoActivity.class);
                     break;
 
                 case R.id.reminder_tv:
-
+                    intent = new Intent(context, ReminderActivity.class);
                     break;
 
                 case R.id.more_tv:
-
+                    intent = new Intent(context, MoreActivity.class);
                     break;
             }
+            context.startActivity(intent);
         }
     }
 
     class TravelViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.travel_bigtitle_layout)
+        ViewGroup travelBigTitleLayout;
         @BindView(R.id.travel_bigtitle_tv)
         TextView travelBigTitleTv;
+        @BindView(R.id.travel_more_tv)
+        TextView travelBigMoreTv;
         @BindView(R.id.travel_rv)
         RecyclerView travelrv;
 
@@ -285,7 +302,13 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         @Override
         public int getItemCount() {
-            return travels!=null ? travels.size() : 0;
+            int size;
+            if(travels.size()>6){
+                size = 6;
+            }else {
+                size = travels.size();
+            }
+            return travels!=null ? size : 0;
         }
 
         class TravelItemViewHolder extends RecyclerView.ViewHolder{

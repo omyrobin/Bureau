@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.DataAdapter;
+import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.DataEntity;
 import com.administration.bureau.entity.UploadEntity;
@@ -26,6 +28,7 @@ import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.interfaces.IItemClickPosition;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.BitmapUtil;
+import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
 import com.bumptech.glide.Glide;
 
@@ -74,8 +77,8 @@ public class BaseInfoActivity extends BaseActivity {
     @BindView(R.id.person_type_et)
     EditText personTypeEt;
     //人员地域类型
-    @BindView(R.id.person_area_type_et)
-    EditText personAreaTypeEt;
+//    @BindView(R.id.person_area_type_et)
+//    EditText personAreaTypeEt;
     //英文姓
     @BindView(R.id.firstname_et)
     EditText firstnameEt;
@@ -149,7 +152,7 @@ public class BaseInfoActivity extends BaseActivity {
         return true;
     }
 
-    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.person_type_et,R.id.person_area_type_et,R.id.gender_et,R.id.occupation_et})
+    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.person_type_et,R.id.gender_et,R.id.occupation_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
@@ -189,16 +192,16 @@ public class BaseInfoActivity extends BaseActivity {
 
                     break;
 
-                case R.id.person_area_type_et:
-                    adapter = new DataAdapter(this,transformToList(App.getInstance().getPerson_area_type()));
-                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            personAreaTypeEt.setText(dataEntity.getValue());
-                            infoEntity.setPerson_area_type(dataEntity.getKey());
-                        }
-                    });
-                    break;
+//                case R.id.person_area_type_et:
+//                    adapter = new DataAdapter(this,transformToList(App.getInstance().getPerson_area_type()));
+//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            personAreaTypeEt.setText(dataEntity.getValue());
+//                            infoEntity.setPerson_area_type(dataEntity.getKey());
+//                        }
+//                    });
+//                    break;
 
                 case R.id.gender_et:
                     adapter = new DataAdapter(this,transformToList(App.getInstance().getGender()));
@@ -246,9 +249,9 @@ public class BaseInfoActivity extends BaseActivity {
         if(!TextUtils.isEmpty(infoEntity.getPerson_type())){
             personTypeEt.setText(App.getInstance().getPerson_type().get(infoEntity.getPerson_type()));
         }
-        if(!TextUtils.isEmpty(infoEntity.getPerson_area_type())){
-            personAreaTypeEt.setText(App.getInstance().getPerson_area_type().get(infoEntity.getPerson_area_type()));
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getPerson_area_type())){
+//            personAreaTypeEt.setText(App.getInstance().getPerson_area_type().get(infoEntity.getPerson_area_type()));
+//        }
         if(!TextUtils.isEmpty(infoEntity.getGender())){
             genderEt.setText(App.getInstance().getGender().get(infoEntity.getGender()));
         }
@@ -356,6 +359,7 @@ public class BaseInfoActivity extends BaseActivity {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.RGB_565;
             options.inJustDecodeBounds = false;
+            Log.i("TAG",  "URL -------------------:   "+untreatedFile);
             Bitmap bitmap = BitmapFactory.decodeFile(untreatedFile, options);
             if(selectImg == 1){
                 avatarImg.setImageBitmap(bitmap);
@@ -369,8 +373,8 @@ public class BaseInfoActivity extends BaseActivity {
     }
 
     private void upLoadImage(String untreatedFile) {
-        Toast.makeText(this, untreatedFile, Toast.LENGTH_SHORT).show();
         File file = new File(untreatedFile);
+
         // 创建 RequestBody，用于封装构建RequestBody
         RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
         // MultipartBody.Part  和后端约定好Key，这里的partName是用file
@@ -378,7 +382,7 @@ public class BaseInfoActivity extends BaseActivity {
 
         PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
         Observable<Response<BaseResponse<UploadEntity>>> ob = postService.uploadFile("upload",body,"Bearer "+ App.getInstance().getUserEntity().getToken());
-        RetrofitClient.client().request(ob, new ProgressSubscriber<UploadEntity>(this) {
+        RetrofitClient.client().request(ob, new ProgressSubscriber<UploadEntity>(this,true) {
             @Override
             protected void onSuccess(UploadEntity uploadEntity) {
                 if(selectImg == 1){

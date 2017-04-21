@@ -1,7 +1,9 @@
 package com.administration.bureau.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,12 +38,14 @@ import rx.Observable;
  * Created by omyrobin on 2017/3/30.
  */
 
-public class HomePageFragment extends BaseFragment{
+public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
     @BindView(R.id.toolbar_title_tv)
     public TextView titleTv;
+    @BindView(R.id.homepage_re_layout)
+    SwipeRefreshLayout homepageReLayout;
     @BindView(R.id.homepage_rv)
     public RecyclerView homepageRv;
 
@@ -71,13 +75,29 @@ public class HomePageFragment extends BaseFragment{
 
     @Override
     protected void initContent(@Nullable Bundle savedInstanceState) {
+        initRefreshLayout();
         initLayoutManager();
-        requestBannerData();
+        autoRefresh();
+    }
+
+    private void initRefreshLayout(){
+        homepageReLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimary,R.color.colorPrimary);
+        homepageReLayout.setOnRefreshListener(this);
     }
 
     private void initLayoutManager(){
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         homepageRv.setLayoutManager(manager);
+    }
+
+    private void autoRefresh(){
+        homepageReLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                homepageReLayout.setRefreshing(true);
+                requestBannerData();
+            }
+        });
     }
 
     public void requestBannerData(){
@@ -91,31 +111,32 @@ public class HomePageFragment extends BaseFragment{
 
             @Override
             protected void onFailure(String message) {
-
+                homepageReLayout.setRefreshing(false);
             }
         });
     }
 
     private void requestNewsData(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",2, Constant.languages[App.locale]);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",2, Constant.languages[0]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {
                 adapter.setNewsData(articleEntity);
                 requestTravelData();
+                homepageReLayout.setRefreshing(false);
             }
 
             @Override
             protected void onFailure(String message) {
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                homepageReLayout.setRefreshing(false);
             }
         });
     }
 
     private void requestTravelData(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",3, Constant.languages[App.locale]);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",3, Constant.languages[0]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {
@@ -160,4 +181,8 @@ public class HomePageFragment extends BaseFragment{
         return adapter;
     }
 
+    @Override
+    public void onRefresh() {
+        requestBannerData();
+    }
 }

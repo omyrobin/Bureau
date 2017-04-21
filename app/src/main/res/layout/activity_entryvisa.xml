@@ -116,7 +116,7 @@
                     android:gravity="right"
                     android:editable="false"
                     android:background="@null"
-                    android:hint="未设置  "
+                    android:hint="@string/not_set"
                     android:textSize="12sp" />
 
 

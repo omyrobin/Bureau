@@ -4,6 +4,7 @@ package com.administration.bureau.http;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.widget.TextView;
 
 
 import com.administration.bureau.App;
@@ -19,21 +20,30 @@ import rx.Subscriber;
 public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCancelListener{
 
 
-    private Dialog dialogHandler;
+    private ProgressDialog dialogHandler;
 
     private Context context;
+
+    private boolean show;
 
     public ProgressSubscriber(Context context) {
         this.context = context;
         //TODO create dialog to show
-//        dialogHandler = new ProgressDialog(context);
+    }
+
+    public ProgressSubscriber(Context context, boolean show) {
+        this.context = context;
+        this.show = show;
+        //TODO create dialog to show
+        dialogHandler = new ProgressDialog(context);
+        dialogHandler.setMessage("上传中...");
     }
 
     /**
      * 显示Dialog
      */
     public void showProgressDialog(){
-        if (dialogHandler != null) {
+        if (dialogHandler != null && show) {
             dialogHandler.show();
         }
     }
@@ -42,7 +52,7 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
      * 隐藏Dialog
      */
     private void dismissProgressDialog(){
-        if (dialogHandler != null) {
+        if (dialogHandler != null && show) {
             dialogHandler.dismiss();
             dialogHandler=null;
         }

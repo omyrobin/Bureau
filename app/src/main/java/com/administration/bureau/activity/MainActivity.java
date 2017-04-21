@@ -157,7 +157,8 @@ public class MainActivity extends BaseActivity {
         initializeToolbar();
         if(homePageFragment != null){
             homePageFragment.setLanguageText();
-            homePageFragment.requestBannerData();
+            homePageFragment.getAdapter().notifyDataSetChanged();
+//            homePageFragment.requestBannerData();
         }
         if(messageFragment != null){
             messageFragment.setLanguageText();

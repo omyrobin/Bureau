@@ -78,6 +78,26 @@
             android:name=".activity.PublicNotiveActivity"
             android:launchMode="singleTop">
         </activity>
+
+        <activity
+            android:name=".activity.ServiceInfoActivity"
+            android:launchMode="singleTop">
+        </activity>
+
+        <activity
+            android:name=".activity.ReminderActivity"
+            android:launchMode="singleTop">
+        </activity>
+
+        <activity
+            android:name=".activity.MoreActivity"
+            android:launchMode="singleTop">
+        </activity>
+
+        <activity
+            android:name=".activity.TravelActivity"
+            android:launchMode="singleTop">
+        </activity>
     </application>
 
 </manifest>

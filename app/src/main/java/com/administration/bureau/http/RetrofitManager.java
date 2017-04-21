@@ -88,15 +88,4 @@ public class RetrofitManager {
                 .build();
         return client;
     }
-
-
-    public static void setHeaders(Headers headers){
-        for (int i = 0; i < headers.size(); i++) {
-            headersMap.put(headers.name(i), headers.value(i));
-        }
-    }
-
-    public static Map<String, String> getHeaders(){
-        return headersMap;
-    }
 }
