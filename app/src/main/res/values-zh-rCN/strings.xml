@@ -126,6 +126,7 @@
 	<string name="send">发送</string>
 	<string name="send_success">发送成功</string>
 	<string name="send_failure">发送失败</string>
+	<string name="write_off_message">信息核销后，电子证书立即作废，是否进行信息核销</string>
 
 
 </resources>

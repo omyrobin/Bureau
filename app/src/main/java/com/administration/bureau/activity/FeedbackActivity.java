@@ -54,6 +54,11 @@ public class FeedbackActivity extends BaseActivity{
 
     @OnClick(R.id.toolbar_action_tv)
     public void actionTo(){
+        if(App.getInstance().getUserEntity()==null){
+            Intent intent = new Intent(this,RegisterUserActivity.class);
+            startActivity(intent);
+            return;
+        }
         senMessage();
     }
 

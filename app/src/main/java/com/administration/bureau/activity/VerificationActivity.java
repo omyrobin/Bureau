@@ -66,15 +66,15 @@ public class VerificationActivity extends BaseActivity{
 
     @OnClick(R.id.toolbar_action_tv)
     public void actionTo(){
-        AlertDialog dialog = new AlertDialog.Builder(this).setTitle(getString(R.string.hint)).setMessage("信息核销后，电子证书立即作废，是否进行信息核销")
-                .setNegativeButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+        AlertDialog dialog = new AlertDialog.Builder(this).setTitle(getString(R.string.hint)).setMessage(getString(R.string.write_off_message))
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteInfo();
                         dialog.dismiss();
                     }
                 })
-                .setPositiveButton(getString(R.string.cancle),null).create();
+                .setNegativeButton(getString(R.string.cancle),null).create();
         dialog.show();
     }
 

@@ -126,5 +126,6 @@
 	<string name="send">Send</string>
 	<string name="send_success">Send success</string>
 	<string name="send_failure">Send failure</string>
+	<string name="write_off_message">Information verification, electronic certificate immediately void, whether to cancel after verification of information</string>
 
 </resources>

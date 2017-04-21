@@ -1,5 +1,6 @@
 package com.administration.bureau.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
@@ -53,6 +54,11 @@ public class MessageBoardActivity extends BaseActivity{
 
     @OnClick(R.id.toolbar_action_tv)
     public void actionTo(){
+        if(App.getInstance().getUserEntity()==null){
+            Intent intent = new Intent(this,RegisterUserActivity.class);
+            startActivity(intent);
+            return;
+        }
         senMessage();
     }
 
