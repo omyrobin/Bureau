@@ -30,6 +30,7 @@ public class ArticleEntity {
     private int from;
     private int to;
     private ArrayList<DataBean> data;
+    private ArrayList<BannerEntity> banners;
 
     public int getTotal() {
         return total;
@@ -101,6 +102,14 @@ public class ArticleEntity {
 
     public void setData(ArrayList<DataBean> data) {
         this.data = data;
+    }
+
+    public ArrayList<BannerEntity> getBanners() {
+        return banners;
+    }
+
+    public void setBanners(ArrayList<BannerEntity> banners) {
+        this.banners = banners;
     }
 
     public static class DataBean {

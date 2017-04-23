@@ -33,6 +33,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import retrofit2.Response;
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.functions.Func2;
+import rx.functions.Func3;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by omyrobin on 2017/3/30.
@@ -100,52 +106,37 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         });
     }
 
+    public void reuestHomePageData(){
+        GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
+        Observable<Response<BaseResponse<ArticleEntity>>> ob_news = getService.getArticle("article",2, Constant.languages[0]);
+        Observable<Response<BaseResponse<ArticleEntity>>> ob_travel = getService.getArticle("article",3, Constant.languages[0]);
+        Observable<Response<BaseResponse<ArticleEntity>>> ob_date = Observable.mergeDelayError(ob_news, ob_travel);
+        RetrofitClient.client().request(ob_date, new ProgressSubscriber<ArticleEntity>(getActivity()) {
+            @Override
+            protected void onSuccess(ArticleEntity articleEntity) {
+                adapter.setArticleData(articleEntity);
+                homepageReLayout.setRefreshing(false);
+            }
+
+            @Override
+            protected void onFailure(String message) {
+
+            }
+        });
+    }
+
     public void requestBannerData(){
         Observable<Response<BaseResponse<ArrayList<BannerEntity>>>> observable = RetrofitManager.getRetrofit().create(GetService.class).getBanner("banner", Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArrayList<BannerEntity>>(getActivity()) {
             @Override
             protected void onSuccess(ArrayList<BannerEntity> bannerEntities) {
                 setAdapterToMessageRv(initBannerData(bannerEntities));
-                requestNewsData();
+                reuestHomePageData();
             }
 
             @Override
             protected void onFailure(String message) {
                 homepageReLayout.setRefreshing(false);
-            }
-        });
-    }
-
-    private void requestNewsData(){
-        GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",2, Constant.languages[0]);
-        RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
-            @Override
-            protected void onSuccess(ArticleEntity articleEntity) {
-                adapter.setNewsData(articleEntity);
-                requestTravelData();
-                homepageReLayout.setRefreshing(false);
-            }
-
-            @Override
-            protected void onFailure(String message) {
-                homepageReLayout.setRefreshing(false);
-            }
-        });
-    }
-
-    private void requestTravelData(){
-        GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getArticle("article",3, Constant.languages[0]);
-        RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(getActivity()) {
-            @Override
-            protected void onSuccess(ArticleEntity articleEntity) {
-                adapter.setTravelData(articleEntity);
-            }
-
-            @Override
-            protected void onFailure(String message) {
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         });
     }

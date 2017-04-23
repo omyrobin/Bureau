@@ -128,4 +128,38 @@
 	<string name="send_failure">Send failure</string>
 	<string name="write_off_message">Information verification, electronic certificate immediately void, whether to cancel after verification of information</string>
 
+	<string name="last_name_null">Last name Not null</string>
+	<string name="credential_expired_null">Validity of Certificate Not null</string>
+	<string name="my_photo_null">My photo Not null</string>
+	<string name="passport_image_null">Passport information page photo Not null</string>
+	<string name="country_null">Country Not null</string>
+	<string name="credential_type_null">Certificates Type Not null</string>
+	<string name="credential_null">Certificates Number Not null</string>
+	<string name="gender_null">Gender Not null</string>
+	<string name="birthday_null">Date of birth Not null</string>
+	<string name="birthplace_null">Place of birth Not null</string>
+	<string name="occupation_null">Occupation Not null</string>
+	<string name="working_organization_null">Working organization Not null</string>
+	<string name="phone_null">My phone number Not null</string>
+
+	<string name="enter_image_null">Entry page photo Not null</string>
+	<string name="visa_image_null">Visa photo Not null</string>
+	<string name="visa_type_null">Visa(note)Type Not null</string>
+	<string name="visa_expired_null">Visa(note)Valid Not null</string>
+	<string name="entry_port_null">Entry port Not null</string>
+	<string name="stay_reason_null">Stay reason Not null</string>
+
+	<string name="check_in_date_null">Check-in date Not null</string>
+	<string name="check_out_date_null">Check-out date Not null</string>
+	<string name="address_null">Address Not null</string>
+	<string name="house_typr_null">Housing Not null</string>
+	<string name="landlord_country_null">Landlord country Not null</string>
+	<string name="landlord_gender_null">Landlord gender Not null</string>
+	<string name="landlord_identity_null">Landlord identity Not null</string>
+	<string name="landlord_name_null">Landlord name Not null</string>
+	<string name="landlord_phone_null">Landlord phone number Not null</string>
+
+	<string name="one_more">Again according to exit the app</string>
+
+
 </resources>

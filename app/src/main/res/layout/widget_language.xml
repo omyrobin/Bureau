@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RadioGroup
@@ -11,7 +14,7 @@
         android:padding="10dp">
 
         <RadioButton
-            android:buttonTint="@color/colorAccent"
+            app:buttonTint="@color/colorAccent"
             android:id="@+id/chinese_rb"
             android:padding="10dp"
             android:text="中文"
@@ -19,7 +22,7 @@
             android:layout_height="wrap_content" />
 
         <RadioButton
-            android:buttonTint="@color/colorAccent"
+            app:buttonTint="@color/colorAccent"
             android:id="@+id/english_rb"
             android:padding="10dp"
             android:text="English"

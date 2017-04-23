@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.GetService;
 import com.administration.bureau.utils.SharedPreferencesUtil;
+import com.administration.bureau.utils.ToastUtil;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,6 +68,8 @@ public class MainActivity extends BaseActivity {
     private int currPos;
 
     private int prePos;
+
+    private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,6 +286,21 @@ public class MainActivity extends BaseActivity {
         outState.putInt(CURRENT_FRAGMENT_POS,currPos);
         Log.i("TAG", currPos + "");
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                ToastUtil.showLong(R.string.one_more);
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

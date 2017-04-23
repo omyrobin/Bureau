@@ -31,6 +31,7 @@
     <WebView
         android:id="@+id/article_detial_content_wb"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="match_parent">
+    </WebView>
 
 </LinearLayout>

@@ -83,6 +83,17 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         handler = new ViewPagerHandler((MainActivity)context);
     }
 
+    public void setArticleData(ArticleEntity data){
+        for (int i=0 ;i< data.getData().size();i++){
+            if(data.getData().get(i).getType() == 2){
+                news.add(data.getData().get(i));
+            }else{
+                travels.add(data.getData().get(i));
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public void setNewsData(ArticleEntity newsData) {
         this.newsData = newsData;
         news = newsData.getData();

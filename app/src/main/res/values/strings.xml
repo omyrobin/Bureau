@@ -127,5 +127,38 @@
     <string name="send_failure">发送失败</string>
     <string name="write_off_message">信息核销后，电子证书立即作废，是否进行信息核销</string>
 
+    <string name="last_name_null">英文名不能为空</string>
+    <string name="credential_expired_null">证件有效期不能为空</string>
+    <string name="my_photo_null">本人照片不能为空</string>
+    <string name="passport_image_null">护照信息页照片不能为空</string>
+    <string name="country_null">国家不能为空</string>
+    <string name="credential_type_null">证件类型不能为空</string>
+    <string name="credential_null">证件号码不能为空</string>
+    <string name="gender_null">性别不能为空</string>
+    <string name="birthday_null">出生日期不能为空</string>
+    <string name="birthplace_null">出生地不能为空</string>
+    <string name="occupation_null">职业不能为空</string>
+    <string name="working_organization_null">工作机构不能为空</string>
+    <string name="phone_null">本人联系电话不能为空</string>
+
+    <string name="enter_image_null">入境页照片不能为空</string>
+    <string name="visa_image_null">签证页照片不能为空</string>
+    <string name="visa_type_null">签证（注）种类不能为空</string>
+    <string name="visa_expired_null">签证（注）有效期不能为空</string>
+    <string name="entry_port_null">入境口岸不能为空</string>
+    <string name="stay_reason_null">停留事由不能为空</string>
+
+    <string name="check_in_date_null">入住日期不能为空</string>
+    <string name="check_out_date_null">拟定离开日期不能为空</string>
+    <string name="address_null">详细地址不能为空</string>
+    <string name="house_typr_null">住房种类不能为空</string>
+    <string name="landlord_country_null">房主国家不能为空</string>
+    <string name="landlord_gender_null">房主性别不能为空</string>
+    <string name="landlord_identity_null">房主身份证号不能为空</string>
+    <string name="landlord_name_null">房主姓名不能为空</string>
+    <string name="landlord_phone_null">房主联系电话不能为空</string>
+
+    <string name="one_more">再按一次退出程序</string>
+
 
 </resources>

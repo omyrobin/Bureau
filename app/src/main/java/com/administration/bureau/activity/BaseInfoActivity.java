@@ -74,8 +74,8 @@ public class BaseInfoActivity extends BaseActivity {
     @BindView(R.id.credential_expired_date_et)
     EditText credentialExpiredDateEt;
     //人员类型
-    @BindView(R.id.person_type_et)
-    EditText personTypeEt;
+//    @BindView(R.id.person_type_et)
+//    EditText personTypeEt;
     //人员地域类型
 //    @BindView(R.id.person_area_type_et)
 //    EditText personAreaTypeEt;
@@ -152,7 +152,7 @@ public class BaseInfoActivity extends BaseActivity {
         return true;
     }
 
-    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.person_type_et,R.id.gender_et,R.id.occupation_et})
+    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.gender_et,R.id.occupation_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
@@ -180,17 +180,17 @@ public class BaseInfoActivity extends BaseActivity {
                     });
                     break;
 
-                case R.id.person_type_et:
-                    adapter = new DataAdapter(this,transformToList(App.getInstance().getPerson_type()));
-                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            personTypeEt.setText(dataEntity.getValue());
-                            infoEntity.setPerson_type(dataEntity.getKey());
-                        }
-                    });
-
-                    break;
+//                case R.id.person_type_et:
+//                    adapter = new DataAdapter(this,transformToList(App.getInstance().getPerson_type()));
+//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            personTypeEt.setText(dataEntity.getValue());
+//                            infoEntity.setPerson_type(dataEntity.getKey());
+//                        }
+//                    });
+//
+//                    break;
 
 //                case R.id.person_area_type_et:
 //                    adapter = new DataAdapter(this,transformToList(App.getInstance().getPerson_area_type()));
@@ -246,9 +246,9 @@ public class BaseInfoActivity extends BaseActivity {
         if(!TextUtils.isEmpty(infoEntity.getCredential_type())){
             credentialTypeEt.setText(App.getInstance().getCredential_type().get(infoEntity.getCredential_type()));
         }
-        if(!TextUtils.isEmpty(infoEntity.getPerson_type())){
-            personTypeEt.setText(App.getInstance().getPerson_type().get(infoEntity.getPerson_type()));
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getPerson_type())){
+//            personTypeEt.setText(App.getInstance().getPerson_type().get(infoEntity.getPerson_type()));
+//        }
 //        if(!TextUtils.isEmpty(infoEntity.getPerson_area_type())){
 //            personAreaTypeEt.setText(App.getInstance().getPerson_area_type().get(infoEntity.getPerson_area_type()));
 //        }

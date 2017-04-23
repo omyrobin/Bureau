@@ -329,43 +329,43 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
     protected boolean isBaseInfoCompleted(){
         if(TextUtils.isEmpty(infoEntity.getAvatar())){
-            ToastUtil.showShort("本人照片不能为空");
+            ToastUtil.showShort(getString(R.string.my_photo_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getPassport_image())){
-            ToastUtil.showShort("护照信息页照片不能为空");
+            ToastUtil.showShort(getString(R.string.passport_image_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getCountry())){
-            ToastUtil.showShort("国家不能为空");
+            ToastUtil.showShort(getString(R.string.country_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getCredential_type())){
-            ToastUtil.showShort("证件类型不能为空");
+            ToastUtil.showShort(getString(R.string.credential_type_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getCredential())){
-            ToastUtil.showShort("证件号码不能为空");
+            ToastUtil.showShort(getString(R.string.credential_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getCredential_expired_date())){
-            ToastUtil.showShort("证件有效期不能为空");
+            ToastUtil.showShort(getString(R.string.credential_expired_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getPerson_type())){
-            ToastUtil.showShort("人员类型不能为空");
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getPerson_type())){
+//            ToastUtil.showShort("人员类型不能为空");
+//            return false;
+//        }
 //        if(TextUtils.isEmpty(infoEntity.getPerson_area_type())){
 //            ToastUtil.showShort("人员地域类型不能为空");
 //            return false;
 //        }
         if(TextUtils.isEmpty(infoEntity.getLastname())){
-            ToastUtil.showShort("英文名不能为空");
+            ToastUtil.showShort(getString(R.string.last_name_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getGender())){
-            ToastUtil.showShort("性别不能为空");
+            ToastUtil.showShort(getString(R.string.gender_null));
             return false;
         }
 //        if(!TextUtils.isEmpty(infoEntity.getFirstname())){
@@ -375,23 +375,23 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 //            return false;
 //        }
         if(TextUtils.isEmpty(infoEntity.getBirthday())){
-            ToastUtil.showShort("出生日期不能为空");
+            ToastUtil.showShort(getString(R.string.birthday_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getBirthplace())){
-            ToastUtil.showShort("出生地不能为空");
+            ToastUtil.showShort(getString(R.string.birthplace_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getOccupation())){
-            ToastUtil.showShort("职业不能为空");
+            ToastUtil.showShort(getString(R.string.occupation_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getWorking_organization())){
-            ToastUtil.showShort("工作机构不能为空");
+            ToastUtil.showShort(getString(R.string.working_organization_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getPhone())){
-            ToastUtil.showShort("本人联系电话不能为空");
+            ToastUtil.showShort(getString(R.string.phone_null));
             return false;
         }
 //        if(!TextUtils.isEmpty(infoEntity.getEmergency_contact())){
@@ -405,19 +405,19 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
     protected boolean isEntryVisaCompleted() {
         if(TextUtils.isEmpty(infoEntity.getEnter_image())){
-            ToastUtil.showShort("入境页照片不能为空");
+            ToastUtil.showShort(getString(R.string.enter_image_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getVisa_image())){
-            ToastUtil.showShort("签证页照片不能为空");
+            ToastUtil.showShort(getString(R.string.visa_image_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getVisa_type())){
-            ToastUtil.showShort("签证（注）种类不能为空");
+            ToastUtil.showShort(getString(R.string.visa_type_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
-            ToastUtil.showShort("签证（注）有效期不能为空");
+            ToastUtil.showShort(getString(R.string.visa_expired_null));
             return false;
         }
 //        if(TextUtils.isEmpty(infoEntity.getEntry_date())){
@@ -425,11 +425,11 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 //            return false;
 //        }
         if(TextUtils.isEmpty(infoEntity.getEntry_port())){
-            ToastUtil.showShort("入境口岸不能为空");
+            ToastUtil.showShort(getString(R.string.entry_port_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getStay_reason())){
-            ToastUtil.showShort("停留事由不能为空");
+            ToastUtil.showShort(getString(R.string.stay_reason_null));
             return false;
         }
         return true;
@@ -437,46 +437,46 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
     protected boolean isHotlInfoCompleted(){
         if(TextUtils.isEmpty(infoEntity.getCheckin_date())){
-            ToastUtil.showShort("入住日期不能为空");
+            ToastUtil.showShort(getString(R.string.check_in_date_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getCheckout_date())){
-            ToastUtil.showShort("拟定离开日期不能为空");
+            ToastUtil.showShort(getString(R.string.check_out_date_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getHouse_address())){
-            ToastUtil.showShort("详细地址不能为空");
+            ToastUtil.showShort(getString(R.string.address_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getPolice_station())){
-            ToastUtil.showShort("所属派出所不能为空");
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getPolice_station())){
+//            ToastUtil.showShort("所属派出所不能为空");
+//            return false;
+//        }
 //        if(TextUtils.isEmpty(infoEntity.getCommunity())){
 //            return false;
 //        }
         if(TextUtils.isEmpty(infoEntity.getHouse_type())){
-            ToastUtil.showShort("住房种类不能为空");
+            ToastUtil.showShort(getString(R.string.house_typr_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getLandlord_country())){
-            ToastUtil.showShort("房主国家不能为空");
+            ToastUtil.showShort(getString(R.string.landlord_country_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getLandlord_gender())){
-            ToastUtil.showShort("房主性别不能为空");
+            ToastUtil.showShort(getString(R.string.landlord_gender_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getLandlord_identity())){
-            ToastUtil.showShort("房主身份证号不能为空");
+            ToastUtil.showShort(getString(R.string.landlord_identity_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getLandlord_name())){
-            ToastUtil.showShort("房主姓名不能为空");
+            ToastUtil.showShort(getString(R.string.landlord_name_null));
             return false;
         }
         if(TextUtils.isEmpty(infoEntity.getLandlord_phone())){
-            ToastUtil.showShort("房主联系电话不能为空");
+            ToastUtil.showShort(getString(R.string.landlord_phone_null));
             return false;
         }
         return true;
