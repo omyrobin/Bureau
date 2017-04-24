@@ -65,6 +65,12 @@ public class EntryVisaActivity extends BaseActivity {
     //签证页照片
     @BindView(R.id.visa_page_img)
     ImageView visaPageImg;
+    //签证（注）种类layout
+    @BindView(R.id.visa_type_layout)
+    ViewGroup visaTypelayout;
+    //签证（注）有效期layout
+    @BindView(R.id.visa_expired_date_layout)
+    ViewGroup visaExpiredDateLayout;
     //签证（注）种类
     @BindView(R.id.visa_type_et)
     EditText visaTypeEt;
@@ -120,27 +126,31 @@ public class EntryVisaActivity extends BaseActivity {
         if("1".equals(infoEntity.getCredential_type())|| "7".equals(infoEntity.getCredential_type())|| "11".equals(infoEntity.getCredential_type())){
             entryPageLayout.setVisibility(View.GONE);
             visaPageLayout.setVisibility(View.GONE);
+            visaTypelayout.setVisibility(View.GONE);
+            visaExpiredDateLayout.setVisibility(View.GONE);
         }else{
             entryPageLayout.setVisibility(View.VISIBLE);
             visaPageLayout.setVisibility(View.VISIBLE);
+            visaTypelayout.setVisibility(View.VISIBLE);
+            visaExpiredDateLayout.setVisibility(View.VISIBLE);
             if(!TextUtils.isEmpty(infoEntity.getEnter_image())){
                 Glide.with(this).load(infoEntity.getEnter_image()).into(entryPageImg);
             }
             if(!TextUtils.isEmpty(infoEntity.getVisa_image())){
                 Glide.with(this).load(infoEntity.getVisa_image()).into(visaPageImg);
             }
-        }
-        if(!TextUtils.isEmpty(infoEntity.getVisa_type())){
-            visaTypeEt.setText(App.getInstance().getVisa_type().get(infoEntity.getVisa_type()));
+            if(!TextUtils.isEmpty(infoEntity.getVisa_type())){
+                visaTypeEt.setText(App.getInstance().getVisa_type().get(infoEntity.getVisa_type()));
+            }
+            if(!TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
+                visaExpiredDateEt.setText(infoEntity.getVisa_expired_date());
+            }
         }
         if(!TextUtils.isEmpty(infoEntity.getEntry_port())){
             entryPortEt.setText(App.getInstance().getEntry_port().get(infoEntity.getEntry_port()));
         }
         if(!TextUtils.isEmpty(infoEntity.getStay_reason())){
             stayReasonEt.setText(App.getInstance().getStay_reason().get(infoEntity.getStay_reason()));
-        }
-        if(!TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
-            visaExpiredDateEt.setText(infoEntity.getVisa_expired_date());
         }
         if(!TextUtils.isEmpty(infoEntity.getEntry_date())){
             entryDateEt.setText(infoEntity.getEntry_date());
@@ -160,7 +170,7 @@ public class EntryVisaActivity extends BaseActivity {
         //签证（注）有效期
         String visaExpiredDate = visaExpiredDateEt.getText().toString();
         infoEntity.setVisa_expired_date(visaExpiredDate);
-        //签证（注）有效期
+        //入境日期
         String entryDate = entryDateEt.getText().toString();
         infoEntity.setEntry_date(entryDate);
         //停留有效期

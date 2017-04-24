@@ -67,6 +67,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/visa_type_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -95,6 +96,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/visa_expired_date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"

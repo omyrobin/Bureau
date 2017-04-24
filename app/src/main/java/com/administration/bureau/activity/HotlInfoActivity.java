@@ -144,7 +144,7 @@ public class HotlInfoActivity extends BaseActivity {
                     break;
 
                 case R.id.landlord_country_et:
-                    adapter = new DataAdapter(this, transformToList(App.getInstance().getCountry()));
+                    adapter = new DataAdapter(this, transformToListAZ(App.getInstance().getCountry()));
                     dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
                         @Override
                         public void itemClickPosition(DataEntity dataEntity) {

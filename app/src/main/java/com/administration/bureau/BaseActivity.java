@@ -72,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(App.mAppStatus == -1){
-//            protectApp();
+            protectApp();
         }
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutId());
@@ -314,12 +314,12 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("emergency_contact",infoEntity.getEmergency_contact());
         params.put("emergency_phone",infoEntity.getEmergency_phone());
 
-        if(!"1".equals(infoEntity.getCredential_type())&&!"7".equals(infoEntity.getCredential_type())&&!"11".equals(infoEntity.getCredential_type())){
+        if(!"1".equals(infoEntity.getCredential_type()) && !"7".equals(infoEntity.getCredential_type()) && !"11".equals(infoEntity.getCredential_type())){
             params.put("enter_image",infoEntity.getEnter_image());
             params.put("visa_image",infoEntity.getVisa_image());
+            params.put("visa_type",infoEntity.getVisa_type());
+            params.put("visa_expired_date",infoEntity.getVisa_expired_date());
         }
-        params.put("visa_type",infoEntity.getVisa_type());
-        params.put("visa_expired_date",infoEntity.getVisa_expired_date());
 //        params.put("entry_date",infoEntity.getEntry_date());
         params.put("entry_port",infoEntity.getEntry_port());
         params.put("stay_reason",infoEntity.getStay_reason());
@@ -427,15 +427,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
                 ToastUtil.showShort(getString(R.string.visa_image_null));
                 return false;
             }
-        }
-
-        if(TextUtils.isEmpty(infoEntity.getVisa_type())){
-            ToastUtil.showShort(getString(R.string.visa_type_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
-            ToastUtil.showShort(getString(R.string.visa_expired_null));
-            return false;
+            if(TextUtils.isEmpty(infoEntity.getVisa_type())){
+                ToastUtil.showShort(getString(R.string.visa_type_null));
+                return false;
+            }
+            if(TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
+                ToastUtil.showShort(getString(R.string.visa_expired_null));
+                return false;
+            }
         }
 //        if(TextUtils.isEmpty(infoEntity.getEntry_date())){
 //            ToastUtil.showShort("入境日期不能为空");
