@@ -289,12 +289,16 @@ public class MainActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
+
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
             if((System.currentTimeMillis()-exitTime) > 2000){
                 ToastUtil.showLong(R.string.one_more);
                 exitTime = System.currentTimeMillis();
+                Gson gson = new Gson();
+                SharedPreferencesUtil.setParam(this, Constant.SAVE_USER_REGISTER_INFO, gson.toJson(infoEntity));
             } else {
                 finish();
                 System.exit(0);
@@ -308,7 +312,5 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        Gson gson = new Gson();
-        SharedPreferencesUtil.setParam(this, Constant.SAVE_USER_REGISTER_INFO, gson.toJson(infoEntity));
     }
 }

@@ -174,6 +174,7 @@ public class BaseInfoActivity extends BaseActivity {
                     dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
                         @Override
                         public void itemClickPosition(DataEntity dataEntity) {
+                            Log.i("TAG",dataEntity.getValue() + "====" +dataEntity.getKey());
                             credentialTypeEt.setText(dataEntity.getValue());
                             infoEntity.setCredential_type(dataEntity.getKey());
                         }
@@ -356,24 +357,21 @@ public class BaseInfoActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
             getUntreatedFile(requestCode, data);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            options.inJustDecodeBounds = false;
-            Log.i("TAG",  "URL -------------------:   "+untreatedFile);
-            Bitmap bitmap = BitmapFactory.decodeFile(untreatedFile, options);
+            Bitmap bitmap = BitmapUtil.commpressBitmap(untreatedFile);
             if(selectImg == 1){
                 avatarImg.setImageBitmap(bitmap);
             }else{
                 passportInfoImg.setImageBitmap(bitmap);
             }
+
             if(untreatedFile!=null){
                 upLoadImage(BitmapUtil.compressImage(untreatedFile));
             }
         }
     }
 
-    private void upLoadImage(String untreatedFile) {
-        File file = new File(untreatedFile);
+    private void upLoadImage(String filePath) {
+        File file = new File(filePath);
 
         // 创建 RequestBody，用于封装构建RequestBody
         RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
@@ -387,8 +385,10 @@ public class BaseInfoActivity extends BaseActivity {
             protected void onSuccess(UploadEntity uploadEntity) {
                 if(selectImg == 1){
                     infoEntity.setAvatar(uploadEntity.getUrl());//本人照片
+                    Glide.with(BaseInfoActivity.this).load(uploadEntity.getUrl()).into(avatarImg);
                 }else{
                     infoEntity.setPassport_image(uploadEntity.getUrl());//护照信息页照片
+                    Glide.with(BaseInfoActivity.this).load(uploadEntity.getUrl()).into(passportInfoImg);
                 }
             }
 

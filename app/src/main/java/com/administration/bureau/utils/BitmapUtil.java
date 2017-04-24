@@ -58,24 +58,18 @@ public class BitmapUtil {
 		Matrix matrix = new Matrix();
 		matrix.postRotate(degree);
 			// 将原始图片按照旋转矩阵进行旋转，并得到新的图片
-			returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
-					bm.getHeight(), matrix, true);
+        returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
 		
 		return returnBm;
 	}
-	
-	/**
-	 * 对上传的图片进行压缩,获取压缩后的图片路径
-	 */
-	public static String compressImage(String beforeFilePath) {
+
+	public static Bitmap commpressBitmap(String beforeFilePath){
 		Bitmap bitmap;
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.RGB_565;
 		options.inJustDecodeBounds = true;
-		bitmap = BitmapFactory.decodeFile(beforeFilePath, options);
-		int w = options.outWidth;
-		int y = options.outHeight;
-		int b = w/120;
+//		int w = options.outWidth;
+//		int b = w/120;
 		File f = new File(beforeFilePath);
 		long mb = 1024 * 1024;
 		long fSize = f.length();
@@ -90,12 +84,20 @@ public class BitmapUtil {
 		} else if (fSize > 0.3 * mb) {
 			options.inSampleSize = 1;
 		}
-		options.inSampleSize = b;
+//		options.inSampleSize = b;
 		options.inJustDecodeBounds = false;
 		int degree = readBitmapDegree(beforeFilePath);
 		bitmap = BitmapFactory.decodeFile(beforeFilePath, options);
 		if(degree > 0)
 			bitmap = rotateBitmapByDegree(bitmap, degree);
+		return bitmap;
+	}
+	
+	/**
+	 * 对上传的图片进行压缩,获取压缩后的图片路径
+	 */
+	public static String compressImage(String beforeFilePath) {
+		Bitmap bitmap = commpressBitmap(beforeFilePath);
 		try {
 			String compressedFile = saveImage(bitmap);
 			bitmap.recycle();

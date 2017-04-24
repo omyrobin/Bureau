@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,6 +53,12 @@ public class EntryVisaActivity extends BaseActivity {
     TextView titleTv;
     @BindView(R.id.toolbar_action_tv)
     TextView actionTv;
+    //入境页照片layout
+    @BindView(R.id.entry_page_layout)
+    ViewGroup entryPageLayout;
+    //签证页照片layout
+    @BindView(R.id.visa_page_layout)
+    ViewGroup visaPageLayout;
     //入境页照片
     @BindView(R.id.entry_page_img)
     ImageView entryPageImg;
@@ -105,17 +112,23 @@ public class EntryVisaActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(!TextUtils.isEmpty(infoEntity.getEnter_image())){
-            Glide.with(this).load(infoEntity.getEnter_image()).into(entryPageImg);
-        }
-        if(!TextUtils.isEmpty(infoEntity.getVisa_image())){
-            Glide.with(this).load(infoEntity.getVisa_image()).into(visaPageImg);
+        if("1".equals(infoEntity.getCredential_type())|| "7".equals(infoEntity.getCredential_type())|| "11".equals(infoEntity.getCredential_type())){
+            entryPageLayout.setVisibility(View.GONE);
+            visaPageLayout.setVisibility(View.GONE);
+        }else{
+            entryPageLayout.setVisibility(View.VISIBLE);
+            visaPageLayout.setVisibility(View.VISIBLE);
+            if(!TextUtils.isEmpty(infoEntity.getEnter_image())){
+                Glide.with(this).load(infoEntity.getEnter_image()).into(entryPageImg);
+            }
+            if(!TextUtils.isEmpty(infoEntity.getVisa_image())){
+                Glide.with(this).load(infoEntity.getVisa_image()).into(visaPageImg);
+            }
         }
         if(!TextUtils.isEmpty(infoEntity.getVisa_type())){
             visaTypeEt.setText(App.getInstance().getVisa_type().get(infoEntity.getVisa_type()));
@@ -225,10 +238,7 @@ public class EntryVisaActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
             getUntreatedFile(requestCode, data);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            options.inJustDecodeBounds = false;
-            Bitmap bitmap = BitmapFactory.decodeFile(untreatedFile, options);
+            Bitmap bitmap = BitmapUtil.commpressBitmap(untreatedFile);
             if(selectImg == 1){
                 entryPageImg.setImageBitmap(bitmap);
             }else{
@@ -240,8 +250,8 @@ public class EntryVisaActivity extends BaseActivity {
         }
     }
 
-    private void upLoadImage(String untreatedFile) {
-        File file = new File(untreatedFile);
+    private void upLoadImage(String filePath) {
+        File file = new File(filePath);
         // 创建 RequestBody，用于封装构建RequestBody
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/from-data"), file);
         // MultipartBody.Part  和后端约定好Key，这里的partName是用file
@@ -254,8 +264,10 @@ public class EntryVisaActivity extends BaseActivity {
             protected void onSuccess(UploadEntity uploadEntity) {
                 if(selectImg == 1){
                     infoEntity.setEnter_image(uploadEntity.getUrl());//入境页照片
+                    Glide.with(EntryVisaActivity.this).load(uploadEntity.getUrl()).into(entryPageImg);
                 }else{
                     infoEntity.setVisa_image(uploadEntity.getUrl());//签证页照片
+                    Glide.with(EntryVisaActivity.this).load(uploadEntity.getUrl()).into(visaPageImg);
                 }
             }
 

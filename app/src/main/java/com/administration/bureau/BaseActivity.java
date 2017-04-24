@@ -314,8 +314,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("emergency_contact",infoEntity.getEmergency_contact());
         params.put("emergency_phone",infoEntity.getEmergency_phone());
 
-        params.put("enter_image",infoEntity.getEnter_image());
-        params.put("visa_image",infoEntity.getVisa_image());
+        if(!"1".equals(infoEntity.getCredential_type())&&!"7".equals(infoEntity.getCredential_type())&&!"11".equals(infoEntity.getCredential_type())){
+            params.put("enter_image",infoEntity.getEnter_image());
+            params.put("visa_image",infoEntity.getVisa_image());
+        }
         params.put("visa_type",infoEntity.getVisa_type());
         params.put("visa_expired_date",infoEntity.getVisa_expired_date());
 //        params.put("entry_date",infoEntity.getEntry_date());
@@ -416,14 +418,17 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     }
 
     protected boolean isEntryVisaCompleted() {
-        if(TextUtils.isEmpty(infoEntity.getEnter_image())){
-            ToastUtil.showShort(getString(R.string.enter_image_null));
-            return false;
+        if(!"1".equals(infoEntity.getCredential_type()) && !"7".equals(infoEntity.getCredential_type()) && !"11".equals(infoEntity.getCredential_type())){
+            if(TextUtils.isEmpty(infoEntity.getEnter_image())){
+                ToastUtil.showShort(getString(R.string.enter_image_null));
+                return false;
+            }
+            if(TextUtils.isEmpty(infoEntity.getVisa_image())){
+                ToastUtil.showShort(getString(R.string.visa_image_null));
+                return false;
+            }
         }
-        if(TextUtils.isEmpty(infoEntity.getVisa_image())){
-            ToastUtil.showShort(getString(R.string.visa_image_null));
-            return false;
-        }
+
         if(TextUtils.isEmpty(infoEntity.getVisa_type())){
             ToastUtil.showShort(getString(R.string.visa_type_null));
             return false;
