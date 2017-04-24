@@ -194,7 +194,7 @@ public class EntryVisaActivity extends BaseActivity {
                     break;
 
                 case R.id.entry_port_et:
-                    adapter = new DataAdapter(this, transformToList(App.getInstance().getEntry_port()));
+                    adapter = new DataAdapter(this, transformToListAZ(App.getInstance().getEntry_port()));
                     dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
                         @Override
                         public void itemClickPosition(DataEntity dataEntity) {
@@ -241,7 +241,6 @@ public class EntryVisaActivity extends BaseActivity {
     }
 
     private void upLoadImage(String untreatedFile) {
-        Toast.makeText(this, untreatedFile, Toast.LENGTH_SHORT).show();
         File file = new File(untreatedFile);
         // 创建 RequestBody，用于封装构建RequestBody
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/from-data"), file);
@@ -250,7 +249,7 @@ public class EntryVisaActivity extends BaseActivity {
 
         PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
         Observable<Response<BaseResponse<UploadEntity>>> ob = postService.uploadFile("upload",body,"Bearer "+ App.getInstance().getUserEntity().getToken());
-        RetrofitClient.client().request(ob, new ProgressSubscriber<UploadEntity>(this) {
+        RetrofitClient.client().request(ob, new ProgressSubscriber<UploadEntity>(this,true) {
             @Override
             protected void onSuccess(UploadEntity uploadEntity) {
                 if(selectImg == 1){

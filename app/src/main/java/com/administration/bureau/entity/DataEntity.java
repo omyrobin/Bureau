@@ -1,10 +1,13 @@
 package com.administration.bureau.entity;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 /**
  * Created by omyrobin on 2017/4/18.
  */
 
-public class DataEntity {
+public class DataEntity implements Comparable{
 
     private String key;
 
@@ -38,5 +41,14 @@ public class DataEntity {
                 "key='" + key + '\'' +
                 ", value='" + value + '\'' +
                 '}';
+    }
+
+    public String getFirstAlphabet() {
+        return value.subSequence(0, 1).toString();
+    }
+
+    @Override
+    public int compareTo(@NonNull Object another) {
+        return getFirstAlphabet().compareTo(((DataEntity) another).getFirstAlphabet());
     }
 }

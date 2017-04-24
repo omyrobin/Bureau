@@ -73,7 +73,7 @@ public class FeedbackActivity extends BaseActivity{
         String content = sendMessageEt.getText().toString();
         String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
         Observable<Response<BaseResponse<ContentEntity>>> observable = postService.sendMessage(user_id, content, token);
-        RetrofitClient.client().request(observable, new ProgressSubscriber<ContentEntity>(this) {
+        RetrofitClient.client().request(observable, new ProgressSubscriber<ContentEntity>(this,true) {
             @Override
             protected void onSuccess(ContentEntity contentEntity) {
                 ToastUtil.showShort(getString(R.string.send_success));

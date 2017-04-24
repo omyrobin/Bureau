@@ -7,6 +7,7 @@
 
     <EditText
         android:id="@+id/send_message_et"
+        android:padding="10dp"
         android:gravity="top"
         android:background="@null"
         android:layout_width="match_parent"

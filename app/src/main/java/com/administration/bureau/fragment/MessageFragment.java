@@ -94,8 +94,11 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
     }
 
     private void requestMessageData(){
-        if(App.getInstance().getUserEntity() == null)
+        if(App.getInstance().getUserEntity() == null){
+            messageRelayout.setRefreshing(false);
+            emptyViewLayout.setVisibility(View.VISIBLE);
             return;
+        }
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
         int user_id = App.getInstance().getUserEntity().getUser().getId();
         String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
@@ -112,7 +115,7 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
                 messageRelayout.setRefreshing(false);
             }
 
-            @Override
+           @Override
             protected void onFailure(String message) {
                 messageRelayout.setRefreshing(false);
             }

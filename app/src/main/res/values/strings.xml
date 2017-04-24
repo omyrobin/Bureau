@@ -159,6 +159,11 @@
     <string name="landlord_phone_null">房主联系电话不能为空</string>
 
     <string name="one_more">再按一次退出程序</string>
+    <string name="uploading">上传中...</string>
+    <string name="article_detials">文章详情</string>
+    <string name="have_not_yet_opened">尚未开通短信验证码功能</string>
+    <string name="auto_input">我们将为您自动填入</string>
+    <string name="correct_phone_number">请输入正确的手机号码格式</string>
 
 
 </resources>

@@ -53,7 +53,7 @@ public class ArticleDetialActivity extends BaseActivity {
 
     @Override
     protected void initializeToolbar() {
-        titleTv.setText("");
+        titleTv.setText(R.string.article_detials);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -47,6 +47,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -259,6 +261,16 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         return dataEntities;
     }
 
+    protected ArrayList<DataEntity> transformToListAZ(HashMap<String, String> map){
+        ArrayList<DataEntity> dataEntities = new ArrayList<>();
+        for (Map.Entry<String, String> entry : map.entrySet()){
+            DataEntity dataEntity = new DataEntity(entry.getKey(),entry.getValue());
+            dataEntities.add(dataEntity);
+        }
+        Collections.sort(dataEntities);
+        return dataEntities;
+    }
+
     protected void registrationInfo(){
         PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
         int user_id = App.getInstance().getUserEntity().getUser().getId();
@@ -275,7 +287,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
             @Override
             protected void onFailure(String message) {
-                ToastUtil.showShort(message);
+
             }
         });
     }
@@ -288,8 +300,8 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("credential",infoEntity.getCredential());
         params.put("credential_type",infoEntity.getCredential_type());
         params.put("credential_expired_date",infoEntity.getCredential_expired_date());
-        params.put("person_type",infoEntity.getPerson_type());
-        params.put("person_area_type",infoEntity.getPerson_area_type());
+//        params.put("person_type",infoEntity.getPerson_type());
+//        params.put("person_area_type",infoEntity.getPerson_area_type());
         params.put("firstname",infoEntity.getFirstname());
         params.put("lastname",infoEntity.getLastname());
         params.put("chinese_name",infoEntity.getChinese_name());
@@ -306,7 +318,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("visa_image",infoEntity.getVisa_image());
         params.put("visa_type",infoEntity.getVisa_type());
         params.put("visa_expired_date",infoEntity.getVisa_expired_date());
-        params.put("entry_date",infoEntity.getEntry_date());
+//        params.put("entry_date",infoEntity.getEntry_date());
         params.put("entry_port",infoEntity.getEntry_port());
         params.put("stay_reason",infoEntity.getStay_reason());
         params.put("stay_expired_date",infoEntity.getStay_expired_date());
@@ -314,8 +326,8 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("checkin_date",infoEntity.getCheckin_date());
         params.put("checkout_date",infoEntity.getCheckout_date());
         params.put("house_address",infoEntity.getHouse_address());
-        params.put("police_station",infoEntity.getPerson_type());
-        params.put("community",infoEntity.getCommunity());
+//        params.put("police_station",infoEntity.getPolice_station());
+//        params.put("community",infoEntity.getCommunity());
         params.put("house_type",infoEntity.getHouse_type());
         params.put("landlord_country",infoEntity.getLandlord_country());
         params.put("landlord_identity",infoEntity.getLandlord_identity());

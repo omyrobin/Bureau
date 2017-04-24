@@ -36,7 +36,7 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
         this.show = show;
         //TODO create dialog to show
         dialogHandler = new ProgressDialog(context);
-        dialogHandler.setMessage("上传中...");
+        dialogHandler.setMessage(context.getString(R.string.uploading));
     }
 
     /**

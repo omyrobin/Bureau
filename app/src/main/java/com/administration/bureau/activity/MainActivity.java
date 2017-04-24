@@ -37,6 +37,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -213,15 +214,15 @@ public class MainActivity extends BaseActivity {
                 //证件类型
                 App.getInstance().setCredential_type(spinnerData.getCredential_type());
                 //人员地域类型
-                App.getInstance().setPerson_area_type(spinnerData.getPerson_area_type());
+//                App.getInstance().setPerson_area_type(spinnerData.getPerson_area_type());
                 //人员类型
-                App.getInstance().setPerson_type(spinnerData.getPerson_type());
+//                App.getInstance().setPerson_type(spinnerData.getPerson_type());
                 //职业
                 App.getInstance().setOccupation(spinnerData.getOccupation());
                 //入境口岸u
                 App.getInstance().setEntry_port(spinnerData.getEntry_port());
                 //所属派出所
-                App.getInstance().setPolice_station(spinnerData.getPolice_station());
+//                App.getInstance().setPolice_station(spinnerData.getPolice_station());
                 //停留事由
                 App.getInstance().setStay_reason(spinnerData.getStay_reason());
                 //住房种类
@@ -229,7 +230,7 @@ public class MainActivity extends BaseActivity {
                 //证件类型
                 App.getInstance().setVisa_type(spinnerData.getVisa_type());
                 //所属派出所对应社区
-                App.getInstance().setAllCommunity(spinnerData.getCommunity());
+//                App.getInstance().setAllCommunity(spinnerData.getCommunity());
             }
 
             @Override

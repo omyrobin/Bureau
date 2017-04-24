@@ -160,6 +160,11 @@
 	<string name="landlord_phone_null">Landlord phone number Not null</string>
 
 	<string name="one_more">Again according to exit the app</string>
+	<string name="uploading">uploading...</string>
+	<string name="article_detials">Article Detials</string>
+	<string name="have_not_yet_opened">Have not yet opened SMS verification code function</string>
+	<string name="auto_input">We will automatically fill in for you</string>
+	<string name="correct_phone_number">Please enter the correct phone number format</string>
 
 
 </resources>
