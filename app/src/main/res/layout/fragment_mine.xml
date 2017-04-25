@@ -43,6 +43,7 @@
     </com.administration.bureau.widget.ContainerView>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/log_out_tv"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"

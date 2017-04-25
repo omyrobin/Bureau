@@ -24,8 +24,6 @@ public class Constant {
 
     public static final String USER_TOKEN = "USER_TOKEN";//用户Token
 
-    public static final String SAVE_USER_REGISTER_INFO = "SAVE_USER_REGISTER_INFO";//保存用户申请资料
-
     public static final String LOCALE = "LOCALE";
 
     public static String [] languages = new String[]{"zh-CN", "en"};

@@ -81,7 +81,7 @@ public class TravelActivity extends BaseActivity implements SwipeRefreshLayout.O
 
     private void requestLawsData(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",3, Constant.languages[0]);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",3, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(this) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {

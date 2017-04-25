@@ -87,9 +87,9 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        if(App.getInstance().status == 1 && !TextUtils.isEmpty(App.getInstance().reject_reason)){
+        if(infoEntity.getStatus() == 1 && !TextUtils.isEmpty(infoEntity.getReject_reason())){
             rejectReasonTv.setVisibility(View.VISIBLE);
-            rejectReasonTv.setText(App.getInstance().reject_reason);
+            rejectReasonTv.setText(infoEntity.getReject_reason());
         }
         baseInfoTv.setText(R.string.base_info);
         entryVisaTv.setText(R.string.visa_note_info);

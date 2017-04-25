@@ -49,6 +49,7 @@ import rx.Observable;
 public class MainActivity extends BaseActivity {
 
     private static final String CURRENT_FRAGMENT_POS = "CURRENT_FRAGMENT_POS";
+
     @BindView(R.id.homepage_tv)
     TextView homepageTv;
     @BindView(R.id.message_tv)
@@ -71,6 +72,22 @@ public class MainActivity extends BaseActivity {
     private int prePos;
 
     private long exitTime = 0;
+
+    @Subscribe
+    public void onMessageEvent(UserLoginEvent event){
+        requestStatus();
+    }
+
+    @Subscribe
+    public void onMessageEvent(LanguageEvent event){
+        initializeToolbar();
+        reqeustSpinnerData();
+    }
+
+    @Subscribe
+    public void onMessageEvent(UserRegisterEvent event){
+        requestStatus();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +116,6 @@ public class MainActivity extends BaseActivity {
         requestStatus();
         reqeustSpinnerData();
         if (savedInstanceState != null) {
-            Log.i("TAG","MainActivity is to savedInstanceState");
             currPos = savedInstanceState.getInt(CURRENT_FRAGMENT_POS,0);
             homePageFragment = (HomePageFragment) getSupportFragmentManager().findFragmentByTag(0+"");
             messageFragment = (MessageFragment) getSupportFragmentManager().findFragmentByTag(1+"");
@@ -148,35 +164,6 @@ public class MainActivity extends BaseActivity {
         prePos = currPos;
     }
 
-    @Subscribe
-    public void onMessageEvent(UserLoginEvent event){
-        requestStatus();
-    }
-
-    @Subscribe
-    public void onMessageEvent(UserLogoutEvent event){
-        if(homePageFragment != null)
-            homePageFragment.getAdapter().notifyDataSetChanged();
-    }
-
-    @Subscribe
-    public void onMessageEvent(LanguageEvent event){
-        initializeToolbar();
-        if(homePageFragment != null){
-            homePageFragment.setLanguageText();
-            homePageFragment.getAdapter().notifyDataSetChanged();
-//            homePageFragment.requestBannerData();
-        }
-        if(messageFragment != null){
-            messageFragment.setLanguageText();
-        }
-    }
-
-    @Subscribe
-    public void onMessageEvent(UserRegisterEvent event){
-        requestStatus();
-    }
-
     private void requestStatus(){
         if(App.getInstance().getUserEntity() == null)
             return;
@@ -187,11 +174,8 @@ public class MainActivity extends BaseActivity {
         RetrofitClient.client().request(observable, new ProgressSubscriber<UserRegisterInfoEntity>(this) {
             @Override
             protected void onSuccess(UserRegisterInfoEntity userRegisterInfoEntity) {
-                App.getInstance().status = userRegisterInfoEntity.getStatus();
-                App.getInstance().certificate_image = userRegisterInfoEntity.getCertificate_image();
-                App.getInstance().chinese_name = userRegisterInfoEntity.getChinese_name();
-                App.getInstance().reject_reason = userRegisterInfoEntity.getReject_reason();
-                App.getInstance().id = userRegisterInfoEntity.getId();
+                infoEntity = userRegisterInfoEntity;
+                App.getInstance().setInfoEntity(infoEntity);
 
                 if(homePageFragment.getAdapter() != null)
                     homePageFragment.getAdapter().notifyDataSetChanged();
@@ -289,8 +273,6 @@ public class MainActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
-
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
@@ -298,10 +280,10 @@ public class MainActivity extends BaseActivity {
                 ToastUtil.showLong(R.string.one_more);
                 exitTime = System.currentTimeMillis();
                 Gson gson = new Gson();
-                SharedPreferencesUtil.setParam(this, Constant.SAVE_USER_REGISTER_INFO, gson.toJson(infoEntity));
+                if(App.getInstance().getUserEntity() != null)
+                    SharedPreferencesUtil.setParam(this, App.getInstance().getUserEntity().getUser().getId()+"", gson.toJson(infoEntity));
             } else {
                 finish();
-                System.exit(0);
             }
             return true;
         }

@@ -98,7 +98,7 @@ public class VerificationActivity extends BaseActivity{
         params.put("leave_reason",leaveReasonEt.getText().toString());
         params.put("destination",destinationEt.getText().toString());
         int user_id = App.getInstance().getUserEntity().getUser().getId();
-        int id = App.getInstance().id;
+        int id = infoEntity.getId();
         String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
 
         DeleteService deleteService = RetrofitManager.getRetrofit().create(DeleteService.class);
@@ -109,11 +109,7 @@ public class VerificationActivity extends BaseActivity{
                 if(aBoolean){
                     ToastUtil.showShort(getString(R.string.information_off));
                     //销毁用户提交资料
-                    App.getInstance().status = -1;
-                    App.getInstance().certificate_image = "";
-                    App.getInstance().chinese_name = "";
-                    App.getInstance().reject_reason = "";
-                    App.getInstance().id = -1;
+                    infoEntity = null;
                     //TODO 刷新信息
                     EventBus.getDefault().post(new UserLogoutEvent());
                     finish();

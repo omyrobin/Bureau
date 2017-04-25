@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.GetService;
+import com.administration.bureau.utils.ToastUtil;
 
 import butterknife.BindView;
 import retrofit2.Response;
@@ -87,5 +89,8 @@ public class ArticleDetialActivity extends BaseActivity {
         articleDetialDateTv.setText(articleDetialEntity.getCreated_at());
         articleDetialContentWb.loadDataWithBaseURL(null, articleDetialEntity.getContent(), "text/html", "utf-8", null);
         articleDetialContentWb.getSettings().setJavaScriptEnabled(true); //设置支持Javascript
+        articleDetialContentWb.getSettings().setUseWideViewPort(true);
+        articleDetialContentWb.getSettings().setLoadWithOverviewMode(true);
+//        articleDetialContentWb.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
     }
 }

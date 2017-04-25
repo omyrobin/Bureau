@@ -39,10 +39,9 @@
                     android:gravity="right"
                     android:hint="@string/not_set"
                     android:editable="false"
-                    android:textSize="12sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:textSize="13sp" />
 
 
             </RelativeLayout>
@@ -70,7 +69,7 @@
                     android:gravity="right"
                     android:editable="false"
                     android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
 
             </RelativeLayout>
@@ -95,7 +94,7 @@
                     android:gravity="right"
                     android:hint="@string/not_set"
                     android:background="@null"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -174,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:hint="@string/not_set"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:background="@null"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -200,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:hint="@string/not_set"
-                    android:textSize="12sp"
+                    android:textSize="13sp" 
                     android:background="@null"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
@@ -229,7 +228,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -254,7 +253,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -276,11 +275,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:hint="@string/not_set"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:background="@null"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentRight="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -306,7 +304,7 @@
                     android:inputType="phone"
                     android:gravity="right|center"
                     android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp"  />
             </RelativeLayout>
 
         </LinearLayout>

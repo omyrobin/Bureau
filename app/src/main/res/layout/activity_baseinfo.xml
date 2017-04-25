@@ -91,7 +91,7 @@
                     android:editable="false"
                     android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
 
             </RelativeLayout>
@@ -120,7 +120,7 @@
                     android:editable="false"
                     android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp"  />
+                    android:textSize="13sp"  />
 
 
             </RelativeLayout>
@@ -148,7 +148,7 @@
                     android:gravity="right|center"
                     android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
 
             </RelativeLayout>
@@ -175,9 +175,9 @@
                     android:background="@null"
                     android:editable="false"
                     android:gravity="right"
-                   android:hint="@string/not_set"
+                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
            <!-- <RelativeLayout
@@ -204,7 +204,7 @@
                     android:editable="false"
                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp"  />
+                    android:textSize="13sp"  />
             </RelativeLayout>-->
 
            <!-- <RelativeLayout
@@ -231,7 +231,7 @@
                     android:editable="false"
                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp"  />
+                    android:textSize="13sp"  />
             </RelativeLayout>-->
 
             <RelativeLayout
@@ -256,7 +256,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -281,7 +281,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -306,7 +306,7 @@
                     android:background="@null"
                     android:gravity="right"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -333,7 +333,7 @@
                     android:editable="false"
                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -360,7 +360,7 @@
                     android:gravity="right|center"
                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -385,7 +385,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -410,9 +410,9 @@
                     android:background="@null"
                     android:gravity="right|center"
                     android:editable="false"
-                   android:hint="@string/not_set"
+                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
-                    android:textSize="12sp"   />
+                    android:textSize="13sp"   />
             </RelativeLayout>
 
             <RelativeLayout
@@ -437,7 +437,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -463,7 +463,7 @@
                     android:inputType="phone"
                     android:gravity="right|center"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -488,7 +488,7 @@
                     android:background="@null"
                     android:gravity="right|center"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -514,7 +514,7 @@
                     android:inputType="phone"
                     android:gravity="right|center"
                    android:hint="@string/not_set"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
         </LinearLayout>

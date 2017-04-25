@@ -23,10 +23,16 @@ import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.eventbus.LanguageEvent;
+import com.administration.bureau.entity.eventbus.UserLogoutEvent;
+import com.administration.bureau.entity.eventbus.UserRegisterEvent;
 import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.GetService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -60,6 +66,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -77,6 +84,17 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
     public void setLanguageText() {
         titleTv.setText(R.string.entry_and_exit_administration_bureau);
+    }
+
+    @Subscribe
+    public void onMessageEvent(LanguageEvent event){
+        setLanguageText();
+        requestBannerData();
+    }
+
+    @Subscribe
+    public void onMessageEvent(UserLogoutEvent event){
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -109,7 +127,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     public void reuestHomePageData(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
         Observable<Response<BaseResponse<ArticleEntity>>> ob_news = getService.getArticle("article",2, Constant.languages[0]);
-        Observable<Response<BaseResponse<ArticleEntity>>> ob_travel = getService.getArticle("article",3, Constant.languages[0]);
+        Observable<Response<BaseResponse<ArticleEntity>>> ob_travel = getService.getArticle("article",3, Constant.languages[App.locale]);
         Observable<Response<BaseResponse<ArticleEntity>>> ob_date = Observable.mergeDelayError(ob_news, ob_travel);
         RetrofitClient.client().request(ob_date, new ProgressSubscriber<ArticleEntity>(getActivity()) {
             @Override
@@ -120,7 +138,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
             @Override
             protected void onFailure(String message) {
-
+                homepageReLayout.setRefreshing(false);
             }
         });
     }
@@ -155,25 +173,20 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         homepageRv.setAdapter(adapter);
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        Log.i("TAG", "MessagetFragment id onHiddenChanged");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.i("TAG", "MessagetFragment id onDestroyView");
-    }
-
-
     public HomePageAdapter getAdapter() {
         return adapter;
     }
 
     @Override
     public void onRefresh() {
+        EventBus.getDefault().post(new UserRegisterEvent());
         requestBannerData();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

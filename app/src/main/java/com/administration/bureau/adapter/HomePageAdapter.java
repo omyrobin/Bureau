@@ -22,9 +22,9 @@ import com.administration.bureau.activity.LawsActivity;
 import com.administration.bureau.activity.MainActivity;
 import com.administration.bureau.activity.MessageBoardActivity;
 import com.administration.bureau.activity.MoreActivity;
+import com.administration.bureau.activity.PublicNotiveActivity;
 import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.RegisterUserActivity;
-import com.administration.bureau.activity.PublicNotiveActivity;
 import com.administration.bureau.activity.ReminderActivity;
 import com.administration.bureau.activity.ServiceInfoActivity;
 import com.administration.bureau.activity.TravelActivity;
@@ -156,11 +156,11 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 bannerVp.addOnPageChangeListener(bannerAdaper);
                 bannerVp.setCurrentItem(1,false);
                 bannerVp.setOffscreenPageLimit(5);
-                if(App.getInstance().status == 0){
+                if(App.getInstance().getInfoEntity().getStatus()== 0){
                     ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_wait);
-                }else if(App.getInstance().status == 1){
+                }else if(App.getInstance().getInfoEntity().getStatus() == 1){
                     ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_reject);
-                }else if(App.getInstance().status == 3){
+                }else if(App.getInstance().getInfoEntity().getStatus() == 3){
                     ((BannerViewHolder) holder).registerTv.setText(R.string.electronic_certificate_download);
                 }else{
                     ((BannerViewHolder) holder).registerTv.setText(R.string.registeration);
@@ -291,14 +291,14 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
             TextView textView = ((TravelItemViewHolder)holder).tv;
             ViewGroup.LayoutParams params_tv = textView.getLayoutParams();
-            params_tv.width = (int) (App.width*0.3);
+            params_tv.width = (int) (App.width*0.25);
             textView.setLayoutParams(params_tv);
             textView.setText(travels.get(position).getTitle());
 
             ImageView imageView = ((TravelItemViewHolder)holder).image;
             ViewGroup.LayoutParams params_img = imageView.getLayoutParams();
-            params_img.width = (int) (App.width*0.3);
-            params_img.height = (int)(App.width*0.4);
+            params_img.width = (int) (App.width*0.25);
+            params_img.height = (int)(App.width*0.35);
             imageView.setLayoutParams(params_img);
             Glide.with(context).load(travels.get(position).getCover()).into(imageView);
 
@@ -358,17 +358,17 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             Intent intent = null;
             switch (button.getId()){
                 case R.id.register_tv:
-                    if(App.getInstance().status == -1){
+                    if(App.getInstance().getInfoEntity().getStatus() == -1){
                         if(App.getInstance().getUserEntity() == null){
                             intent = new Intent(context, RegisterUserActivity.class);
                         }else{
                             intent = new Intent(context, RegisterActivity.class);
                         }
                         context.startActivity(intent);
-                    }else if(App.getInstance().status == 1){
+                    }else if(App.getInstance().getInfoEntity().getStatus() == 1){
                         intent = new Intent(context, RegisterActivity.class);
                         context.startActivity(intent);
-                    }else if(App.getInstance().status == 3) {
+                    }else if(App.getInstance().getInfoEntity().getStatus() == 3) {
                         intent = new Intent(context, CertificateActivity.class);
                         context.startActivity(intent);
                     }

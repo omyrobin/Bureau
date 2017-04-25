@@ -7,59 +7,65 @@ package com.administration.bureau.entity;
 public class UserRegisterInfoEntity {
 
     /**
-     * avatar :
-     * passport_image : http://www.myfangshan.com/uploads/58e617cf73332.jpg
-     * country : 1
+     * id : 24
+     * status : 1
+     * user_id : 41
+     * avatar : http://106.39.33.2:7070/uploads/58fd7e31ad000.jpg
+     * passport_image : http://106.39.33.2:7070/uploads/58fd7e45ea765.jpg
+     * country : 19
      * credential_type : 1
-     * credential : 1212
-     * credential_expired_date : 2017-02-12
-     * person_type : 1
-     * person_area_type : 1
-     * firstname : SAN
-     * lastname : ZHANG
-     * chinese_name : 张三
+     * credential : 1
+     * credential_expired_date : 2017-04-24
+     * firstname : o
+     * lastname : k
+     * chinese_name : 1
      * gender : 0
-     * birthday : 1988-05-20
-     * occupation : 1
-     * working_organization : CCTV
-     * phone : 15789890798
-     * emergency_contact : TESTER
-     * emergency_phone : 15767678765
-     * enter_image : http://www.myfangshan.com/uploads/58e617cf73332.jpg
-     * visa_image : http://www.myfangshan.com/uploads/58e617cf73332.jpg
-     * visa_type : 1
-     * visa_expired_date : 2017-09-08
-     * entry_date : 2017-09-08
-     * entry_port : 1
-     * stay_reason : 1
-     * stay_expired_date : 2017-09-08
-     * checkin_date : 2017-09-08
-     * checkout_date : 2017-09-08
-     * house_address : GUANGZHOU
-     * police_station : 1
-     * community : 1
+     * birthday : 2017-04-24
+     * birthplace : kk
+     * occupation : 25
+     * working_organization : 回家
+     * phone : 1
+     * emergency_contact :
+     * emergency_phone :
+     * enter_image :
+     * visa_image :
+     * visa_type : 0
+     * visa_expired_date : 0000-00-00
+     * entry_date : 0000-00-00
+     * entry_port : 4
+     * stay_reason : 5
+     * stay_expired_date : 0000-00-00
+     * checkin_date : 2017-04-27
+     * checkout_date : 2017-04-29
+     * house_address : u
      * house_type : 1
-     * landlord_country : 1
-     * landlord_identity : 69856958948596
-     * landlord_name : 李四
+     * landlord_country : 10
+     * landlord_identity : 5
+     * landlord_name : 个
      * landlord_gender : 0
-     * landlord_phone : 13768689097
+     * landlord_phone : 1
      * certificate_image :
-     * user_id : 51
-     * reject_reason: "没写对",
-     * updated_at : 2017-04-06 19:18:52
-     * created_at : 2017-04-06 19:18:52
-     * id : 31
+     * leave_date : 0000-00-00
+     * leave_reason :
+     * destination :
+     * reject_reason : kk
+     * created_at : 2017-04-25
+     * updated_at : 2017-04-25
+     * person_type : null
+     * person_area_type : null
+     * police_station : null
+     * community : null
      */
 
+    private int id;
+    private int status = -1;
+    private int user_id;
     private String avatar;
     private String passport_image;
     private String country;
     private String credential_type;
     private String credential;
     private String credential_expired_date;
-    private String person_type;
-    private String person_area_type;
     private String firstname;
     private String lastname;
     private String chinese_name;
@@ -82,8 +88,6 @@ public class UserRegisterInfoEntity {
     private String checkin_date;
     private String checkout_date;
     private String house_address;
-    private String police_station;
-    private String community;
     private String house_type;
     private String landlord_country;
     private String landlord_identity;
@@ -91,12 +95,40 @@ public class UserRegisterInfoEntity {
     private String landlord_gender;
     private String landlord_phone;
     private String certificate_image;
+    private String leave_date;
+    private String leave_reason;
+    private String destination;
     private String reject_reason;
-    private String user_id;
-    private String updated_at;
     private String created_at;
-    private int id;
-    private int status;// 0=未审核 1=未通过 2=通过 3=电子证 =4已核销
+    private String updated_at;
+    private String person_type;
+    private String person_area_type;
+    private String police_station;
+    private String community;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public String getAvatar() {
         return avatar;
@@ -144,22 +176,6 @@ public class UserRegisterInfoEntity {
 
     public void setCredential_expired_date(String credential_expired_date) {
         this.credential_expired_date = credential_expired_date;
-    }
-
-    public String getPerson_type() {
-        return person_type;
-    }
-
-    public void setPerson_type(String person_type) {
-        this.person_type = person_type;
-    }
-
-    public String getPerson_area_type() {
-        return person_area_type;
-    }
-
-    public void setPerson_area_type(String person_area_type) {
-        this.person_area_type = person_area_type;
     }
 
     public String getFirstname() {
@@ -338,22 +354,6 @@ public class UserRegisterInfoEntity {
         this.house_address = house_address;
     }
 
-    public String getPolice_station() {
-        return police_station;
-    }
-
-    public void setPolice_station(String police_station) {
-        this.police_station = police_station;
-    }
-
-    public String getCommunity() {
-        return community;
-    }
-
-    public void setCommunity(String community) {
-        this.community = community;
-    }
-
     public String getHouse_type() {
         return house_type;
     }
@@ -410,36 +410,28 @@ public class UserRegisterInfoEntity {
         this.certificate_image = certificate_image;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getLeave_date() {
+        return leave_date;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setLeave_date(String leave_date) {
+        this.leave_date = leave_date;
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getLeave_reason() {
+        return leave_reason;
     }
 
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
+    public void setLeave_reason(String leave_reason) {
+        this.leave_reason = leave_reason;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public String getReject_reason() {
@@ -450,58 +442,51 @@ public class UserRegisterInfoEntity {
         this.reject_reason = reject_reason;
     }
 
-    public int getStatus() {
-        return status;
+    public String getCreated_at() {
+        return created_at;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
-    @Override
-    public String toString() {
-        return "UserRegisterInfoEntity{" +
-                "passport_image='" + passport_image + '\'' +
-                ", country='" + country + '\'' +
-                ", credential_type='" + credential_type + '\'' +
-                ", credential='" + credential + '\'' +
-                ", credential_expired_date='" + credential_expired_date + '\'' +
-                ", person_type='" + person_type + '\'' +
-                ", person_area_type='" + person_area_type + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", chinese_name='" + chinese_name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", occupation='" + occupation + '\'' +
-                ", working_organization='" + working_organization + '\'' +
-                ", phone='" + phone + '\'' +
-                ", emergency_contact='" + emergency_contact + '\'' +
-                ", emergency_phone='" + emergency_phone + '\'' +
-                ", enter_image='" + enter_image + '\'' +
-                ", visa_image='" + visa_image + '\'' +
-                ", visa_type='" + visa_type + '\'' +
-                ", visa_expired_date='" + visa_expired_date + '\'' +
-                ", entry_date='" + entry_date + '\'' +
-                ", entry_port='" + entry_port + '\'' +
-                ", stay_reason='" + stay_reason + '\'' +
-                ", stay_expired_date='" + stay_expired_date + '\'' +
-                ", checkin_date='" + checkin_date + '\'' +
-                ", checkout_date='" + checkout_date + '\'' +
-                ", house_address='" + house_address + '\'' +
-                ", police_station='" + police_station + '\'' +
-                ", community='" + community + '\'' +
-                ", house_type='" + house_type + '\'' +
-                ", landlord_country='" + landlord_country + '\'' +
-                ", landlord_identity='" + landlord_identity + '\'' +
-                ", landlord_name='" + landlord_name + '\'' +
-                ", landlord_gender='" + landlord_gender + '\'' +
-                ", landlord_phone='" + landlord_phone + '\'' +
-                ", certificate_image='" + certificate_image + '\'' +
-                ", user_id=" + user_id +
-                ", updated_at='" + updated_at + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", id=" + id +
-                '}';
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public String getPerson_type() {
+        return person_type;
+    }
+
+    public void setPerson_type(String person_type) {
+        this.person_type = person_type;
+    }
+
+    public String getPerson_area_type() {
+        return person_area_type;
+    }
+
+    public void setPerson_area_type(String person_area_type) {
+        this.person_area_type = person_area_type;
+    }
+
+    public String getPolice_station() {
+        return police_station;
+    }
+
+    public void setPolice_station(String police_station) {
+        this.police_station = police_station;
+    }
+
+    public String getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(String community) {
+        this.community = community;
     }
 }

@@ -58,7 +58,7 @@ public class CertificateActivity extends BaseActivity {
     @OnClick(R.id.toolbar_action_tv)
     public void actionTo(){
         circle();
-        onDownLoad(App.getInstance().certificate_image);
+        onDownLoad(infoEntity.getCertificate_image());
         onDownLoad(Url.GENERATE);
     }
 
@@ -69,7 +69,7 @@ public class CertificateActivity extends BaseActivity {
     }
 
     private void previewCertificater(){
-        Glide.with(this).load(App.getInstance().certificate_image).into(certificateImg);
+        Glide.with(this).load(infoEntity.getCertificate_image()).into(certificateImg);
     }
 
     @OnClick(R.id.ceriflcate_change_tv)

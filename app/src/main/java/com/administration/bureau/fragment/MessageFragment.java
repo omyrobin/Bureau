@@ -19,11 +19,15 @@ import com.administration.bureau.R;
 import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.MessageEntity;
+import com.administration.bureau.entity.eventbus.LanguageEvent;
 import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.GetService;
 import com.administration.bureau.widget.EmptyRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +53,13 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
     @BindView(R.id.empty_view_tv)
     TextView emptyViewTv;
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_message;
@@ -64,6 +75,11 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
     public void setLanguageText(){
         titleTv.setText(R.string.message);
         emptyViewTv.setText(R.string.no_message);
+    }
+
+    @Subscribe
+    public void onMessageEvent(LanguageEvent event){
+        setLanguageText();
     }
 
     @Override
@@ -126,6 +142,12 @@ public class MessageFragment extends BaseFragment implements SwipeRefreshLayout.
     public void onRefresh() {
         messageRelayout.setRefreshing(true);
         requestMessageData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 
     class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder>{

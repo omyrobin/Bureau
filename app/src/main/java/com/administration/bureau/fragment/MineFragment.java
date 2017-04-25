@@ -23,6 +23,7 @@ import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.RegisterUserActivity;
 import com.administration.bureau.activity.VerificationActivity;
 import com.administration.bureau.constant.Constant;
+import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
 import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
@@ -113,17 +114,17 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     }
 
     private void initUserView(){
-        if(App.getInstance().getUserEntity()!=null){
+        if(App.getInstance().getUserEntity()!= null){
             logOutTv.setVisibility(View.VISIBLE);
         }
-        if(!TextUtils.isEmpty(App.getInstance().chinese_name)){
-            userNameTv.setText(App.getInstance().chinese_name);
+        if(!TextUtils.isEmpty(infoEntity.getChinese_name())){
+            userNameTv.setText(infoEntity.getChinese_name());
         }
-        if(App.getInstance().status == 3){
+        if(infoEntity.getStatus() == 3){
             userStatusTv.setText(R.string.electronic_certificate_download);
-        }else if(App.getInstance().status == 0){
+        }else if(infoEntity.getStatus() == 0){
             userStatusTv.setText(R.string.wait_for_review);
-        }else if(App.getInstance().status == -1){
+        }else if(infoEntity.getStatus() == -1){
             userStatusTv.setText(R.string.not_submit_registration);
         }
     }
@@ -137,10 +138,10 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                     intent = new Intent(getActivity(), RegisterUserActivity.class);
                     startActivity(intent);
                 }else{
-                    if(App.getInstance().status == 3){
+                    if(infoEntity.getStatus() == 3){
                         intent = new Intent(getActivity(), CertificateActivity.class);
                         startActivity(intent);
-                    }else if(App.getInstance().status == 0){
+                    }else if(infoEntity.getStatus() == 0){
                         ToastUtil.showShort(getString(R.string.please_wait));
                     }else{
                         intent = new Intent(getActivity(), RegisterActivity.class);
@@ -150,7 +151,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_INFO_VER:
-                if(App.getInstance().status == 3){
+                if(infoEntity.getStatus() == 3){
                     intent = new Intent(getActivity(), VerificationActivity.class);
                     startActivity(intent);
                 }else{
@@ -159,7 +160,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_CERTIFICATE:
-                if(App.getInstance().status == 3){
+                if(infoEntity.getStatus() == 3){
                     intent = new Intent(getActivity(), CertificateActivity.class);
                     startActivity(intent);
                 }else{
@@ -195,8 +196,8 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         App.locale = select == 0 ? 0 : 1;
-                        App.getInstance().initLocale();
                         SharedPreferencesUtil.setParam(getActivity(),Constant.LOCALE,App.locale);
+                        App.getInstance().initLocale();
                         EventBus.getDefault().post(new LanguageEvent());
                     }
                 })
@@ -230,12 +231,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                         SharedPreferencesUtil.setParam(getActivity(), Constant.USER_PHONE, "");
                         SharedPreferencesUtil.setParam(getActivity(), Constant.USER_TOKEN, "");
                         //销毁用户提交资料
-                        App.getInstance().status = -1;
-                        App.getInstance().certificate_image = "";
-                        App.getInstance().chinese_name = "";
-                        App.getInstance().reject_reason = "";
-                        App.getInstance().id = -1;
-
+                        infoEntity = new UserRegisterInfoEntity();
                         changeUserInfo();
 
                         //TODO 通知刷新
@@ -249,9 +245,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     }
 
     private void changeUserInfo(){
-        App.getInstance().status = -1;
-        App.getInstance().chinese_name = "";
-        App.getInstance().certificate_image = "";
+        infoEntity = new UserRegisterInfoEntity();
         initUserView();
     }
 

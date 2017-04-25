@@ -65,16 +65,6 @@ public class App extends Application {
 
     public static int height;
 
-    public int status = -1;//审核状态
-
-    public String certificate_image;//电子证书图片地址
-
-    public String chinese_name = "";//我的信息页显示中文姓名
-
-    public String reject_reason;//拒绝原因
-
-    public int id;//电子证书id
-
     public static App getInstance(){
        return mApp;
     }
@@ -83,21 +73,15 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mApp = this;
-        locale = (int) SharedPreferencesUtil.getParam(this,Constant.LOCALE,-1);
+        locale = (int) SharedPreferencesUtil.getParam(this, Constant.LOCALE, 0);
         initLocale();
         initAppInfo();
         initUserEntity();
-        //文件工具类初始化
+        initUserRegisterInfoEntity();
         FileUtil.instance(this);
-        //用户申请资料
-        String json = (String) SharedPreferencesUtil.getParam(this,Constant.SAVE_USER_REGISTER_INFO,"");
-        infoEntity = new Gson().fromJson(json, UserRegisterInfoEntity.class);
-        if(infoEntity == null){
-            infoEntity = new UserRegisterInfoEntity();
-        }
-        setInfoEntity(infoEntity);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
     }
 
     public void initLocale(){
@@ -125,6 +109,37 @@ public class App extends Application {
             userBean.setPhone(user_phone);
             userEntity.setUser(userBean);
             App.getInstance().setUserEntity(userEntity);
+
+            //用户申请资料
+            String json = (String) SharedPreferencesUtil.getParam(this,user_id+"","");
+            infoEntity = new Gson().fromJson(json, UserRegisterInfoEntity.class);
+        }
+    }
+
+    private void initUserRegisterInfoEntity(){
+        if(infoEntity == null){
+            infoEntity = new UserRegisterInfoEntity();
+        }
+        setInfoEntity(infoEntity);
+    }
+
+    private void initAppInfo() {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        width = metrics.widthPixels;
+        height = metrics.heightPixels;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+        //保存用户相关信息
+        if(userEntity != null){
+            SharedPreferencesUtil.setParam(this, Constant.USER_ID, userEntity.getUser().getId());
+            SharedPreferencesUtil.setParam(this, Constant.USER_PHONE, userEntity.getUser().getPhone());
+            SharedPreferencesUtil.setParam(this, Constant.USER_TOKEN, userEntity.getToken());
         }
     }
 
@@ -220,27 +235,6 @@ public class App extends Application {
         gender.put("0", "男");
         gender.put("1", "女");
         return gender;
-    }
-
-    private void initAppInfo() {
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        width = metrics.widthPixels;
-        height = metrics.heightPixels;
-//        density = metrics.density;
-    }
-
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
-
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-        //保存用户相关信息
-        if(userEntity != null){
-            SharedPreferencesUtil.setParam(this, Constant.USER_ID, userEntity.getUser().getId());
-            SharedPreferencesUtil.setParam(this, Constant.USER_PHONE, userEntity.getUser().getPhone());
-            SharedPreferencesUtil.setParam(this, Constant.USER_TOKEN, userEntity.getToken());
-        }
     }
 
     public UserRegisterInfoEntity getInfoEntity() {

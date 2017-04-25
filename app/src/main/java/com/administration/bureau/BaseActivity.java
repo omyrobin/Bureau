@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -50,6 +53,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -342,6 +346,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     }
 
     protected boolean isBaseInfoCompleted(){
+        if(infoEntity == null){
+            return false;
+        }
         if(TextUtils.isEmpty(infoEntity.getAvatar())){
             ToastUtil.showShort(getString(R.string.my_photo_null));
             return false;
@@ -418,6 +425,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     }
 
     protected boolean isEntryVisaCompleted() {
+        if(infoEntity == null){
+            return false;
+        }
         if(!"1".equals(infoEntity.getCredential_type()) && !"7".equals(infoEntity.getCredential_type()) && !"11".equals(infoEntity.getCredential_type())){
             if(TextUtils.isEmpty(infoEntity.getEnter_image())){
                 ToastUtil.showShort(getString(R.string.enter_image_null));
@@ -452,6 +462,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     }
 
     protected boolean isHotlInfoCompleted(){
+        if(infoEntity == null){
+            return false;
+        }
         if(TextUtils.isEmpty(infoEntity.getCheckin_date())){
             ToastUtil.showShort(getString(R.string.check_in_date_null));
             return false;
