@@ -76,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(App.mAppStatus == -1){
-            protectApp();
+//            protectApp();
         }
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutId());

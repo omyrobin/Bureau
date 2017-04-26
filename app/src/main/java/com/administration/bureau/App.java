@@ -71,7 +71,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mApp = this;
-        locale = (int) SharedPreferencesUtil.getParam(this, Constant.LOCALE, 0);
+        locale = (int) SharedPreferencesUtil.getParam(this, Constant.LOCALE, -1);
         initLocale();
         initAppInfo();
         initUserEntity();

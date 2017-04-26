@@ -106,14 +106,19 @@
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 
         <activity
-            android:name=".activity.LanguageSelectActivity"
-            android:launchMode="singleTask">
+            android:name=".activity.LaunchActivity"
+            android:launchMode="singleTop">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.LanguageSelectActivity"
+            android:launchMode="singleTop">
         </activity>
 
         <activity

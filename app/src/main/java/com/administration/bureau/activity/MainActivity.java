@@ -102,7 +102,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        App.mAppStatus = 0;
         super.onCreate(savedInstanceState);
     }
 

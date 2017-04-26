@@ -2,6 +2,7 @@ package com.administration.bureau.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +26,11 @@ public class LanguageSelectActivity extends BaseActivity {
     ViewGroup languageSelectLayout;
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_language_select;
     }
@@ -36,13 +42,7 @@ public class LanguageSelectActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        if(App.locale != -1){
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            showLanguageSelectBg();
-        }
+        showLanguageSelectBg();
     }
 
     private void showLanguageSelectBg(){
