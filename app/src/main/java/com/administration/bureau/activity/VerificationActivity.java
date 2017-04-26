@@ -14,6 +14,8 @@ import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.UserRegisterInfoEntity;
+import com.administration.bureau.entity.eventbus.CancelEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
 import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
@@ -109,9 +111,10 @@ public class VerificationActivity extends BaseActivity{
                 if(aBoolean){
                     ToastUtil.showShort(getString(R.string.information_off));
                     //销毁用户提交资料
-                    infoEntity = null;
+                    App.getInstance().setInfoEntity(new UserRegisterInfoEntity());
+                    infoEntity = App.getInstance().getInfoEntity();
                     //TODO 刷新信息
-                    EventBus.getDefault().post(new UserLogoutEvent());
+                    EventBus.getDefault().post(new CancelEvent());
                     finish();
                 }
             }

@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="app_name">房山出入境</string>
-	<string name="entry_and_exit_administration_bureau">出入境管理局</string>
+	<string name="entry_and_exit_administration_bureau">房山出入境</string>
 	<string name="select_photo_album">从相册选择</string>
 	<string name="select_take_photo">拍照</string>
 	<string name="select_pic">选择图片</string>
@@ -11,6 +11,7 @@
 	<string name="registeration">境外人员办理注册登记</string>
 	<string name="check_state_wait">审核状态：等待审核</string>
 	<string name="check_state_reject">审核状态：申请被拒绝</string>
+	<string name="check_state_approve">审核状态：通过</string>
 	<string name="electronic_certificate_download">电子证书可下载</string>
 
 	<string name="my_photo">本人照片</string>
@@ -72,7 +73,7 @@
 
 	<string name="log_out">退出登录</string>
 
-	<string name="foreign_laws">涉外法律法规</string>
+	<string name="foreign_laws">法律法规</string>
 	<string name="leave_message">留言板</string>
 	<string name="fangshan_news">房山新闻</string>
 	<string name="fangshang_tourist_culture">房山旅游文化</string>

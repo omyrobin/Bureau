@@ -161,7 +161,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 }else if(App.getInstance().getInfoEntity().getStatus() == 1){
                     ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_reject);
                 }else if(App.getInstance().getInfoEntity().getStatus() == 3){
-                    ((BannerViewHolder) holder).registerTv.setText(R.string.electronic_certificate_download);
+                    ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_approve);
                 }else{
                     ((BannerViewHolder) holder).registerTv.setText(R.string.registeration);
                 }

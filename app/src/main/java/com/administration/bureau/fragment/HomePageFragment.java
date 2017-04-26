@@ -23,7 +23,9 @@ import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.eventbus.CancelEvent;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
+import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
 import com.administration.bureau.entity.eventbus.UserRegisterEvent;
 import com.administration.bureau.http.ProgressSubscriber;
@@ -92,8 +94,18 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         requestBannerData();
     }
 
+//    @Subscribe
+//    public void onMessageEvent(UserLoginEvent event){
+//        adapter.notifyDataSetChanged();
+//    }
+
     @Subscribe
     public void onMessageEvent(UserLogoutEvent event){
+        adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void onMessageEvent(CancelEvent event){
         adapter.notifyDataSetChanged();
     }
 

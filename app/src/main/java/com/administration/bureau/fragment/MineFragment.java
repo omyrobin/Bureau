@@ -117,14 +117,14 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         if(App.getInstance().getUserEntity()!= null){
             logOutTv.setVisibility(View.VISIBLE);
         }
-        if(!TextUtils.isEmpty(infoEntity.getChinese_name())){
-            userNameTv.setText(infoEntity.getChinese_name());
+        if(!TextUtils.isEmpty(App.getInstance().getInfoEntity().getChinese_name())){
+            userNameTv.setText(App.getInstance().getInfoEntity().getChinese_name());
         }
-        if(infoEntity.getStatus() == 3){
+        if(App.getInstance().getInfoEntity().getStatus() == 3){
             userStatusTv.setText(R.string.electronic_certificate_download);
-        }else if(infoEntity.getStatus() == 0){
+        }else if(App.getInstance().getInfoEntity().getStatus() == 0){
             userStatusTv.setText(R.string.wait_for_review);
-        }else if(infoEntity.getStatus() == -1){
+        }else if(App.getInstance().getInfoEntity().getStatus() == -1){
             userStatusTv.setText(R.string.not_submit_registration);
         }
     }
@@ -138,10 +138,10 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                     intent = new Intent(getActivity(), RegisterUserActivity.class);
                     startActivity(intent);
                 }else{
-                    if(infoEntity.getStatus() == 3){
+                    if(App.getInstance().getInfoEntity().getStatus() == 3){
                         intent = new Intent(getActivity(), CertificateActivity.class);
                         startActivity(intent);
-                    }else if(infoEntity.getStatus() == 0){
+                    }else if(App.getInstance().getInfoEntity().getStatus() == 0){
                         ToastUtil.showShort(getString(R.string.please_wait));
                     }else{
                         intent = new Intent(getActivity(), RegisterActivity.class);
@@ -151,7 +151,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_INFO_VER:
-                if(infoEntity.getStatus() == 3){
+                if(App.getInstance().getInfoEntity().getStatus() == 3){
                     intent = new Intent(getActivity(), VerificationActivity.class);
                     startActivity(intent);
                 }else{
@@ -160,7 +160,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_CERTIFICATE:
-                if(infoEntity.getStatus() == 3){
+                if(App.getInstance().getInfoEntity().getStatus() == 3){
                     intent = new Intent(getActivity(), CertificateActivity.class);
                     startActivity(intent);
                 }else{
@@ -231,7 +231,6 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                         SharedPreferencesUtil.setParam(getActivity(), Constant.USER_PHONE, "");
                         SharedPreferencesUtil.setParam(getActivity(), Constant.USER_TOKEN, "");
                         //销毁用户提交资料
-                        infoEntity = new UserRegisterInfoEntity();
                         changeUserInfo();
 
                         //TODO 通知刷新
@@ -245,7 +244,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     }
 
     private void changeUserInfo(){
-        infoEntity = new UserRegisterInfoEntity();
+        App.getInstance().setInfoEntity(new UserRegisterInfoEntity());
         initUserView();
     }
 

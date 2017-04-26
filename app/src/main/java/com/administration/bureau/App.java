@@ -7,14 +7,12 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
 import com.administration.bureau.constant.Constant;
-import com.administration.bureau.entity.DataEntity;
 import com.administration.bureau.entity.UserEntity;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.utils.FileUtil;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 

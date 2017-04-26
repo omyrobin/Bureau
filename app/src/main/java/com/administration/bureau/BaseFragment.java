@@ -24,14 +24,11 @@ public abstract class BaseFragment extends Fragment{
 
     protected Unbinder unBinder;
 
-    protected UserRegisterInfoEntity infoEntity;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         contentView = inflater.inflate(getLayoutId(),null);
         unBinder = ButterKnife.bind(this, contentView);
-        infoEntity = App.getInstance().getInfoEntity();
         initializeToolbar();
         initContent(savedInstanceState);
         return contentView;

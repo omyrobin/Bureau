@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="app_name">Bureau</string>
-	<string name="entry_and_exit_administration_bureau">entry and exit administration bureau</string>
+	<string name="entry_and_exit_administration_bureau">FangShan Entry and exit administration</string>
 	<string name="select_photo_album">Select form photo library</string>
 	<string name="select_take_photo">Camera</string>
 	<string name="select_pic">Please select photo</string>
@@ -11,6 +11,7 @@
 	<string name="registeration">Registeration of overseas personnel</string>
 	<string name="check_state_wait">Check_State: Wait</string>
 	<string name="check_state_reject">Check_State: Reject</string>
+	<string name="check_state_approve">Check_State: Approve</string>
 	<string name="electronic_certificate_download">Electronic Certificate Download</string>
 
 	<string name="my_photo">My photo</string>
@@ -75,7 +76,7 @@
 
 	<string name="fangshan_news">FangShan News</string>
 	<string name="fangshang_tourist_culture">FangShang Tourist culture</string>
-	<string name="foreign_laws">Foreign laws</string>
+	<string name="foreign_laws">Laws and Regulations</string>
 	<string name="leave_message">Leave message</string>
 	<string name="public_notice">Public notice</string>
 	<string name="service_information">Service information</string>

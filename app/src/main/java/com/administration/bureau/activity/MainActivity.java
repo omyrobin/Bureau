@@ -18,6 +18,7 @@ import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.SpinnerData;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
+import com.administration.bureau.entity.eventbus.CancelEvent;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
 import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
@@ -74,7 +75,22 @@ public class MainActivity extends BaseActivity {
     private long exitTime = 0;
 
     @Subscribe
+    public void onMessageEvent(UserRegisterEvent event){
+        requestStatus();
+    }
+
+    @Subscribe
     public void onMessageEvent(UserLoginEvent event){
+        requestStatus();
+    }
+
+    @Subscribe
+    public void onMessageEvent(UserLogoutEvent event){
+        requestStatus();
+    }
+
+    @Subscribe
+    public void onMessageEvent(CancelEvent event){
         requestStatus();
     }
 
@@ -82,11 +98,6 @@ public class MainActivity extends BaseActivity {
     public void onMessageEvent(LanguageEvent event){
         initializeToolbar();
         reqeustSpinnerData();
-    }
-
-    @Subscribe
-    public void onMessageEvent(UserRegisterEvent event){
-        requestStatus();
     }
 
     @Override
@@ -280,8 +291,9 @@ public class MainActivity extends BaseActivity {
                 ToastUtil.showLong(R.string.one_more);
                 exitTime = System.currentTimeMillis();
                 Gson gson = new Gson();
-                if(App.getInstance().getUserEntity() != null)
-                    SharedPreferencesUtil.setParam(this, App.getInstance().getUserEntity().getUser().getId()+"", gson.toJson(infoEntity));
+                if(App.getInstance().getUserEntity() != null){
+                    SharedPreferencesUtil.setParam(this, App.getInstance().getUserEntity().getUser().getId()+"", gson.toJson(App.getInstance().getInfoEntity()));
+                }
             } else {
                 finish();
             }
