@@ -167,6 +167,12 @@
 	<string name="have_not_yet_opened">Have not yet opened SMS verification code function</string>
 	<string name="auto_input">We will automatically fill in for you</string>
 	<string name="correct_phone_number">Please enter the correct phone number format</string>
+	<string name="for_android">FangShan Entry-Exit Administration v%1$s for Android</string>
+	<string name="ownership_of_copyright">Fangshang police station Copyright®</string>
+	<string name="male">Male</string>
+	<string name="female">Female</string>
+	<string name="info_succeed">The review has been submitted</string>
+	<string name="info_falid">Submission failed, please try again after checking information</string>
 
 
 </resources>

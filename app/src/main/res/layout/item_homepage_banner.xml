@@ -4,10 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/banner_vp"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"></android.support.v4.view.ViewPager>
+        android:layout_height="150dp" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/banner_vp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/banner_dot_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="15dp"
+            android:gravity="bottom"
+            android:orientation="horizontal" />
+    </FrameLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"

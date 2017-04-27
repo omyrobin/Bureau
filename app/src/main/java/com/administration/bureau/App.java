@@ -1,6 +1,9 @@
 package com.administration.bureau;
 
 import android.app.Application;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.text.TextUtils;
@@ -232,8 +235,8 @@ public class App extends Application {
     }
 
     public HashMap<String,String> getGender() {
-        gender.put("0", "男");
-        gender.put("1", "女");
+        gender.put("0", getString(R.string.male));
+        gender.put("1", getString(R.string.female));
         return gender;
     }
 
@@ -243,6 +246,45 @@ public class App extends Application {
 
     public void setInfoEntity(UserRegisterInfoEntity infoEntity) {
         this.infoEntity = infoEntity;
+    }
+
+    /**
+     * 获取版本号
+     * @return
+     */
+    public int getVersionCode(){
+        PackageManager manager = getPackageManager();//获取包管理器
+        try {
+            //通过当前的包名获取包的信息
+            PackageInfo info = manager.getPackageInfo(getPackageName(),0);//获取包对象信息
+            return  info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * 获取坂本明
+     * @return
+     */
+    public String getVersionName(){
+        PackageManager manager = getPackageManager();
+        try {
+            //第二个参数代表额外的信息，例如获取当前应用中的所有的Activity
+            PackageInfo packageInfo = manager.getPackageInfo(getPackageName(), PackageManager.GET_ACTIVITIES
+            );
+            ActivityInfo[] activities = packageInfo.activities;
+            showActivities(activities);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    public void showActivities(ActivityInfo[] activities){
+        for(ActivityInfo activity : activities) {
+        }
     }
 
 }

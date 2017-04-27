@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.administration.bureau.App;
 import com.administration.bureau.BaseFragment;
 import com.administration.bureau.R;
+import com.administration.bureau.activity.AboutUsActivity;
 import com.administration.bureau.activity.CertificateActivity;
 import com.administration.bureau.activity.FeedbackActivity;
 import com.administration.bureau.activity.RegisterActivity;
@@ -178,7 +179,8 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                 break;
 
             case MINE_ABOUTUS:
-
+                intent = new Intent(getActivity(), AboutUsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

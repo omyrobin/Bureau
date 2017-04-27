@@ -173,10 +173,10 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
     private ArrayList<BannerEntity> initBannerData(ArrayList<BannerEntity> bannerEntities){
         //TODO 请求数据
-        if(bannerEntities!=null && !bannerEntities.isEmpty()){
-            bannerEntities.add(0,bannerEntities.get(bannerEntities.size()-1));
-            bannerEntities.add(bannerEntities.get(0));
-        }
+//        if(bannerEntities!=null && !bannerEntities.isEmpty()){
+//            bannerEntities.add(0,bannerEntities.get(bannerEntities.size()-1));
+//            bannerEntities.add(bannerEntities.get(0));
+//        }
         return bannerEntities;
     }
 

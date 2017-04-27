@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.administration.bureau.App;
@@ -61,11 +62,11 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     private ViewPager bannerVp;
 
+    private LinearLayout bannerDotLayout;
+
     private BannerAdapter bannerAdaper;
 
     private ViewPagerHandler handler;
-
-    private volatile int currentPos;
 
     private ArrayList<ArticleEntity.DataBean> news = new ArrayList<>();
 
@@ -75,12 +76,10 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     private ArticleEntity travelData;
 
-
     public HomePageAdapter(Context context, ArrayList<BannerEntity> bannerEntities) {
         this.context = context;
         this.bannerEntities = bannerEntities;
         inflater = LayoutInflater.from(context);
-        handler = new ViewPagerHandler((MainActivity)context);
     }
 
     public void setArticleData(ArticleEntity data){
@@ -150,12 +149,13 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof BannerViewHolder){
             if(bannerEntities != null && !bannerEntities.isEmpty()){
-                bannerAdaper = new BannerAdapter();
+                bannerDotLayout = ((BannerViewHolder) holder).bannerDotLayout;
                 bannerVp = ((BannerViewHolder) holder).bannerVp;
+                bannerAdaper = new BannerAdapter(bannerVp);
                 bannerVp.setAdapter(bannerAdaper);
                 bannerVp.addOnPageChangeListener(bannerAdaper);
-                bannerVp.setCurrentItem(1,false);
-                bannerVp.setOffscreenPageLimit(5);
+                bannerVp.setCurrentItem(bannerEntities.size() * 100,false);
+                bannerAdaper.sendMessage();
                 if(App.getInstance().getInfoEntity().getStatus()== 0){
                     ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_wait);
                 }else if(App.getInstance().getInfoEntity().getStatus() == 1){
@@ -341,6 +341,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         @BindView(R.id.banner_vp)
         ViewPager bannerVp;
+        @BindView(R.id.banner_dot_layout)
+        LinearLayout bannerDotLayout;
         @BindView(R.id.register_tv)
         TextView registerTv;
         @BindView(R.id.law_tv)
@@ -351,6 +353,25 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         public BannerViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            setDots(bannerEntities.size());
+        }
+
+        private void setDots(int count){
+            bannerDotLayout.removeAllViews();
+            if(count == 0)
+                return;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = 10;
+            for (int i = 0; i < count; i++) {
+                ImageView dot = new ImageView(context);
+                dot.setImageResource(R.drawable.selector_banner_dot);
+                bannerDotLayout.addView(dot, params);
+                dot.setEnabled(true);
+                if(i != 0){
+                    dot.animate().scaleX(0.5f);
+                    dot.animate().scaleY(0.5f);
+                }
+            }
         }
 
         @OnClick({R.id.register_tv, R.id.law_tv, R.id.message_board_tv})
@@ -387,32 +408,86 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public class BannerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
+    class BannerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
 
-        @Override
-        public int getCount() {
-            return bannerEntities.size();
+        private ViewPager bannerVp;
+
+        private volatile int currentPos;
+
+        public BannerAdapter(ViewPager bannerVp) {
+            this.bannerVp = bannerVp;
+        }
+
+        public void sendMessage(){
+            if(handler==null)
+                handler = new ViewPagerHandler(this);
+            if(!handler.hasMessages(0))
+                handler.sendEmptyMessageDelayed(0, 4000);
+        }
+
+        public ViewPager getBannerVp() {
+            return bannerVp;
+        }
+
+        public int getCurrentPos() {
+            return currentPos;
+        }
+
+        public void setCurrentPos(int currentPos) {
+            this.currentPos = currentPos;
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public int getCount() {
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        public Object instantiateItem(final ViewGroup container, int position) {
             ImageView view = new ImageView(context);
             view.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(context).load(bannerEntities.get(position).getImage()).into(view);
+            int size = bannerEntities.size();
+            final BannerEntity entity = bannerEntities.get(position % size);
+            Glide.with(context).load(entity.getImage()).into(view);
             container.addView(view);
             return view;
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(ViewGroup container, int position,Object object) {
             container.removeView((View) object);
             object = null;
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return arg0 == arg1;
         }
+
+//        @Override
+//        public int getCount() {
+//            return bannerEntities.size();
+//        }
+//
+//        @Override
+//        public Object instantiateItem(ViewGroup container, int position) {
+//            ImageView view = new ImageView(context);
+//            view.setScaleType(ImageView.ScaleType.FIT_XY);
+//            Glide.with(context).load(bannerEntities.get(position).getImage()).into(view);
+//            container.addView(view);
+//            return view;
+//        }
+//
+//        @Override
+//        public void destroyItem(ViewGroup container, int position, Object object) {
+//            container.removeView((View) object);
+//            object = null;
+//        }
+//
+//        @Override
+//        public boolean isViewFromObject(View view, Object object) {
+//            return view == object;
+//        }
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -422,17 +497,27 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         @Override
         public void onPageSelected(int position) {
             currentPos = position;
+            //banner指示器
+            int newPosition = currentPos % bannerDotLayout.getChildCount();
+            for (int i = 0; i < bannerDotLayout.getChildCount(); i++) {
+                if(i == newPosition){
+                    bannerDotLayout.getChildAt(i).animate().scaleX(1f);
+                    bannerDotLayout.getChildAt(i).animate().scaleY(1f);
+                }else{
+                    bannerDotLayout.getChildAt(i).animate().scaleX(0.5f);
+                    bannerDotLayout.getChildAt(i).animate().scaleY(0.5f);
+                }
+            }
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
             if (state == ViewPager.SCROLL_STATE_IDLE) {
-
-                if (currentPos == getCount() - 1) {
-                    bannerVp.setCurrentItem(1, false);
-                } else if (currentPos == 0) {
-                    bannerVp.setCurrentItem(getCount() - 2, false);
-                }
+//                if (currentPos == getCount() - 1) {
+//                    bannerVp.setCurrentItem(1, false);
+//                } else if (currentPos == 0) {
+//                    bannerVp.setCurrentItem(getCount() - 2, false);
+//                }
             }
         }
 
@@ -440,29 +525,31 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     public static class ViewPagerHandler extends Handler {
 
-        WeakReference<MainActivity> weakReferenceActivity;
+        WeakReference<BannerAdapter> weakReferenceAdapter;
 
-        MainActivity activity;
+        BannerAdapter adapter;
 
-        public ViewPagerHandler(MainActivity activity) {
-            weakReferenceActivity = new WeakReference<>(activity);
-            this.activity = weakReferenceActivity.get();
+        public ViewPagerHandler(BannerAdapter adapter) {
+            weakReferenceAdapter = new WeakReference<>(adapter);
+            this.adapter = weakReferenceAdapter.get();
         }
 
         @Override
         public void handleMessage(Message msg) {
-            if(activity!=null){
-//                currentPos += 1;
-//                if (currentPos == ids.size() - 1) {
+            if(adapter!=null){
+                adapter.setCurrentPos(adapter.getCurrentPos()+1);
+//                if (adapter.getCurrentPos() == adapter.getCount() - 1) {
 //                    adapter.getBannerVp().setCurrentItem(1, true);
 //                }
-//                else if (adapter.getCurrentPosition() == 0) {
-//                    adapter.getBannerVp().setCurrentItem(ids.size() - 2, true);
+//                else if (adapter.getCurrentPos() == 0) {
+//                    adapter.getBannerVp().setCurrentItem(adapter.getCount() - 2, true);
 //                }
 //                else{
-//                    adapter.getBannerVp().setCurrentItem(currentPos);
+//                    adapter.getBannerVp().setCurrentItem(adapter.getCurrentPos());
 //                }
-//                sendEmptyMessageDelayed(0, 4000);
+
+                adapter.getBannerVp().setCurrentItem(adapter.getCurrentPos());
+                sendEmptyMessageDelayed(0, 4000);
             }
         }
     }

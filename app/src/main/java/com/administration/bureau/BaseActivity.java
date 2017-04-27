@@ -308,7 +308,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         RetrofitClient.client().request(observable, new ProgressSubscriber<UserRegisterInfoEntity>(this) {
             @Override
             protected void onSuccess(UserRegisterInfoEntity userRegisterInfoEntity) {
-                ToastUtil.showShort("审核资料已提交，请耐心等待工作人员审核");
+                ToastUtil.showShort(getString(R.string.info_succeed));
                 //TODO 刷新HomePageAdapter
                 EventBus.getDefault().post(new UserRegisterEvent());
                 finish();
@@ -316,7 +316,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
             @Override
             protected void onFailure(String message) {
-
+                ToastUtil.showShort(getString(R.string.info_falid));
             }
         });
     }
