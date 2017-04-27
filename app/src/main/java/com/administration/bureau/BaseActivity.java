@@ -3,17 +3,20 @@ package com.administration.bureau;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -30,6 +33,7 @@ import android.widget.Toast;
 import com.administration.bureau.activity.BaseInfoActivity;
 import com.administration.bureau.activity.MainActivity;
 import com.administration.bureau.activity.RegisterActivity;
+import com.administration.bureau.activity.SamplePhotoActivity;
 import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.DataEntity;
@@ -41,6 +45,7 @@ import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.FileUtil;
 import com.administration.bureau.utils.KitKatUri;
+import com.administration.bureau.utils.ProviderUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.pic.ISelectPic;
 import com.administration.bureau.widget.pic.SelectPicDialog;
@@ -75,6 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         if(App.mAppStatus == -1){
 //            protectApp();
         }
@@ -134,10 +140,11 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         return R.anim.slide_right_out;
     }
 
-    protected void showSelectPicDialog(){
+    protected void showSelectPicDialog(boolean isSample){
         if(mDialog==null){
             mDialog = new SelectPicDialog(this, this);
         }
+        mDialog.setIsSample(isSample);
         mDialog.show();
     }
 
@@ -148,7 +155,18 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             File file = new File(FileUtil.getCamoraFile(),System.currentTimeMillis() + ".jpg");
             untreatedFile  = file.getAbsolutePath();
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+
+            Uri uri;
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
+                uri = Uri.fromFile(file);
+            }else{
+                /**
+                 * 7.0 调用系统相机拍照不再允许使用Uri方式，应该替换为FileProvider
+                 * 并且这样可以解决MIUI系统上拍照返回size为0的情况
+                 */
+                uri = FileProvider.getUriForFile(this, ProviderUtil.getFileProviderName(this), file);
+            }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             startActivityForResult(intent, Constant.SELECT_CAMERA);
         }
     }
@@ -161,6 +179,13 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             intent.setType("image/*");
             startActivityForResult(intent, Constant.SELECT_CHOOSER);
         }
+    }
+
+    @Override
+    public void selectSampleItem() {
+        mDialog.dismiss();
+        Intent intent = new Intent(this,SamplePhotoActivity.class);
+        startActivity(intent);
     }
 
     /**

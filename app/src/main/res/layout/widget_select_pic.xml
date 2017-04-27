@@ -5,8 +5,21 @@
     android:padding="15dp"
     android:background="@color/colorDivider"
     android:orientation="vertical" >
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/mSamplePhotoTv"
+        android:text="@string/select_example_photo"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        android:background="@color/colorRed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
     
-    <TextView 
+    <TextView
+        android:layout_marginTop="15dp"
         android:id="@+id/mSelectTakePhotoTv"
         android:text="@string/select_take_photo"
         android:gravity="center"

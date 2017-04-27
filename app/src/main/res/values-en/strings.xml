@@ -2,9 +2,10 @@
 <resources>
 
 	<string name="app_name">Bureau</string>
-	<string name="entry_and_exit_administration_bureau">FangShan Entry and exit administration</string>
+	<string name="entry_and_exit_administration_bureau">FangShan Entry-Exit Administration</string>
 	<string name="select_photo_album">Select form photo library</string>
 	<string name="select_take_photo">Camera</string>
+	<string name="select_example_photo">Photo sample</string>
 	<string name="select_pic">Please select photo</string>
 	<string name="cancle">Cancle</string>
 
@@ -94,7 +95,7 @@
 
 	<string name="base_info">Base information</string>
 	<string name="visa_note_info">Visa(note)information</string>
-	<string name="hotel_information">Hotel information</string>
+	<string name="hotel_information">Accommodation information</string>
 	<string name="completed">(Completed)</string>
 	<string name="not_yet_completed">(Not yet Completed)</string>
 
@@ -110,12 +111,12 @@
 
 	//My
 	<string name="registration_information">Registration information</string>
-	<string name="write_off_info">Write off information</string>
+	<string name="write_off_info">Leave</string>
 	<string name="electronic_certificate">Electronic certificate</string>
 	<string name="language_settings">Language settings</string>
-	<string name="user_feedback">User feedback</string>
+	<string name="user_feedback">Feedback</string>
 	<string name="about_us">About Us</string>
-	<string name="whether_out_of_the_current_account">Whether out of the current account</string>
+	<string name="whether_out_of_the_current_account">Are you sure you want to logout the current account?</string>
 	<string name="not_submit_registration">(Not submit registration)</string>
 	<string name="wait_for_review">(wait for review)</string>
 

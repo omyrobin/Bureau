@@ -21,12 +21,12 @@ public class SelectPicDialog implements OnClickListener{
 	
 	private DisplayMetrics display;
 	
-	private TextView mSelectTakePhotoTv, mSelectPhotoAlbumTv, mSelectCancelTv;
+	private TextView mSamplePhotoTv,mSelectTakePhotoTv, mSelectPhotoAlbumTv, mSelectCancelTv;
 	
 	private ISelectPic mISelectPic;
 
 	private View mDialogContentView;
-	
+
 	public SelectPicDialog(Context context, ISelectPic mISelectPic) {
 		super();
 		this.context = context;
@@ -50,10 +50,12 @@ public class SelectPicDialog implements OnClickListener{
 	private void setListener(){
 		mSelectTakePhotoTv = (TextView) mDialogContentView.findViewById(R.id.mSelectTakePhotoTv);
 		mSelectPhotoAlbumTv = (TextView) mDialogContentView.findViewById(R.id.mSelectPhotoAlbumTv);
+		mSamplePhotoTv = (TextView) mDialogContentView.findViewById(R.id.mSamplePhotoTv);
 		mSelectCancelTv = (TextView) mDialogContentView.findViewById(R.id.mSelectCancelTv);
-		
+
 		mSelectTakePhotoTv.setOnClickListener(this);
 		mSelectPhotoAlbumTv.setOnClickListener(this);
+		mSamplePhotoTv.setOnClickListener(this);
 		mSelectCancelTv.setOnClickListener(this);
 	}
 	
@@ -69,18 +71,30 @@ public class SelectPicDialog implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.mSelectTakePhotoTv:
-			mISelectPic.selectOneItem();
-			break;
-			
-		case R.id.mSelectPhotoAlbumTv:
-			mISelectPic.selectTwoItem();;
-			break;
+			case R.id.mSamplePhotoTv:
+				mISelectPic.selectSampleItem();
+				break;
 
-		default:
-			mDialog.dismiss();
-			break;
+			case R.id.mSelectTakePhotoTv:
+				mISelectPic.selectOneItem();
+				break;
+
+			case R.id.mSelectPhotoAlbumTv:
+				mISelectPic.selectTwoItem();
+				break;
+
+			default:
+				mDialog.dismiss();
+				break;
 		}
 		
+	}
+
+	public void setIsSample(boolean isSample) {
+		if(isSample){
+			mSamplePhotoTv.setVisibility(View.VISIBLE);
+		}else{
+			mSamplePhotoTv.setVisibility(View.GONE);
+		}
 	}
 }

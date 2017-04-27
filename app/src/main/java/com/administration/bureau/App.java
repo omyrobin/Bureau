@@ -63,6 +63,8 @@ public class App extends Application {
 
     public static int height;
 
+    public int samplePhotoIndex;
+
     public static App getInstance(){
        return mApp;
     }

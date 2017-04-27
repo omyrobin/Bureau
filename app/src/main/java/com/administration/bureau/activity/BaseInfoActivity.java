@@ -344,13 +344,15 @@ public class BaseInfoActivity extends BaseActivity {
         switch (viewGroup.getId()){
             case R.id.user_shelf_layout:
                 selectImg = 1;
+                App.getInstance().samplePhotoIndex = Constant.PASSPORT_INFO;
+                showSelectPicDialog(false);
                 break;
 
             case R.id.passport_info_layout:
                 selectImg = 2;
+                showSelectPicDialog(true);
                 break;
         }
-        showSelectPicDialog();
     }
 
     @Override

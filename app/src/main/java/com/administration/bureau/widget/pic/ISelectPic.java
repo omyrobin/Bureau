@@ -4,5 +4,7 @@ public interface ISelectPic {
     void selectOneItem();
 	
 	void selectTwoItem();
+
+    void selectSampleItem();
 	
 }

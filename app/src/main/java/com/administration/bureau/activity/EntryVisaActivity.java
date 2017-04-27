@@ -183,13 +183,15 @@ public class EntryVisaActivity extends BaseActivity {
         switch (layout.getId()){
             case R.id.entry_page_layout:
                 selectImg = 1;
+                App.getInstance().samplePhotoIndex = Constant.ENTRY_PAGE;
                 break;
 
             case R.id.visa_page_layout:
                 selectImg = 2;
+                App.getInstance().samplePhotoIndex = Constant.VISA_PAGE;
                 break;
         }
-        showSelectPicDialog();
+        showSelectPicDialog(true);
     }
 
     @OnTouch({R.id.visa_expired_date_et, R.id.entry_date_et, R.id.stay_expired_date_et})

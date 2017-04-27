@@ -27,4 +27,10 @@ public class Constant {
     public static final String LOCALE = "LOCALE";
 
     public static String [] languages = new String[]{"zh-CN", "en"};
+
+    public static final int PASSPORT_INFO = 0;//护照信息页
+
+    public static final int ENTRY_PAGE = 1;//入境页
+
+    public static final int VISA_PAGE = 2;//签证页
 }
