@@ -295,6 +295,7 @@ public class MainActivity extends BaseActivity {
                 }
             } else {
                 finish();
+                System.exit(0);
             }
             return true;
         }

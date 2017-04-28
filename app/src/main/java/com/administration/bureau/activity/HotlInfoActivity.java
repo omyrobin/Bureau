@@ -87,7 +87,6 @@ public class HotlInfoActivity extends BaseActivity {
         setHotlinfoParams();
         if(isBaseInfoCompleted() && isEntryVisaCompleted() && isHotlInfoCompleted()){
             registrationInfo();
-            finish();
         }
     }
 

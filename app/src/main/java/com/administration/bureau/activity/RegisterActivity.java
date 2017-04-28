@@ -100,7 +100,6 @@ public class RegisterActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         ToastUtil.isShow = false;
-        Log.i("TAG", "onResume");
         if(isBaseInfoCompleted()){
             baseInfoCompletedTv.setText(R.string.completed);
             baseInfoCompletedTv.setTextColor(Color.GREEN);
