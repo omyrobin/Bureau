@@ -17,6 +17,7 @@ import com.administration.bureau.R;
 import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.SpinnerData;
+import com.administration.bureau.entity.StatusChangeEvent;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.entity.eventbus.CancelEvent;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
@@ -81,11 +82,6 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe
     public void onMessageEvent(UserLoginEvent event){
-        requestStatus();
-    }
-
-    @Subscribe
-    public void onMessageEvent(UserLogoutEvent event){
         requestStatus();
     }
 
@@ -186,7 +182,7 @@ public class MainActivity extends BaseActivity {
             protected void onSuccess(UserRegisterInfoEntity userRegisterInfoEntity) {
                 infoEntity = userRegisterInfoEntity;
                 App.getInstance().setInfoEntity(infoEntity);
-
+                EventBus.getDefault().post(new StatusChangeEvent());
                 if(homePageFragment.getAdapter() != null)
                     homePageFragment.getAdapter().notifyDataSetChanged();
             }

@@ -51,7 +51,7 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/app_chinese_name_layout"
-        android:text="FangShan Entry-Exit Administration"
+        android:text="FangShan Exit-Entry Administration"
         android:gravity="center"
         android:lineSpacingMultiplier="1.5"
         android:layout_width="wrap_content"

@@ -86,7 +86,11 @@ public class HotlInfoActivity extends BaseActivity {
     public void actionTo(){
         setHotlinfoParams();
         if(isBaseInfoCompleted() && isEntryVisaCompleted() && isHotlInfoCompleted()){
-            registrationInfo();
+            if(App.getInstance().getInfoEntity().getStatus() == 1){
+                registrationInfoAgain();
+            }else{
+                registrationInfo();
+            }
         }
     }
 

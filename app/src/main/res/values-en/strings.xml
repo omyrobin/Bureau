@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="app_name">Bureau</string>
-	<string name="entry_and_exit_administration_bureau">FangShan Entry-Exit Administration</string>
+	<string name="entry_and_exit_administration_bureau">FangShan Exit-Entry Administration</string>
 	<string name="select_photo_album">Select form photo library</string>
 	<string name="select_take_photo">Camera</string>
 	<string name="select_example_photo">Photo sample</string>
@@ -79,8 +79,8 @@
 	<string name="fangshang_tourist_culture">FangShang Tourist culture</string>
 	<string name="foreign_laws">Laws and Regulations</string>
 	<string name="leave_message">Leave message</string>
-	<string name="public_notice">Public notice</string>
-	<string name="service_information">Service information</string>
+	<string name="public_notice">Notice</string>
+	<string name="service_information">Guides</string>
 	<string name="reminder">Reminder</string>
 	<string name="more">More</string>
 
@@ -168,11 +168,12 @@
 	<string name="auto_input">We will automatically fill in for you</string>
 	<string name="correct_phone_number">Please enter the correct phone number format</string>
 	<string name="for_android">FangShan Entry-Exit Administration v%1$s for Android</string>
-	<string name="ownership_of_copyright">Fangshang police station Copyright®</string>
+	<string name="ownership_of_copyright">Fangshang police station Copyright®\n技术支持单位：北京蓝屿文化传媒有限公司</string>
 	<string name="male">Male</string>
 	<string name="female">Female</string>
 	<string name="info_succeed">The review has been submitted</string>
 	<string name="info_falid">Submission failed, please try again after checking information</string>
+	<string name="guest">Guest</string>
 
 
 </resources>

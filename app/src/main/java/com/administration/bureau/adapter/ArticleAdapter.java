@@ -60,7 +60,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         holder.articleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArticleDetialActivity.newInstance(context,datas.get(position).getId());
+                ArticleDetialActivity.newInstance(context,datas.get(position).getId(),show);
             }
         });
     }

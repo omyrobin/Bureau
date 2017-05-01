@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ import com.administration.bureau.activity.TravelActivity;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
 import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -175,13 +178,19 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.VISIBLE);
                 ((NewsViewHolder) holder).newsBigTitleTv.setText(R.string.fangshan_news);
             }
-            Glide.with(context).load(news.get(position-1).getCover()).into(((NewsViewHolder) holder).newsPicImg);
+            if(!TextUtils.isEmpty(news.get(position-1).getCover())){
+                ((NewsViewHolder) holder).newsPicImg.setVisibility(View.VISIBLE);
+                Glide.with(context).load(news.get(position-1).getCover()).into(((NewsViewHolder) holder).newsPicImg);
+            }else{
+                ((NewsViewHolder) holder).newsPicImg.setVisibility(View.GONE);
+            }
+
             ((NewsViewHolder) holder).newsTitleTv.setText(news.get(position - 1).getTitle());
             ((NewsViewHolder) holder).newsDateTv.setText(news.get(position - 1).getCreated_at());
             ((NewsViewHolder) holder).newsLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ArticleDetialActivity.newInstance(context,news.get(position - 1).getId());
+                    ArticleDetialActivity.newInstance(context,news.get(position - 1).getId(),true);
                 }
             });
         }else if(holder instanceof TravelViewHolder){
@@ -305,7 +314,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             ((TravelItemViewHolder)holder).travelLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ArticleDetialActivity.newInstance(context,travels.get(position).getId());
+                    ArticleDetialActivity.newInstance(context,travels.get(position).getId(),false);
                 }
             });
         }

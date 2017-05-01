@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,9 +23,9 @@ import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.RegisterUserActivity;
 import com.administration.bureau.activity.VerificationActivity;
 import com.administration.bureau.constant.Constant;
+import com.administration.bureau.entity.StatusChangeEvent;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
-import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
@@ -42,8 +41,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -64,6 +61,11 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
     TextView userStatusTv;
 
     int select;
+
+    @Subscribe
+    public void onMessageEvent(StatusChangeEvent event){
+        initUserView();
+    }
 
     @Override
     protected int getLayoutId() {
@@ -118,8 +120,10 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
         if(App.getInstance().getUserEntity()!= null){
             logOutTv.setVisibility(View.VISIBLE);
         }
-        if(!TextUtils.isEmpty(App.getInstance().getInfoEntity().getChinese_name())){
-            userNameTv.setText(App.getInstance().getInfoEntity().getChinese_name());
+        if(App.getInstance().getUserEntity() != null){
+            userNameTv.setText(App.getInstance().getInfoEntity().getLastname());
+        }else{
+            userNameTv.setText(R.string.guest);
         }
         if(App.getInstance().getInfoEntity().getStatus() == 3){
             userStatusTv.setText(R.string.electronic_certificate_download);

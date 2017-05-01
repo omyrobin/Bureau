@@ -152,7 +152,11 @@ public class RegisterActivity extends BaseActivity {
                 break;
 
             case R.id.registration_info_tv:
-                registrationInfo();
+                if(App.getInstance().getInfoEntity().getStatus() == 1){
+                    registrationInfoAgain();
+                }else{
+                    registrationInfo();
+                }
                 break;
         }
     }

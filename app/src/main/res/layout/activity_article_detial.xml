@@ -15,6 +15,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:visibility="gone"
         android:paddingRight="5dp"
         android:paddingBottom="5dp"
         android:id="@+id/article_detial_date_tv"

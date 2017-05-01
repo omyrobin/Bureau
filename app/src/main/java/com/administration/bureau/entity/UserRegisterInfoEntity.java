@@ -68,7 +68,7 @@ public class UserRegisterInfoEntity {
     private String credential_expired_date;
     private String firstname;
     private String lastname;
-    private String chinese_name;
+    private String chinese_name = "";
     private String gender;
     private String birthday;
     private String birthplace;

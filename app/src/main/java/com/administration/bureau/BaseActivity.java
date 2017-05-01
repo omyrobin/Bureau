@@ -5,8 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -19,20 +17,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.administration.bureau.activity.BaseInfoActivity;
 import com.administration.bureau.activity.MainActivity;
-import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.SamplePhotoActivity;
 import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
@@ -43,6 +35,7 @@ import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.PostService;
+import com.administration.bureau.model.PutService;
 import com.administration.bureau.utils.FileUtil;
 import com.administration.bureau.utils.KitKatUri;
 import com.administration.bureau.utils.ProviderUtil;
@@ -55,10 +48,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -215,7 +206,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     /***申请----CAMERA----权限***/
     protected boolean checkSelfPermissionCamera(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //权限还没有授予，需要在这里写申请权限的代码
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.MY_PERMISSIONS_REQUEST_CALL_CAMERA);
             return false;
@@ -309,6 +300,28 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         RetrofitClient.client().request(observable, new ProgressSubscriber<UserRegisterInfoEntity>(this) {
             @Override
             protected void onSuccess(UserRegisterInfoEntity userRegisterInfoEntity) {
+                ToastUtil.showShort(getString(R.string.info_succeed));
+                //TODO 刷新HomePageAdapter
+                EventBus.getDefault().post(new UserRegisterEvent());
+                finish();
+            }
+
+            @Override
+            protected void onFailure(String message) {
+                ToastUtil.showShort(getString(R.string.info_falid));
+            }
+        });
+    }
+
+    protected void registrationInfoAgain(){
+        PutService putService = RetrofitManager.getRetrofit().create(PutService.class);
+        int user_id = App.getInstance().getUserEntity().getUser().getId();
+        int id = App.getInstance().getInfoEntity().getId();
+        String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
+        Observable<Response<BaseResponse<Boolean>>> observable =  putService.registerInfoAgain(user_id, id,getRequestParams(), token);
+        RetrofitClient.client().request(observable, new ProgressSubscriber<Boolean>(this) {
+            @Override
+            protected void onSuccess(Boolean data) {
                 ToastUtil.showShort(getString(R.string.info_succeed));
                 //TODO 刷新HomePageAdapter
                 EventBus.getDefault().post(new UserRegisterEvent());

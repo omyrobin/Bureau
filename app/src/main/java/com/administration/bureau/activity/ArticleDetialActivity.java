@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -41,10 +42,12 @@ public class ArticleDetialActivity extends BaseActivity {
     @BindView(R.id.article_detial_content_wb)
     WebView articleDetialContentWb;
     private int article_id;
+    private boolean isShowDate;
 
-    public static void newInstance(Context context, int article_id){
+    public static void newInstance(Context context, int article_id, boolean isShowDate){
         Intent intent = new Intent(context, ArticleDetialActivity.class);
         intent.putExtra("article_id", article_id);
+        intent.putExtra("isShowDate", isShowDate);
         context.startActivity(intent);
     }
 
@@ -65,6 +68,7 @@ public class ArticleDetialActivity extends BaseActivity {
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
         article_id = getIntent().getIntExtra("article_id",0);
+        isShowDate = getIntent().getBooleanExtra("isShowDate",false);
         requestArticleDetial();
     }
 
@@ -86,7 +90,10 @@ public class ArticleDetialActivity extends BaseActivity {
 
     private void initContentView(ArticleDetialEntity articleDetialEntity){
         articleDetialTitleTv.setText(articleDetialEntity.getTitle());
-        articleDetialDateTv.setText(articleDetialEntity.getCreated_at());
+        if(isShowDate){
+            articleDetialDateTv.setVisibility(View.VISIBLE);
+            articleDetialDateTv.setText(articleDetialEntity.getCreated_at());
+        }
         articleDetialContentWb.loadDataWithBaseURL(null, articleDetialEntity.getContent(), "text/html", "utf-8", null);
         articleDetialContentWb.getSettings().setJavaScriptEnabled(true); //设置支持Javascript
         articleDetialContentWb.getSettings().setUseWideViewPort(true);

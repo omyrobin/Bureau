@@ -12,6 +12,7 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.StatusChangeEvent;
 import com.administration.bureau.entity.UserEntity;
 import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.http.ProgressSubscriber;
@@ -111,6 +112,7 @@ public class RegisterUserActivity extends BaseActivity{
                 App.getInstance().setUserEntity(userEntity);
                 //TODO 通知Homepage刷新
                 EventBus.getDefault().post(new UserLoginEvent());
+                EventBus.getDefault().post(new StatusChangeEvent());
                 if(!(boolean)SharedPreferencesUtil.getParam(RegisterUserActivity.this,App.getInstance().getUserEntity().getUser().getPhone(),false)){
                     setAlias();
                 }
@@ -147,7 +149,8 @@ public class RegisterUserActivity extends BaseActivity{
                 case 0:
                     logs = "Set tag and alias success";
                     // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
-                    SharedPreferencesUtil.setParam(RegisterUserActivity.this,App.getInstance().getUserEntity().getUser().getPhone(),true);
+                    if(App.getInstance().getUserEntity()!=null)
+                        SharedPreferencesUtil.setParam(RegisterUserActivity.this,App.getInstance().getUserEntity().getUser().getPhone(),true);
                     break;
                 case 6002:
                     logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
