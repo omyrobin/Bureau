@@ -177,5 +177,8 @@
     <string name="code_success">验证码已发送到您的手机，请注意查收</string>
     <string name="code_failure">验证码发送失败，请稍后重试</string>
 
+    <string name="permission_denied_camera">该功能需要开启相机权限</string>
+    <string name="permission_denied_write">该功能需要开启读写手机存储权限</string>
+
 
 </resources>

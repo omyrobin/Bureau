@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Bureau</string>
+	<string name="app_name">FangShan Exit-Entry Administration</string>
 	<string name="entry_and_exit_administration_bureau">FangShan Exit-Entry Administration</string>
 	<string name="select_photo_album">Select form photo library</string>
 	<string name="select_take_photo">Camera</string>
@@ -102,7 +102,7 @@
 	<string name="next_table">Next table</string>
 	<string name="submit">Submit</string>
 
-	<string name="hint">hint</string>
+	<string name="hint">Hint</string>
 	<string name="confirm">Confirm</string>
 
 	<string name="information_off">Information has been cancel after verification, please resubmit the application data</string>
@@ -167,7 +167,7 @@
 	<string name="have_not_yet_opened">Have not yet opened SMS verification code function</string>
 	<string name="auto_input">We will automatically fill in for you</string>
 	<string name="correct_phone_number">Please enter the correct phone number format</string>
-	<string name="for_android">FangShan Entry-Exit Administration v%1$s for Android</string>
+	<string name="for_android">FangShan Exit-Entry Administration v%1$s for Android</string>
 	<string name="ownership_of_copyright">Fangshang police station Copyright®\n技术支持单位：北京蓝屿文化传媒有限公司</string>
 	<string name="male">Male</string>
 	<string name="female">Female</string>
@@ -178,5 +178,7 @@
 	<string name="code_success">Authentication code has been sent to your mobile phone, please find in the SMS</string>
 	<string name="code_failure">The authentication code sent failed, please try again later</string>
 
+	<string name="permission_denied_camera">This function need to Access the camera</string>
+	<string name="permission_denied_write">This function need to Access and Change files on internal storage</string>
 
 </resources>

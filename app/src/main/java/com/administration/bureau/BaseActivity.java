@@ -1,7 +1,9 @@
 package com.administration.bureau;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -10,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -67,6 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     protected String untreatedFile;
 
     protected UserRegisterInfoEntity infoEntity;
+
+    private AlertDialog premissionsDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,7 +147,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     @Override
     public void selectOneItem() {
         mDialog.dismiss();
-        if(checkSelfPermissionCamera()){
+        if(checkSelfPermissionCamera() && checkSelfPermissionWrite()){
             File file = new File(FileUtil.getCamoraFile(),System.currentTimeMillis() + ".jpg");
             untreatedFile  = file.getAbsolutePath();
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -205,10 +210,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
     /***申请----CAMERA----权限***/
     protected boolean checkSelfPermissionCamera(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             //权限还没有授予，需要在这里写申请权限的代码
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.MY_PERMISSIONS_REQUEST_CALL_CAMERA);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, Constant.MY_PERMISSIONS_REQUEST_CALL_CAMERA);
             return false;
         }else {
             //权限已经被授予，在这里直接写要执行的相应方法即可
@@ -220,7 +224,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     protected boolean checkSelfPermissionWrite(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //权限还没有授予，需要在这里写申请权限的代码
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.MY_PERMISSIONS_REQUEST_CALL_CAMERA);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.MY_PERMISSIONS_REQUEST_CALL_CHOOSER);
             return false;
         }else {
             //权限已经被授予，在这里直接写要执行的相应方法即可
@@ -232,23 +236,49 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == Constant.MY_PERMISSIONS_REQUEST_CALL_CAMERA) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                selectOneItem();
+//                selectOneItem();
             } else {
                 // Permission Denied
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+//                ToastUtil.showShort(R.string.permission_denied_camera);
+                showPremissionsDialog(getString(R.string.permission_denied_camera));
             }
         }
 
 
         if (requestCode == Constant.MY_PERMISSIONS_REQUEST_CALL_CHOOSER) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                selectTwoItem();
+//                selectTwoItem();
             } else {
                 // Permission Denied
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+//                ToastUtil.showShort(R.string.permission_denied_write);
+                showPremissionsDialog(getString(R.string.permission_denied_write));
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void showPremissionsDialog(String message){
+        premissionsDialog = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.hint))
+                .setMessage(message)
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE) {
+                            // 进入设置系统应用权限界面
+                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                            startActivity(intent);
+                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// 运行系统在5.x环境使用
+                            // 进入设置系统应用权限界面
+                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                            startActivity(intent);
+                        }
+                        premissionsDialog.dismiss();
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancle),null)
+                .create();
+        premissionsDialog.show();
     }
 
     protected void selectDate(final TextView textView){
