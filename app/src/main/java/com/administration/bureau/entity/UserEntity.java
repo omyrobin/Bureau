@@ -1,5 +1,7 @@
 package com.administration.bureau.entity;
 
+import java.util.ArrayList;
+
 /**
  * Created by omyrobin on 2017/4/16.
  */
@@ -13,6 +15,7 @@ public class UserEntity {
 
     private String token;
     private UserBean user;
+    private ArrayList<String> verify_code;
 
     public String getToken() {
         return token;
@@ -28,6 +31,14 @@ public class UserEntity {
 
     public void setUser(UserBean user) {
         this.user = user;
+    }
+
+    public ArrayList<String> getVerify_code() {
+        return verify_code;
+    }
+
+    public void setVerify_code(ArrayList<String> verify_code) {
+        this.verify_code = verify_code;
     }
 
     public static class UserBean {

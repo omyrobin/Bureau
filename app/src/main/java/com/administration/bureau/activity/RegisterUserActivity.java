@@ -24,6 +24,7 @@ import com.administration.bureau.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,6 +53,8 @@ public class RegisterUserActivity extends BaseActivity{
 
     private static final int MSG_SET_ALIAS = 1001;
 
+    private String code;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_register_user;
@@ -73,16 +76,17 @@ public class RegisterUserActivity extends BaseActivity{
 
     @OnClick({R.id.register_user_tv, R.id.auth_code_tv})
     public void actionBtn(TextView view){
+        String phoneNumber = phoneNumberEt.getText().toString();
         switch (view.getId()){
             case R.id.register_user_tv:
-                String phoneNumber = phoneNumberEt.getText().toString();
                 String authCode = authCodeEt.getText().toString();
                 registerUser(phoneNumber, authCode);
                 break;
 
             case R.id.auth_code_tv:
-                if(isMobile(phoneNumberEt.getText().toString())){
-                    showCodeDialog();
+
+                if(isMobile(phoneNumber)){
+                    getCode(phoneNumber);
                 }else{
                     ToastUtil.showShort(getString(R.string.correct_phone_number));
                 }
@@ -90,19 +94,35 @@ public class RegisterUserActivity extends BaseActivity{
         }
     }
 
-    private void showCodeDialog(){
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.have_not_yet_opened))
-                .setMessage(getString(R.string.auto_input))
-                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        authCodeEt.setText("123123");
-                        dialog.dismiss();
-                    }
-                }).create();
-        dialog.show();
+    private void getCode(String phoneNumber){
+        PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
+        Observable<Response<BaseResponse<ArrayList<String>>>> observable = postService.getCode(phoneNumber);
+        RetrofitClient.client().request(observable, new ProgressSubscriber<ArrayList<String>>(this) {
+            @Override
+            protected void onSuccess(ArrayList<String> s) {
+                ToastUtil.showShort(getString(R.string.code_success));
+            }
+
+            @Override
+            protected void onFailure(String message) {
+                ToastUtil.showShort(getString(R.string.code_failure));
+            }
+        });
     }
+
+//    private void showCodeDialog(){
+//        AlertDialog dialog = new AlertDialog.Builder(this)
+//                .setTitle(getString(R.string.have_not_yet_opened))
+//                .setMessage(getString(R.string.auto_input))
+//                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        authCodeEt.setText("123123");
+//                        dialog.dismiss();
+//                    }
+//                }).create();
+//        dialog.show();
+//    }
 
     private void registerUser(String phoneNumber, String authCode){
         Observable<Response<BaseResponse<UserEntity>>> observable = RetrofitManager.getRetrofit().create(PostService.class).registerUser("login", phoneNumber, authCode);
@@ -121,7 +141,7 @@ public class RegisterUserActivity extends BaseActivity{
 
             @Override
             protected void onFailure(String message) {
-
+                ToastUtil.showShort(getString(R.string.code_error));
             }
         });
     }

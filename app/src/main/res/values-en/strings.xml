@@ -174,6 +174,9 @@
 	<string name="info_succeed">The review has been submitted</string>
 	<string name="info_falid">Submission failed, please try again after checking information</string>
 	<string name="guest">Guest</string>
+	<string name="code_error">Authentication Code error</string>
+	<string name="code_success">Authentication code has been sent to your mobile phone, please find in the SMS</string>
+	<string name="code_failure">The authentication code sent failed, please try again later</string>
 
 
 </resources>

@@ -7,6 +7,7 @@ import com.administration.bureau.entity.UploadEntity;
 import com.administration.bureau.entity.UserEntity;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -34,9 +35,13 @@ public interface PostService {
     @Multipart
     Observable<Response<BaseResponse<UploadEntity>>> uploadFile(@Url String url, @Part MultipartBody.Part file, @Header("Authorization") String token);
 
+    @POST("sms")
+    @FormUrlEncoded
+    Observable<Response<BaseResponse<ArrayList<String>>>> getCode(@Field("phone") String page);
+
     @POST
     @FormUrlEncoded
-    Observable<Response<BaseResponse<UserEntity>>> registerUser(@Url String url, @Field("phone") String page, @Field("verify_code") String verify_code);
+    Observable<Response<BaseResponse<UserEntity>>> registerUser(@Url String url, @Field("phone") String phone, @Field("verify_code") String verify_code);
 
     @POST("user/{user_id}/registrant")
     @FormUrlEncoded

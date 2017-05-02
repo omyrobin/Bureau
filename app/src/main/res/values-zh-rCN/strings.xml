@@ -174,5 +174,8 @@
 	<string name="info_succeed">审核资料已提交，请耐心等待工作人员审核</string>
 	<string name="info_falid">提交失败,请检查信息后重试</string>
 	<string name="guest">游客</string>
+	<string name="code_error">验证码错误</string>
+	<string name="code_success">验证码已发送到您的手机，请注意查收</string>
+	<string name="code_failure">验证码发送失败，请稍后重试</string>
 
 </resources>
