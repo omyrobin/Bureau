@@ -81,7 +81,7 @@ public class ReminderActivity extends BaseActivity implements SwipeRefreshLayout
 
     private void requestLawsData(){
         GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
-        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",6, Constant.languages[0]);
+        Observable<Response<BaseResponse<ArticleEntity>>> observable = getService.getLawsArticle("article",6, Constant.languages[App.locale]);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArticleEntity>(this) {
             @Override
             protected void onSuccess(ArticleEntity articleEntity) {
