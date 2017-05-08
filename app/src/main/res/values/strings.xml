@@ -26,7 +26,7 @@
     <string name="personnel_area_type">人员地域类型</string>
     <string name="first_name">英文姓</string>
     <string name="last_name">英文名</string>
-    <string name="chinest_name">中文名</string>
+    <string name="chinese_name">中文名</string>
     <string name="gender">性别</string>
     <string name="date_of_birth">出生日期</string>
     <string name="place_of_birth">出生地</string>

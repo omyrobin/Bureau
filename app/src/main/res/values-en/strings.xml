@@ -26,7 +26,7 @@
 	<string name="personnel_area_type">Personnel Area Type</string>
 	<string name="first_name">First name</string>
 	<string name="last_name">Last name</string>
-	<string name="chinest_name">Chinest name</string>
+	<string name="chinese_name">Chinese name</string>
 	<string name="gender">Gender</string>
 	<string name="date_of_birth">Date of birth</string>
 	<string name="place_of_birth">Place of birth</string>
