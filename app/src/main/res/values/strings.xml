@@ -147,6 +147,7 @@
     <string name="visa_image_null">签证页照片不能为空</string>
     <string name="visa_type_null">签证（注）种类不能为空</string>
     <string name="visa_expired_null">签证（注）有效期不能为空</string>
+    <string name="entry_date_null">入境日期不能为空</string>
     <string name="entry_port_null">入境口岸不能为空</string>
     <string name="stay_reason_null">停留事由不能为空</string>
 

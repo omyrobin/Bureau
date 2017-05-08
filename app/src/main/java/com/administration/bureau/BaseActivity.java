@@ -25,7 +25,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.administration.bureau.activity.MainActivity;
 import com.administration.bureau.activity.SamplePhotoActivity;
@@ -393,7 +392,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             params.put("visa_type",infoEntity.getVisa_type());
             params.put("visa_expired_date",infoEntity.getVisa_expired_date());
         }
-//        params.put("entry_date",infoEntity.getEntry_date());
+        params.put("entry_date",infoEntity.getEntry_date());
         params.put("entry_port",infoEntity.getEntry_port());
         params.put("stay_reason",infoEntity.getStay_reason());
         params.put("stay_expired_date",infoEntity.getStay_expired_date());
@@ -515,10 +514,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
                 return false;
             }
         }
-//        if(TextUtils.isEmpty(infoEntity.getEntry_date())){
-//            ToastUtil.showShort("入境日期不能为空");
-//            return false;
-//        }
+        if(TextUtils.isEmpty(infoEntity.getEntry_date())){
+            ToastUtil.showShort(getString(R.string.entry_date_null));
+            return false;
+        }
         if(TextUtils.isEmpty(infoEntity.getEntry_port())){
             ToastUtil.showShort(getString(R.string.entry_port_null));
             return false;

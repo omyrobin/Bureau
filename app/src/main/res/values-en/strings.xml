@@ -148,6 +148,7 @@
 	<string name="visa_image_null">Visa photo Not null</string>
 	<string name="visa_type_null">Visa(note)Type Not null</string>
 	<string name="visa_expired_null">Visa(note)Valid Not null</string>
+	<string name="entry_date_null">Entry date Not null</string>
 	<string name="entry_port_null">Entry port Not null</string>
 	<string name="stay_reason_null">Stay reason Not null</string>
 
