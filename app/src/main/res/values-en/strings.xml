@@ -17,7 +17,7 @@
 
 	<string name="my_photo">My photo</string>
 	<string name="passport_photo">Passport information page photo</string>
-	<string name="country">Country</string>
+	<string name="country">Country / Region</string>
 	<string name="not_set">Not set</string>
 	<string name="certificates_type">Certificates Type</string>
 	<string name="certificates_number">Certificates Number</string>
@@ -55,7 +55,7 @@
 	<string name="landlord_gender">Landlord gender</string>
 	<string name="landlord_name">Landlord name</string>
 	<string name="landlord_identity">Landlord identity</string>
-	<string name="landlord_country">Landlord country</string>
+	<string name="landlord_country">Landlord Country / Region</string>
 
 	<string name="home">Home</string>
 	<string name="message">Message</string>
