@@ -47,6 +47,10 @@
 
 	<string name="check_in_date">Check-in date</string>
 	<string name="check_out_date">Check-out date</string>
+	<string name="contract_of_tenancy">I have the owner id and house lease contract</string>
+	<string name="landlord_identity_pic">Homeowners id photo</string>
+	<string name="contract_of_tenancy_photo">Photos of the house lease contract</string>
+	<string name="photo_number">%1$ photo</string>
 	<string name="address">Address</string>
 	<string name="police_station">Police station</string>
 	<string name="community">Community</string>

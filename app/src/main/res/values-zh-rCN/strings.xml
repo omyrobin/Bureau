@@ -47,6 +47,10 @@
 
 	<string name="check_in_date">入住日期</string>
 	<string name="check_out_date">拟定离开日期</string>
+	<string name="contract_of_tenancy">我有房主身份证和房屋租赁合同</string>
+	<string name="landlord_identity_pic">房主身份证照片</string>
+	<string name="contract_of_tenancy_photo">房屋租赁合同照片</string>
+	<string name="photo_number">%1$s张照片</string>
 	<string name="address">详细地址</string>
 	<string name="police_station">所属派出所</string>
 	<string name="community">所属社区</string>

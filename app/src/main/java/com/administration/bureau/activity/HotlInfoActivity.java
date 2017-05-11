@@ -2,19 +2,29 @@ package com.administration.bureau.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.DataAdapter;
+import com.administration.bureau.adapter.PhotosAdapter;
 import com.administration.bureau.entity.DataEntity;
 import com.administration.bureau.interfaces.IItemClickPosition;
+import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,11 +43,26 @@ public class HotlInfoActivity extends BaseActivity {
     @BindView(R.id.toolbar_action_tv)
     TextView actionTv;
     //入住日期
-    @BindView(R.id.check_in_date_et)
-    EditText checkInDateEt;
+//    @BindView(R.id.check_in_date_et)
+//    EditText checkInDateEt;
+    //我有房主身份证和房屋租赁合同
+    @BindView(R.id.contract_of_tenancy_sw)
+    SwitchCompat contractOfTenancySw;
     //拟定离开日期
     @BindView(R.id.check_out_date_et)
     EditText checkOutDateEt;
+    //有租赁合同的Layout
+    @BindView(R.id.house_have_layout)
+    View houseHaveLayout;
+    //房主身份证照片
+    @BindView(R.id.landlord_identity_img)
+    ImageView landlordIdentityImg;
+    //房屋租赁合同照片
+    @BindView(R.id.contract_of_tenancy_rv)
+    RecyclerView contractOfTenancyRv;
+    //没有有租赁合同的Layout
+    @BindView(R.id.house_nothave_layout)
+    View houseNotHaveLayout;
     //详细地址
     @BindView(R.id.house_address_et)
     EditText houseAddressEt;
@@ -65,6 +90,7 @@ public class HotlInfoActivity extends BaseActivity {
     //房主联系电话
     @BindView(R.id.landlord_phone_et)
     EditText landlordPhoneEt;
+    private ArrayList<String> photos;
 
 
     @Override
@@ -94,7 +120,7 @@ public class HotlInfoActivity extends BaseActivity {
         }
     }
 
-    @OnTouch({R.id.check_in_date_et, R.id.check_out_date_et})
+    @OnTouch({R.id.check_out_date_et})
     protected boolean selectDate(TextView textView, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_UP)
             super.selectDate(textView);
@@ -103,6 +129,37 @@ public class HotlInfoActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
+        photos = new ArrayList<>();
+        photos.add("TEST");
+        setOnCheckedChangeListener();
+        initLayoutManager();
+    }
+
+    private void initLayoutManager(){
+        LinearLayoutManager layout = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true);
+        contractOfTenancyRv.setLayoutManager(layout);
+        contractOfTenancyRv.setAdapter(new PhotosAdapter(this,photos));
+    }
+
+    private void setOnCheckedChangeListener(){
+        //吐槽下ButterKnife不能直接设置include的id来找整个view
+        contractOfTenancySw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    houseHaveLayout.setVisibility(View.VISIBLE);
+                    houseNotHaveLayout.setVisibility(View.GONE);
+                }else{
+                    houseHaveLayout.setVisibility(View.GONE);
+                    houseNotHaveLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @OnTouch({R.id.house_type_et,R.id.landlord_country_et,R.id.landlord_gender_et})
@@ -177,9 +234,9 @@ public class HotlInfoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!TextUtils.isEmpty(infoEntity.getCheckin_date())){
-            checkInDateEt.setText(infoEntity.getCheckin_date());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getCheckin_date())){
+//            checkInDateEt.setText(infoEntity.getCheckin_date());
+//        }
         if(!TextUtils.isEmpty(infoEntity.getCheckout_date())){
             checkOutDateEt.setText(infoEntity.getCheckout_date());
         }
@@ -220,8 +277,8 @@ public class HotlInfoActivity extends BaseActivity {
 
     private void setHotlinfoParams(){
         //入住日期
-        String checkInDate = checkInDateEt.getText().toString();
-        infoEntity.setCheckin_date(checkInDate);
+//        String checkInDate = checkInDateEt.getText().toString();
+//        infoEntity.setCheckin_date(checkInDate);
         //拟定离开日期
         String checkOutDate = checkOutDateEt.getText().toString();
         infoEntity.setCheckout_date(checkOutDate);

@@ -397,7 +397,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("stay_reason",infoEntity.getStay_reason());
         params.put("stay_expired_date",infoEntity.getStay_expired_date());
 
-        params.put("checkin_date",infoEntity.getCheckin_date());
+//        params.put("checkin_date",infoEntity.getCheckin_date());
         params.put("checkout_date",infoEntity.getCheckout_date());
         params.put("house_address",infoEntity.getHouse_address());
 //        params.put("police_station",infoEntity.getPolice_station());
@@ -533,10 +533,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         if(infoEntity == null){
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getCheckin_date())){
-            ToastUtil.showShort(getString(R.string.check_in_date_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getCheckin_date())){
+//            ToastUtil.showShort(getString(R.string.check_in_date_null));
+//            return false;
+//        }
         if(TextUtils.isEmpty(infoEntity.getCheckout_date())){
             ToastUtil.showShort(getString(R.string.check_out_date_null));
             return false;
