@@ -40,8 +40,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.google.code.gson:gson:2.4'
     compile 'io.reactivex:rxandroid:1.2.1'
     // RxAndroid
@@ -70,4 +68,6 @@ dependencies {
     // 极光推送
     compile 'cn.jiguang.sdk:jpush:3.0.5'
     compile 'cn.jiguang.sdk:jcore:1.1.2'
+
+    compile 'com.yanzhenjie:album:1.0.0'
 }

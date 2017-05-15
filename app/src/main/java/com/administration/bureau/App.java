@@ -33,6 +33,8 @@ public class App extends Application {
     public static int locale = -1;
 
     private static App mApp;
+    //用来判断住宿信息中开关的开启状态
+    private boolean have;
 
     private UserEntity userEntity;
     /**国家**/
@@ -287,4 +289,11 @@ public class App extends Application {
         }
     }
 
+    public void setHave(boolean have) {
+        this.have = have;
+    }
+
+    public boolean isHave() {
+        return have;
+    }
 }

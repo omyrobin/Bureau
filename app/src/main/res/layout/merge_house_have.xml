@@ -2,65 +2,66 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/house_have_layout"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-    <RelativeLayout
-        android:id="@+id/entry_page_layout"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginTop="1px"
-        android:background="@color/colorWhite"
-        android:padding="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/landlord_identity_pic" />
-
-        <ImageView
-            android:id="@+id/landlord_identity_img"
-            android:layout_width="55dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_user_face" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1px"
-        android:background="@color/colorWhite"
-        android:padding="15dp">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/landlord_phone_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/contract_of_tenancy_photo" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/photo_number"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:textSize="13sp"  />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/contract_of_tenancy_rv"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/landlord_phone_tv"
+        <RelativeLayout
+            android:id="@+id/landlord_identity_pic_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
+            android:layout_height="90dp"
+            android:layout_marginTop="1px"
+            android:background="@color/colorWhite"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/landlord_identity_pic" />
+
+            <ImageView
+                android:id="@+id/landlord_identity_img"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_user_face" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1px"
+            android:background="@color/colorWhite"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/landlord_phone_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contract_of_tenancy_photo" />
+
+            <TextView
+                android:id="@+id/photos_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="13sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_alignParentRight="true"
+                android:id="@+id/contract_of_tenancy_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/landlord_phone_tv"
+                android:layout_marginTop="10dp">
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
     </LinearLayout>
 </merge>

@@ -1,12 +1,25 @@
 package com.administration.bureau.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import com.administration.bureau.R;
+import com.administration.bureau.constant.Constant;
+import com.bumptech.glide.Glide;
+import com.yanzhenjie.album.Album;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by omyrobin on 2017/5/11.
@@ -16,22 +29,67 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
 
     private Context context;
 
-    private ArrayList<String> photos;
+    private List<String> photos;
 
-    public PhotosAdapter(Context context, ArrayList<String> photos) {
+    private int photosLength = 9;
+
+    private OnRvItemClickListener listener;
+
+    public PhotosAdapter(Context context, List<String> photos, OnRvItemClickListener listener) {
         this.context = context;
         this.photos = photos;
+        this.listener = listener;
+    }
+
+    public void addPhotoPath(List<String> paths){
+        if(paths.size() < 9){
+            photosLength = photosLength - paths.size();
+        }else{
+            photosLength = 0;
+        }
+        photos.addAll(0,paths);
+//        for (int i=0 ; i<photos.size(); i++){
+//            Log.i("TAG", photos.get(i));
+//        }
+        notifyDataSetChanged();
+    }
+
+    public int getPhotoCount(){
+        return 9-photosLength;
+    }
+
+    public void setPhotoCount(){
+        photosLength -= 1;
     }
 
     @Override
     public PhotosViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ImageView itemView = new ImageView(context);
+       View itemView = LayoutInflater.from(context).inflate(R.layout.item_photos,null);
         return new PhotosViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(PhotosViewHolder holder, int position) {
+    public void onBindViewHolder(PhotosViewHolder holder, final int position) {
+        if(photos.get(position).equals("Add")) {
+            holder.imageView.setImageDrawable(ContextCompat.getDrawable(context, android.R.drawable.ic_menu_add));
+        }else {
+            Glide.with(context).load(photos.get(position)).into(holder.imageView);
+        }
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(photosLength!=0 && position == photos.size()-1){
+                    Album.startAlbum((Activity)context,
+                            Constant.SELECT_CONTRACT_OF_TENANCY, photosLength,
+                            ContextCompat.getColor(context, R.color.colorPrimary),
+                            ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                }else{
+                    listener.onClick(position);
+                    notifyDataSetChanged();
 
+                }
+            }
+        });
     }
 
     @Override
@@ -48,8 +106,16 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
 
     class PhotosViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.photos_item_img)
+        ImageView imageView;
+
         public PhotosViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this,itemView);
         }
+    }
+
+    public interface OnRvItemClickListener{
+        void onClick(int position);
     }
 }

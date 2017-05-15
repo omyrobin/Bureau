@@ -89,11 +89,11 @@ public class BaseInfoActivity extends BaseActivity {
     @BindView(R.id.chinese_name_et)
     EditText chineseNameEt;
     //性别
-    @BindView(R.id.gender_et)
-    EditText genderEt;
+//    @BindView(R.id.gender_et)
+//    EditText genderEt;
     //出生日期
-    @BindView(R.id.birthday_et)
-    EditText birthdayEt;
+//    @BindView(R.id.birthday_et)
+//    EditText birthdayEt;
     //出生地
     @BindView(R.id.birthplace_et)
     EditText birthplaceEt;
@@ -145,14 +145,14 @@ public class BaseInfoActivity extends BaseActivity {
 
     }
 
-    @OnTouch({R.id.credential_expired_date_et, R.id.birthday_et})
+    @OnTouch({R.id.credential_expired_date_et})
     protected boolean selectDate(TextView textView, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_UP)
             super.selectDate(textView);
         return true;
     }
 
-    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.gender_et,R.id.occupation_et})
+    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.occupation_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
@@ -204,16 +204,16 @@ public class BaseInfoActivity extends BaseActivity {
 //                    });
 //                    break;
 
-                case R.id.gender_et:
-                    adapter = new DataAdapter(this,transformToList(App.getInstance().getGender()));
-                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            genderEt.setText(dataEntity.getValue());
-                            infoEntity.setGender(dataEntity.getKey());
-                        }
-                    });
-                    break;
+//                case R.id.gender_et:
+//                    adapter = new DataAdapter(this,transformToList(App.getInstance().getGender()));
+//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            genderEt.setText(dataEntity.getValue());
+//                            infoEntity.setGender(dataEntity.getKey());
+//                        }
+//                    });
+//                    break;
 
                 case R.id.occupation_et:
                     adapter =  new DataAdapter(this,transformToList(App.getInstance().getOccupation()));
@@ -253,9 +253,9 @@ public class BaseInfoActivity extends BaseActivity {
 //        if(!TextUtils.isEmpty(infoEntity.getPerson_area_type())){
 //            personAreaTypeEt.setText(App.getInstance().getPerson_area_type().get(infoEntity.getPerson_area_type()));
 //        }
-        if(!TextUtils.isEmpty(infoEntity.getGender())){
-            genderEt.setText(App.getInstance().getGender().get(infoEntity.getGender()));
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getGender())){
+//            genderEt.setText(App.getInstance().getGender().get(infoEntity.getGender()));
+//        }
         if(!TextUtils.isEmpty(infoEntity.getOccupation())){
             occupationEt.setText(App.getInstance().getOccupation().get(infoEntity.getOccupation()));
         }
@@ -274,11 +274,11 @@ public class BaseInfoActivity extends BaseActivity {
         if(!TextUtils.isEmpty(infoEntity.getChinese_name())){
             chineseNameEt.setText(infoEntity.getChinese_name());
         }
-        if(!TextUtils.isEmpty(infoEntity.getBirthday())){
-            birthdayEt.setText(infoEntity.getBirthday());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getBirthday())){
+//            birthdayEt.setText(infoEntity.getBirthday());
+//        }
         if(!TextUtils.isEmpty(infoEntity.getCredential())){
-            chineseNameEt.setText(infoEntity.getCredential());
+            credentialEt.setText(infoEntity.getCredential());
         }
         if(!TextUtils.isEmpty(infoEntity.getBirthplace())){
             birthplaceEt.setText(infoEntity.getBirthplace());
@@ -320,8 +320,8 @@ public class BaseInfoActivity extends BaseActivity {
         String chinestname = chineseNameEt.getText().toString();
         infoEntity.setChinese_name(chinestname);
         //出生日期
-        String birthday= birthdayEt.getText().toString();
-        infoEntity.setBirthday(birthday);
+//        String birthday= birthdayEt.getText().toString();
+//        infoEntity.setBirthday(birthday);
         //出生地
         String birthplace = birthplaceEt.getText().toString();
         infoEntity.setBirthplace(birthplace);

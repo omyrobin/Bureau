@@ -1,5 +1,7 @@
 package com.administration.bureau.entity;
 
+import java.util.List;
+
 /**
  * Created by omyrobin on 2017/4/17.
  */
@@ -86,6 +88,8 @@ public class UserRegisterInfoEntity {
     private String stay_reason;
     private String stay_expired_date;
     private String checkin_date;
+    private String landlord_identity_image;
+    private String[] house_contract_image;
     private String checkout_date;
     private String house_address;
     private String house_type;
@@ -336,6 +340,22 @@ public class UserRegisterInfoEntity {
 
     public void setCheckin_date(String checkin_date) {
         this.checkin_date = checkin_date;
+    }
+
+    public String getLandlord_identity_image() {
+        return landlord_identity_image;
+    }
+
+    public void setLandlord_identity_image(String landlord_identity_image) {
+        this.landlord_identity_image = landlord_identity_image;
+    }
+
+    public String[] getHouse_contract_image() {
+        return house_contract_image;
+    }
+
+    public void setHouse_contract_image(String[] house_contract_image) {
+        this.house_contract_image = house_contract_image;
     }
 
     public String getCheckout_date() {

@@ -76,11 +76,11 @@ public class EntryVisaActivity extends BaseActivity {
     @BindView(R.id.visa_expired_date_et)
     EditText visaExpiredDateEt;
     //入境日期
-    @BindView(R.id.entry_date_et)
-    EditText entryDateEt;
+//    @BindView(R.id.entry_date_et)
+//    EditText entryDateEt;
     //入境口岸
-    @BindView(R.id.entry_port_et)
-    EditText entryPortEt;
+//    @BindView(R.id.entry_port_et)
+//    EditText entryPortEt;
     //停留事由
     @BindView(R.id.stay_reason_et)
     EditText stayReasonEt;
@@ -144,15 +144,15 @@ public class EntryVisaActivity extends BaseActivity {
                 visaExpiredDateEt.setText(infoEntity.getVisa_expired_date());
             }
         }
-        if(!TextUtils.isEmpty(infoEntity.getEntry_port())){
-            entryPortEt.setText(App.getInstance().getEntry_port().get(infoEntity.getEntry_port()));
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getEntry_port())){
+//            entryPortEt.setText(App.getInstance().getEntry_port().get(infoEntity.getEntry_port()));
+//        }
         if(!TextUtils.isEmpty(infoEntity.getStay_reason())){
             stayReasonEt.setText(App.getInstance().getStay_reason().get(infoEntity.getStay_reason()));
         }
-        if(!TextUtils.isEmpty(infoEntity.getEntry_date())){
-            entryDateEt.setText(infoEntity.getEntry_date());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getEntry_date())){
+//            entryDateEt.setText(infoEntity.getEntry_date());
+//        }
         if(!TextUtils.isEmpty(infoEntity.getStay_expired_date())){
             stayExpiredDateEt.setText(infoEntity.getStay_expired_date());
         }
@@ -169,8 +169,8 @@ public class EntryVisaActivity extends BaseActivity {
         String visaExpiredDate = visaExpiredDateEt.getText().toString();
         infoEntity.setVisa_expired_date(visaExpiredDate);
         //入境日期
-        String entryDate = entryDateEt.getText().toString();
-        infoEntity.setEntry_date(entryDate);
+//        String entryDate = entryDateEt.getText().toString();
+//        infoEntity.setEntry_date(entryDate);
         //停留有效期
         String stayExpiredDate = stayExpiredDateEt.getText().toString();
         infoEntity.setStay_expired_date(stayExpiredDate);
@@ -192,14 +192,14 @@ public class EntryVisaActivity extends BaseActivity {
         showSelectPicDialog(true);
     }
 
-    @OnTouch({R.id.visa_expired_date_et, R.id.entry_date_et, R.id.stay_expired_date_et})
+    @OnTouch({R.id.visa_expired_date_et, R.id.stay_expired_date_et})
     protected boolean selectDate(TextView textView, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_UP)
             super.selectDate(textView);
         return true;
     }
 
-    @OnTouch({R.id.visa_type_et,R.id.entry_port_et,R.id.stay_reason_et})
+    @OnTouch({R.id.visa_type_et,R.id.stay_reason_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
@@ -216,16 +216,16 @@ public class EntryVisaActivity extends BaseActivity {
                     });
                     break;
 
-                case R.id.entry_port_et:
-                    adapter = new DataAdapter(this, transformToListAZ(App.getInstance().getEntry_port()));
-                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            entryPortEt.setText(dataEntity.getValue());
-                            infoEntity.setEntry_port(dataEntity.getKey());
-                        }
-                    });
-                    break;
+//                case R.id.entry_port_et:
+//                    adapter = new DataAdapter(this, transformToListAZ(App.getInstance().getEntry_port()));
+//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            entryPortEt.setText(dataEntity.getValue());
+//                            infoEntity.setEntry_port(dataEntity.getKey());
+//                        }
+//                    });
+//                    break;
 
                 case R.id.stay_reason_et:
                     adapter = new DataAdapter(this, transformToList(App.getInstance().getStay_reason()));

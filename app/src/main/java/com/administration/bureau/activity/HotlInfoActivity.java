@@ -1,6 +1,7 @@
 package com.administration.bureau.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,22 +21,40 @@ import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.DataAdapter;
 import com.administration.bureau.adapter.PhotosAdapter;
+import com.administration.bureau.constant.Constant;
+import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.DataEntity;
+import com.administration.bureau.entity.UploadEntity;
+import com.administration.bureau.http.ProgressSubscriber;
+import com.administration.bureau.http.RetrofitClient;
+import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.interfaces.IItemClickPosition;
+import com.administration.bureau.model.PostService;
+import com.administration.bureau.utils.BitmapUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
+import com.bumptech.glide.Glide;
+import com.yanzhenjie.album.Album;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTouch;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Response;
+import rx.Observable;
 
 /**
  * Created by omyrobin on 2017/4/6.
  */
 
-public class HotlInfoActivity extends BaseActivity {
+public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRvItemClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -57,6 +77,9 @@ public class HotlInfoActivity extends BaseActivity {
     //房主身份证照片
     @BindView(R.id.landlord_identity_img)
     ImageView landlordIdentityImg;
+    //房屋租赁合同照片数量
+    @BindView(R.id.photos_number_tv)
+    TextView photosNumberTv;
     //房屋租赁合同照片
     @BindView(R.id.contract_of_tenancy_rv)
     RecyclerView contractOfTenancyRv;
@@ -90,7 +113,14 @@ public class HotlInfoActivity extends BaseActivity {
     //房主联系电话
     @BindView(R.id.landlord_phone_et)
     EditText landlordPhoneEt;
-    private ArrayList<String> photos;
+
+    private List<String> photos;
+
+    private List<String> net_photos;
+
+    private PhotosAdapter adapter;
+
+    private int selectImg;
 
 
     @Override
@@ -129,16 +159,27 @@ public class HotlInfoActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        photos = new ArrayList<>();
-        photos.add("TEST");
         setOnCheckedChangeListener();
-        initLayoutManager();
+        initRecyclerView();
+        photosNumberTv.setText(getString(R.string.photo_number,0));
     }
 
-    private void initLayoutManager(){
-        LinearLayoutManager layout = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true);
+    private void initRecyclerView(){
+        net_photos = new ArrayList<>();
+        photos = new ArrayList<>();
+        if(infoEntity.getHouse_contract_image()!=null && infoEntity.getHouse_contract_image().length>0){
+            List<String> houseImages = Arrays.asList(infoEntity.getHouse_contract_image());
+            net_photos.addAll(houseImages);
+            photos.addAll(houseImages);
+        }
+        if(photos.size()<9){
+            photos.add("Add");
+        }
+
+        LinearLayoutManager layout = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         contractOfTenancyRv.setLayoutManager(layout);
-        contractOfTenancyRv.setAdapter(new PhotosAdapter(this,photos));
+        adapter = new PhotosAdapter(this,photos,this);
+        contractOfTenancyRv.setAdapter(adapter);
     }
 
     private void setOnCheckedChangeListener(){
@@ -153,13 +194,9 @@ public class HotlInfoActivity extends BaseActivity {
                     houseHaveLayout.setVisibility(View.GONE);
                     houseNotHaveLayout.setVisibility(View.VISIBLE);
                 }
+                App.getInstance().setHave(isChecked);
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @OnTouch({R.id.house_type_et,R.id.landlord_country_et,R.id.landlord_gender_et})
@@ -231,6 +268,65 @@ public class HotlInfoActivity extends BaseActivity {
         return true;
     }
 
+    @OnClick({R.id.landlord_identity_pic_layout})
+    public void selectPicFrom(ViewGroup layout){
+        showSelectPicDialog(false);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            if(requestCode == Constant.SELECT_CONTRACT_OF_TENANCY){
+                selectImg = 1;
+                List<String> pathList = Album.parseResult(data);
+                adapter.addPhotoPath(pathList);
+                for(int i=0; i < pathList.size(); i++){
+//                    getUntreatedFile(requestCode, data);
+                    if(pathList!=null){
+                        upLoadImage(BitmapUtil.compressImage(pathList.get(i)));
+                    }
+                }
+                photosNumberTv.setText(getString(R.string.photo_number,adapter.getPhotoCount()));
+            }else{
+                selectImg = 0;
+                getUntreatedFile(requestCode, data);
+                Bitmap bitmap = BitmapUtil.commpressBitmap(untreatedFile);
+                landlordIdentityImg.setImageBitmap(bitmap);
+                if(untreatedFile!=null){
+                    upLoadImage(BitmapUtil.compressImage(untreatedFile));
+                }
+            }
+        }
+    }
+
+    private void upLoadImage(String filePath) {
+        File file = new File(filePath);
+        // 创建 RequestBody，用于封装构建RequestBody
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/from-data"), file);
+        // MultipartBody.Part  和后端约定好Key，这里的partName是用file
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
+        Observable<Response<BaseResponse<UploadEntity>>> ob = postService.uploadFile("upload",body,"Bearer "+ App.getInstance().getUserEntity().getToken());
+        RetrofitClient.client().request(ob, new ProgressSubscriber<UploadEntity>(this,true) {
+            @Override
+            protected void onSuccess(UploadEntity uploadEntity) {
+                if(selectImg == 0){
+                    infoEntity.setLandlord_identity_image(uploadEntity.getUrl());//房主身份证照片
+                    Glide.with(HotlInfoActivity.this).load(uploadEntity.getUrl()).into(landlordIdentityImg);
+                }else{
+                    net_photos.add(uploadEntity.getUrl());
+                    infoEntity.setHouse_contract_image(net_photos.toArray(new String[net_photos.size()]));//房屋租赁合同
+                }
+            }
+
+            @Override
+            protected void onFailure(String message) {
+
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -267,6 +363,13 @@ public class HotlInfoActivity extends BaseActivity {
         if(!TextUtils.isEmpty(infoEntity.getLandlord_phone())){
             landlordPhoneEt.setText(infoEntity.getLandlord_phone());
         }
+        if(!TextUtils.isEmpty(infoEntity.getLandlord_identity_image())){
+            Glide.with(this).load(infoEntity.getLandlord_identity_image()).into(landlordIdentityImg);
+        }
+        if(infoEntity.getHouse_contract_image() != null && infoEntity.getHouse_contract_image().length>0){
+            List<String> list = Arrays.asList(infoEntity.getHouse_contract_image());
+            adapter.addPhotoPath(list);
+        }
     }
 
     @Override
@@ -282,18 +385,28 @@ public class HotlInfoActivity extends BaseActivity {
         //拟定离开日期
         String checkOutDate = checkOutDateEt.getText().toString();
         infoEntity.setCheckout_date(checkOutDate);
-        //房主身份证号
-        String landlordIdentity = landlordIdentityEt.getText().toString();
-        infoEntity.setLandlord_identity(landlordIdentity);
         //详细地址
         String houseAddress = houseAddressEt.getText().toString();
         infoEntity.setHouse_address(houseAddress);
-        //房主中文姓名
-        String landlordName = landlordNameEt.getText().toString();
-        infoEntity.setLandlord_name(landlordName);
-        //房主联系电话
-        String landlordPhone = landlordPhoneEt.getText().toString();
-        infoEntity.setLandlord_phone(landlordPhone);
+        if(!App.getInstance().isHave()){
+            //房主身份证号
+            String landlordIdentity = landlordIdentityEt.getText().toString();
+            infoEntity.setLandlord_identity(landlordIdentity);
+            //房主中文姓名
+            String landlordName = landlordNameEt.getText().toString();
+            infoEntity.setLandlord_name(landlordName);
+            //房主联系电话
+            String landlordPhone = landlordPhoneEt.getText().toString();
+            infoEntity.setLandlord_phone(landlordPhone);
+        }
     }
 
+    @Override
+    public void onClick(int position) {
+        ToastUtil.showShort("position is " + position);
+        net_photos.remove(position);
+        photos.remove(position);
+        adapter.setPhotoCount();
+        infoEntity.setHouse_contract_image(net_photos.toArray(new String[net_photos.size()]));//房屋租赁合同
+    }
 }

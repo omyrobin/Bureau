@@ -377,8 +377,8 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("firstname",infoEntity.getFirstname());
         params.put("lastname",infoEntity.getLastname());
         params.put("chinese_name",infoEntity.getChinese_name());
-        params.put("gender",infoEntity.getGender());
-        params.put("birthday",infoEntity.getBirthday());
+//        params.put("gender",infoEntity.getGender());
+//        params.put("birthday",infoEntity.getBirthday());
         params.put("birthplace",infoEntity.getBirthplace());
         params.put("occupation",infoEntity.getOccupation());
         params.put("working_organization",infoEntity.getWorking_organization());
@@ -392,22 +392,30 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             params.put("visa_type",infoEntity.getVisa_type());
             params.put("visa_expired_date",infoEntity.getVisa_expired_date());
         }
-        params.put("entry_date",infoEntity.getEntry_date());
-        params.put("entry_port",infoEntity.getEntry_port());
+//        params.put("entry_date",infoEntity.getEntry_date());
+//        params.put("entry_port",infoEntity.getEntry_port());
         params.put("stay_reason",infoEntity.getStay_reason());
         params.put("stay_expired_date",infoEntity.getStay_expired_date());
-
-//        params.put("checkin_date",infoEntity.getCheckin_date());
         params.put("checkout_date",infoEntity.getCheckout_date());
         params.put("house_address",infoEntity.getHouse_address());
-//        params.put("police_station",infoEntity.getPolice_station());
-//        params.put("community",infoEntity.getCommunity());
         params.put("house_type",infoEntity.getHouse_type());
-        params.put("landlord_country",infoEntity.getLandlord_country());
-        params.put("landlord_identity",infoEntity.getLandlord_identity());
-        params.put("landlord_name",infoEntity.getLandlord_name());
-        params.put("landlord_gender",infoEntity.getLandlord_gender());
-        params.put("landlord_phone",infoEntity.getLandlord_phone());
+        if(App.getInstance().isHave()){
+            params.put("landlord_identity_image",infoEntity.getLandlord_identity_image());
+//            for (int i=0; i< infoEntity.getHouse_contract_image().length; i++){
+            params.put("house_contract_image",infoEntity.getHouse_contract_image());
+//            }
+
+        }else{
+//            params.put("checkin_date",infoEntity.getCheckin_date());
+//            params.put("police_station",infoEntity.getPolice_station());
+//            params.put("community",infoEntity.getCommunity());
+            params.put("landlord_country",infoEntity.getLandlord_country());
+            params.put("landlord_identity",infoEntity.getLandlord_identity());
+            params.put("landlord_name",infoEntity.getLandlord_name());
+            params.put("landlord_gender",infoEntity.getLandlord_gender());
+            params.put("landlord_phone",infoEntity.getLandlord_phone());
+        }
+
 
         Log.i("TAG",infoEntity.toString());
         return params;
@@ -453,20 +461,20 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort(getString(R.string.last_name_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getGender())){
-            ToastUtil.showShort(getString(R.string.gender_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getGender())){
+//            ToastUtil.showShort(getString(R.string.gender_null));
+//            return false;
+//        }
 //        if(!TextUtils.isEmpty(infoEntity.getFirstname())){
 //            return false;
 //        }
 //        if(!TextUtils.isEmpty(infoEntity.getChinese_name())){
 //            return false;
 //        }
-        if(TextUtils.isEmpty(infoEntity.getBirthday())){
-            ToastUtil.showShort(getString(R.string.birthday_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getBirthday())){
+//            ToastUtil.showShort(getString(R.string.birthday_null));
+//            return false;
+//        }
         if(TextUtils.isEmpty(infoEntity.getBirthplace())){
             ToastUtil.showShort(getString(R.string.birthplace_null));
             return false;
@@ -514,14 +522,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
                 return false;
             }
         }
-        if(TextUtils.isEmpty(infoEntity.getEntry_date())){
-            ToastUtil.showShort(getString(R.string.entry_date_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getEntry_port())){
-            ToastUtil.showShort(getString(R.string.entry_port_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getEntry_date())){
+//            ToastUtil.showShort(getString(R.string.entry_date_null));
+//            return false;
+//        }
+//        if(TextUtils.isEmpty(infoEntity.getEntry_port())){
+//            ToastUtil.showShort(getString(R.string.entry_port_null));
+//            return false;
+//        }
         if(TextUtils.isEmpty(infoEntity.getStay_reason())){
             ToastUtil.showShort(getString(R.string.stay_reason_null));
             return false;
@@ -541,10 +549,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort(getString(R.string.check_out_date_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getHouse_address())){
-            ToastUtil.showShort(getString(R.string.address_null));
-            return false;
-        }
 //        if(TextUtils.isEmpty(infoEntity.getPolice_station())){
 //            ToastUtil.showShort("所属派出所不能为空");
 //            return false;
@@ -552,29 +556,44 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 //        if(TextUtils.isEmpty(infoEntity.getCommunity())){
 //            return false;
 //        }
+        if(TextUtils.isEmpty(infoEntity.getHouse_address())){
+            ToastUtil.showShort(getString(R.string.address_null));
+            return false;
+        }
         if(TextUtils.isEmpty(infoEntity.getHouse_type())){
             ToastUtil.showShort(getString(R.string.house_typr_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getLandlord_country())){
-            ToastUtil.showShort(getString(R.string.landlord_country_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getLandlord_gender())){
-            ToastUtil.showShort(getString(R.string.landlord_gender_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getLandlord_identity())){
-            ToastUtil.showShort(getString(R.string.landlord_identity_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getLandlord_name())){
-            ToastUtil.showShort(getString(R.string.landlord_name_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getLandlord_phone())){
-            ToastUtil.showShort(getString(R.string.landlord_phone_null));
-            return false;
+        if(App.getInstance().isHave()){
+            if(TextUtils.isEmpty(infoEntity.getLandlord_identity_image())){
+                ToastUtil.showShort(getString(R.string.landlord_identity_pic_null));
+                return false;
+            }
+            if(infoEntity.getHouse_contract_image() == null || infoEntity.getHouse_contract_image().length == 0){
+                ToastUtil.showShort(getString(R.string.contract_of_tenancy_photo_null));
+                return false;
+            }
+        }else{
+            if(TextUtils.isEmpty(infoEntity.getLandlord_country())){
+                ToastUtil.showShort(getString(R.string.landlord_country_null));
+                return false;
+            }
+            if(TextUtils.isEmpty(infoEntity.getLandlord_gender())){
+                ToastUtil.showShort(getString(R.string.landlord_gender_null));
+                return false;
+            }
+            if(TextUtils.isEmpty(infoEntity.getLandlord_identity())){
+                ToastUtil.showShort(getString(R.string.landlord_identity_null));
+                return false;
+            }
+            if(TextUtils.isEmpty(infoEntity.getLandlord_name())){
+                ToastUtil.showShort(getString(R.string.landlord_name_null));
+                return false;
+            }
+            if(TextUtils.isEmpty(infoEntity.getLandlord_phone())){
+                ToastUtil.showShort(getString(R.string.landlord_phone_null));
+                return false;
+            }
         }
         return true;
     }

@@ -16,9 +16,12 @@
     <string name="electronic_certificate_download">电子证书可下载</string>
 
     <string name="my_photo">本人照片</string>
-    <string name="passport_photo">护照信息页照片</string>
+    <string name="passport_photo">护照信息页照片（港澳台通行证）</string>
     <string name="country">国家 / 地区</string>
     <string name="not_set">未设置</string>
+    <string name="chinese_name_not_set">港澳台、日本、朝鲜、韩国必填</string>
+    <string name="stay_valid_not_set">早于签证（注）有效期</string>
+    <string name="house_address_not_set">地址详细到门牌号</string>
     <string name="certificates_type">证件类型</string>
     <string name="certificates_number">证件号码</string>
     <string name="validity_certificate">证件有效期</string>
@@ -50,7 +53,7 @@
     <string name="contract_of_tenancy">我有房主身份证和房屋租赁合同</string>
     <string name="landlord_identity_pic">房主身份证照片</string>
     <string name="contract_of_tenancy_photo">房屋租赁合同照片</string>
-    <string name="photo_number">%1$s张照片</string>
+    <string name="photo_number">%1$d张照片</string>
     <string name="address">详细地址</string>
     <string name="police_station">所属派出所</string>
     <string name="community">所属社区</string>
@@ -157,6 +160,8 @@
 
     <string name="check_in_date_null">入住日期不能为空</string>
     <string name="check_out_date_null">拟定离开日期不能为空</string>
+    <string name="landlord_identity_pic_null">房主身份证照片不能为空</string>
+    <string name="contract_of_tenancy_photo_null">房屋租赁合同不能为空</string>
     <string name="address_null">详细地址不能为空</string>
     <string name="house_typr_null">住房种类不能为空</string>
     <string name="landlord_country_null">房主国家不能为空</string>

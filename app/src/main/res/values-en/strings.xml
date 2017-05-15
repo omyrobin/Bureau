@@ -10,15 +10,18 @@
 	<string name="cancle">Cancle</string>
 
 	<string name="registeration">Registeration of overseas personnel</string>
-	<string name="check_state_wait">Check_State: Wait</string>
-	<string name="check_state_reject">Check_State: Reject</string>
-	<string name="check_state_approve">Check_State: Approve</string>
+	<string name="check_state_wait">Pending approval</string>
+	<string name="check_state_reject">Not approved</string>
+	<string name="check_state_approve">Approved</string>
 	<string name="electronic_certificate_download">Electronic Certificate Download</string>
 
 	<string name="my_photo">My photo</string>
-	<string name="passport_photo">Passport information page photo</string>
+	<string name="passport_photo">Passport information page photo(Hong Kong, Macao and Taiwan pass)</string>
 	<string name="country">Country / Region</string>
 	<string name="not_set">Not set</string>
+	<string name="chinese_name_not_set">necessary for HKG/MAC/TWN/JPN/PRK/KOR</string>
+	<string name="stay_valid_not_set">Before the visa(note) validity</string>
+	<string name="house_address_not_set">Exact address including house number</string>
 	<string name="certificates_type">Certificates Type</string>
 	<string name="certificates_number">Certificates Number</string>
 	<string name="validity_certificate">Validity of Certificate</string>
@@ -50,7 +53,7 @@
 	<string name="contract_of_tenancy">I have the owner id and house lease contract</string>
 	<string name="landlord_identity_pic">Homeowners id photo</string>
 	<string name="contract_of_tenancy_photo">Photos of the house lease contract</string>
-	<string name="photo_number">%1$ photo</string>
+	<string name="photo_number">%1$d photo</string>
 	<string name="address">Address</string>
 	<string name="police_station">Police station</string>
 	<string name="community">Community</string>
@@ -117,7 +120,7 @@
 	<string name="registration_information">Registration information</string>
 	<string name="write_off_info">Leave</string>
 	<string name="electronic_certificate">Electronic certificate</string>
-	<string name="language_settings">Language settings</string>
+	<string name="language_settings">Language</string>
 	<string name="user_feedback">Feedback</string>
 	<string name="about_us">About Us</string>
 	<string name="whether_out_of_the_current_account">Are you sure you want to logout the current account?</string>
@@ -158,6 +161,8 @@
 
 	<string name="check_in_date_null">Check-in date Not null</string>
 	<string name="check_out_date_null">Check-out date Not null</string>
+	<string name="landlord_identity_pic_null">Homeowners id photo Not null</string>
+	<string name="contract_of_tenancy_photo_null">Photos of the house lease contract Not null</string>
 	<string name="address_null">Address Not null</string>
 	<string name="house_typr_null">Housing Not null</string>
 	<string name="landlord_country_null">Landlord country Not null</string>

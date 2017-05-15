@@ -14,6 +14,8 @@ public class Constant {
 
     public static final int SELECT_CHOOSER = 1;//相册
 
+    public static final int SELECT_CONTRACT_OF_TENANCY = 2;//房屋租赁合同照片
+
     public static final int MY_PERMISSIONS_REQUEST_CALL_CAMERA = 0;
 
     public static final int MY_PERMISSIONS_REQUEST_CALL_CHOOSER = 1;
@@ -33,4 +35,5 @@ public class Constant {
     public static final int ENTRY_PAGE = 1;//入境页
 
     public static final int VISA_PAGE = 2;//签证页
+
 }
