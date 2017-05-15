@@ -190,5 +190,7 @@
 
 	<string name="permission_denied_camera">This function need to Access the camera</string>
 	<string name="permission_denied_write">This function need to Access and Change files on internal storage</string>
+	<string name="delete_this_photo">Whether to delete this photo</string>
+
 
 </resources>

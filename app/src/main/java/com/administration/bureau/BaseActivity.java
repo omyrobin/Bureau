@@ -44,6 +44,7 @@ import com.administration.bureau.utils.ProviderUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.pic.ISelectPic;
 import com.administration.bureau.widget.pic.SelectPicDialog;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -400,10 +401,13 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("house_address",infoEntity.getHouse_address());
         params.put("house_type",infoEntity.getHouse_type());
         if(App.getInstance().isHave()){
+            Gson gson = new Gson();
             params.put("landlord_identity_image",infoEntity.getLandlord_identity_image());
-//            for (int i=0; i< infoEntity.getHouse_contract_image().length; i++){
-            params.put("house_contract_image",infoEntity.getHouse_contract_image());
-//            }
+            Log.i("TAG", gson.toJson(infoEntity.getHouse_contract_image()).toString());
+            for(int i=0; i<infoEntity.getHouse_contract_image().length; i++){
+                params.put("house_contract_image"+"["+i+"]",infoEntity.getHouse_contract_image()[i]);
+            }
+
 
         }else{
 //            params.put("checkin_date",infoEntity.getCheckin_date());

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by omyrobin on 2017/5/11.
@@ -31,7 +29,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
 
     private List<String> photos;
 
-    private int photosLength = 9;
+    private volatile int canAddphotosLength = 9;
 
     private OnRvItemClickListener listener;
 
@@ -43,23 +41,25 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
 
     public void addPhotoPath(List<String> paths){
         if(paths.size() < 9){
-            photosLength = photosLength - paths.size();
+            canAddphotosLength = canAddphotosLength - paths.size();
         }else{
-            photosLength = 0;
+            canAddphotosLength = 0;
         }
         photos.addAll(0,paths);
-//        for (int i=0 ; i<photos.size(); i++){
-//            Log.i("TAG", photos.get(i));
-//        }
         notifyDataSetChanged();
     }
 
     public int getPhotoCount(){
-        return 9-photosLength;
+        return 9 - canAddphotosLength;
     }
 
-    public void setPhotoCount(){
-        photosLength -= 1;
+    public synchronized void setPhotoCount(){
+        if(canAddphotosLength == 0){
+            if(!photos.contains("Add")){
+                photos.add("Add");
+            }
+        }
+        canAddphotosLength += 1;
     }
 
     @Override
@@ -78,12 +78,12 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(photosLength!=0 && position == photos.size()-1){
+                if(photos.get(position).equals("Add")){
                     Album.startAlbum((Activity)context,
-                            Constant.SELECT_CONTRACT_OF_TENANCY, photosLength,
+                            Constant.SELECT_CONTRACT_OF_TENANCY, canAddphotosLength,
                             ContextCompat.getColor(context, R.color.colorPrimary),
                             ContextCompat.getColor(context, R.color.colorPrimaryDark));
-                }else{
+                } else{
                     listener.onClick(position);
                     notifyDataSetChanged();
 

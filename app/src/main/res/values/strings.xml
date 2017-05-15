@@ -189,6 +189,7 @@
 
     <string name="permission_denied_camera">该功能需要开启相机权限</string>
     <string name="permission_denied_write">该功能需要开启读写手机存储权限</string>
+    <string name="delete_this_photo">是否删除这张照片</string>
 
 
 </resources>

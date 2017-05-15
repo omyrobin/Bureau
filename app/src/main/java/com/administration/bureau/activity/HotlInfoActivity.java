@@ -1,5 +1,7 @@
 package com.administration.bureau.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,25 +164,24 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
     protected void initializeActivity(Bundle savedInstanceState) {
         setOnCheckedChangeListener();
         initRecyclerView();
-        photosNumberTv.setText(getString(R.string.photo_number,0));
     }
 
     private void initRecyclerView(){
         net_photos = new ArrayList<>();
         photos = new ArrayList<>();
-        if(infoEntity.getHouse_contract_image()!=null && infoEntity.getHouse_contract_image().length>0){
-            List<String> houseImages = Arrays.asList(infoEntity.getHouse_contract_image());
-            net_photos.addAll(houseImages);
-            photos.addAll(houseImages);
-        }
-        if(photos.size()<9){
-            photos.add("Add");
-        }
+        photos.add("Add");
 
         LinearLayoutManager layout = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         contractOfTenancyRv.setLayoutManager(layout);
         adapter = new PhotosAdapter(this,photos,this);
         contractOfTenancyRv.setAdapter(adapter);
+
+        if(infoEntity.getHouse_contract_image() != null && infoEntity.getHouse_contract_image().length>0){
+            List<String> list = Arrays.asList(infoEntity.getHouse_contract_image());
+            net_photos.addAll(list);
+            adapter.addPhotoPath(list);
+        }
+        photosNumberTv.setText(getString(R.string.photo_number,adapter.getPhotoCount()));
     }
 
     private void setOnCheckedChangeListener(){
@@ -279,6 +281,7 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
             if(requestCode == Constant.SELECT_CONTRACT_OF_TENANCY){
                 selectImg = 1;
                 List<String> pathList = Album.parseResult(data);
+                Log.i("NET_PHOTOS_SIZE", pathList.size() + "");
                 adapter.addPhotoPath(pathList);
                 for(int i=0; i < pathList.size(); i++){
 //                    getUntreatedFile(requestCode, data);
@@ -315,7 +318,11 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
                     infoEntity.setLandlord_identity_image(uploadEntity.getUrl());//房主身份证照片
                     Glide.with(HotlInfoActivity.this).load(uploadEntity.getUrl()).into(landlordIdentityImg);
                 }else{
-                    net_photos.add(uploadEntity.getUrl());
+                    if(!net_photos.contains(uploadEntity.getUrl()))
+                        net_photos.add(uploadEntity.getUrl());
+                    for(int i=0; i<net_photos.size(); i++){
+                        Log.i("NET_PHOTOS_URL", net_photos.get(i));
+                    }
                     infoEntity.setHouse_contract_image(net_photos.toArray(new String[net_photos.size()]));//房屋租赁合同
                 }
             }
@@ -366,10 +373,6 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         if(!TextUtils.isEmpty(infoEntity.getLandlord_identity_image())){
             Glide.with(this).load(infoEntity.getLandlord_identity_image()).into(landlordIdentityImg);
         }
-        if(infoEntity.getHouse_contract_image() != null && infoEntity.getHouse_contract_image().length>0){
-            List<String> list = Arrays.asList(infoEntity.getHouse_contract_image());
-            adapter.addPhotoPath(list);
-        }
     }
 
     @Override
@@ -402,11 +405,21 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
     }
 
     @Override
-    public void onClick(int position) {
-        ToastUtil.showShort("position is " + position);
-        net_photos.remove(position);
-        photos.remove(position);
-        adapter.setPhotoCount();
-        infoEntity.setHouse_contract_image(net_photos.toArray(new String[net_photos.size()]));//房屋租赁合同
+    public void onClick(final int position) {
+        new AlertDialog.Builder(this).setTitle(getString(R.string.hint))
+                .setMessage(R.string.delete_this_photo)
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        net_photos.remove(position);
+                        photos.remove(position);
+                        adapter.setPhotoCount();
+                        photosNumberTv.setText(getString(R.string.photo_number,adapter.getPhotoCount()));
+                        infoEntity.setHouse_contract_image(net_photos.toArray(new String[net_photos.size()]));//房屋租赁合同
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancle),null)
+                .create()
+                .show();
     }
 }

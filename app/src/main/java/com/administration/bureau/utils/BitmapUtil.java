@@ -157,7 +157,7 @@ public class BitmapUtil {
 		File file = new File(buildFileName());
 		file.createNewFile();
 		FileOutputStream oStream = new FileOutputStream(file);
-		bmp.compress(Bitmap.CompressFormat.JPEG, 100, oStream); //100是照片质量，0-100，越大越好
+		bmp.compress(Bitmap.CompressFormat.JPEG, 90, oStream); //100是照片质量，0-100，越大越好
 		oStream.flush();
 		oStream.close();
 		return file.getPath();
