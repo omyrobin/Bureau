@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+    <FrameLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+		android:src="@drawable/ic_logo"
+        android:id="@+id/img"/>
+	</FrameLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingRight="10dp">
+        <FrameLayout 
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="2dp">
+            
+            <TextView 
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:id="@+id/title"
+	            android:gravity="bottom|left"
+	            android:textColor="#ffffff"
+	            android:textStyle="bold"
+	            android:textSize="16sp"/>
+            
+            <ImageButton 
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_delete"
+                android:background="@null"/>
+            
+        </FrameLayout>
+        
+        <FrameLayout 
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="4dp" >
+        <ProgressBar 
+	        android:id="@+id/my_progress"
+	        android:layout_width="match_parent"
+	        android:layout_height="8dp"
+	        android:max="100"
+	        android:progressDrawable="@drawable/drawable_download_progress_bar"
+	        style="?android:attr/progressBarStyleHorizontal"/>
+        </FrameLayout>
+    </LinearLayout>
+    
+</LinearLayout>

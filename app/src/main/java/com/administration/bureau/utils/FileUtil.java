@@ -44,4 +44,18 @@ public class FileUtil {
         return f;
     }
 
+    /**
+     * 删除文件
+     * @param file
+     */
+    public static void clearFile(File file){
+        if(file.isFile()){
+            file.delete();
+        }else if(file.isDirectory()){
+            for(File f : file.listFiles()){
+                clearFile(f);
+            }
+        }
+    }
+
 }

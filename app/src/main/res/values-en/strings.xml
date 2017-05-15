@@ -192,5 +192,14 @@
 	<string name="permission_denied_write">This function need to Access and Change files on internal storage</string>
 	<string name="delete_this_photo">Whether to delete this photo</string>
 
+	<string name="update">Update</string>
+	<string name="later">Later</string>
+	<string name="software_version_update">Software version update</string>
+	<string name="begin_download">Start the download</string>
+	<string name="download_complete_please_install">The download is complete, please install!</string>
+	<string name="net_err">Network connection failed!</string>
+	<string name="stop_the_downloading">Have to stop the downloading</string>
+	<string name="continue_to_download">The network connection is unusual,Continue to download?</string>
+	<string name="have_the_latest_software_package">Have the latest software package</string>
 
 </resources>

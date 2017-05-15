@@ -1,5 +1,6 @@
 package com.administration.bureau.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.GetService;
+import com.administration.bureau.utils.AppVersionUtil;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.google.gson.Gson;
@@ -48,7 +50,7 @@ import butterknife.OnClick;
 import retrofit2.Response;
 import rx.Observable;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity{
 
     private static final String CURRENT_FRAGMENT_POS = "CURRENT_FRAGMENT_POS";
 
@@ -119,6 +121,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        requestVersion();
         requestStatus();
         reqeustSpinnerData();
         if (savedInstanceState != null) {
@@ -168,6 +171,26 @@ public class MainActivity extends BaseActivity {
             ft.hide(fragmentArrayList.get(prePos)).show(fragmentArrayList.get(currPos)).commit();
         }
         prePos = currPos;
+    }
+
+    private void requestVersion() {
+        GetService getService = RetrofitManager.getRetrofit().create(GetService.class);
+        Observable<Response<BaseResponse<String>>> observable = getService.getVersion();
+        RetrofitClient.client().request(observable, new ProgressSubscriber<String>(this) {
+            @Override
+            protected void onSuccess(String s) {
+                int service_version = Integer.valueOf(s.replace(".",""));
+                int app_version = Integer.valueOf(App.getInstance().getVersionName().replace(".",""));
+                if(service_version > app_version){
+                    showAppVersionDialog();
+                }
+            }
+
+            @Override
+            protected void onFailure(String message) {
+                ToastUtil.showLong(message);
+            }
+        });
     }
 
     private void requestStatus(){
@@ -279,6 +302,11 @@ public class MainActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
+    private void showAppVersionDialog(){
+        AppVersionUtil appVersionUtils = new AppVersionUtil(this);
+        appVersionUtils.showNoticeDialog();
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
@@ -303,4 +331,5 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

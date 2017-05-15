@@ -3,6 +3,7 @@ package com.administration.bureau.http;
 import android.util.Log;
 
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.utils.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,10 +30,9 @@ public class ResponseHelper {
                     @Override
                     public Observable<T> call(Response<BaseResponse<T>> result) {
                         if (result.body().getCode() == 0) {
-                            Log.i("result", result.body().getMsg());
                             return createData(result.body().getData());
                         }else {
-                            Log.i("result", result.body().getMsg());
+//                            Log.i("result", result.body().getMsg());
                             return Observable.error(new RuntimeException(result.body().getMsg()));
                         }
                     }

@@ -20,6 +20,10 @@ import retrofit2.http.Url;
 import rx.Observable;
 
 public interface GetService {
+
+    @GET("version")
+    Observable<Response<BaseResponse<String>>> getVersion();
+
     @GET
     Observable<Response<BaseResponse<SpinnerData>>> getSpinnerData(@Url String config, @Header("Accept-Language") String language);
 
