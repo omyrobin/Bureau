@@ -6,7 +6,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <include layout="@layout/tool_bar" />
+    <include layout="@layout/tool_bar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -248,10 +248,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/first_name" />
+                    android:text="@string/last_name" />
 
                 <EditText
-                    android:id="@+id/firstname_et"
+                    android:id="@+id/lastname_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -273,10 +273,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/last_name" />
+                    android:text="@string/first_name" />
 
                 <EditText
-                    android:id="@+id/lastname_et"
+                    android:id="@+id/firstname_et"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -312,7 +312,7 @@
                     android:textSize="13sp" />
             </RelativeLayout>
 
-            <!--<RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -332,14 +332,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@null"
-                    android:gravity="right|center"
                     android:editable="false"
-                   android:hint="@string/not_set"
+                    android:gravity="right|center"
+                    android:hint="@string/not_set"
                     android:textColor="@color/colorText"
                     android:textSize="13sp" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -522,6 +522,5 @@
 
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

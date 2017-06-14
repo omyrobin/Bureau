@@ -204,7 +204,7 @@
                     android:textSize="13sp" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -228,7 +228,7 @@
                     android:gravity="right|center"
                     android:hint="@string/stay_valid_not_set"
                     android:textSize="13sp" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
         </LinearLayout>
     </ScrollView>

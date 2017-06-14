@@ -27,8 +27,8 @@
 	<string name="validity_certificate">Validity of Certificate</string>
 	<string name="personnel_type">Personnel Type</string>
 	<string name="personnel_area_type">Personnel Area Type</string>
-	<string name="first_name">First name</string>
 	<string name="last_name">Last name</string>
+	<string name="first_name">First name</string>
 	<string name="chinese_name">Chinese name</string>
 	<string name="gender">Gender</string>
 	<string name="date_of_birth">Date of birth</string>
@@ -150,6 +150,8 @@
 	<string name="occupation_null">Occupation Not null</string>
 	<string name="working_organization_null">Working organization Not null</string>
 	<string name="phone_null">My phone number Not null</string>
+	<string name="emergency_contact_null">Emergency contact Not null</string>
+	<string name="emergency_phone_null">Emergency phone Not null</string>
 
 	<string name="enter_image_null">Entry page photo Not null</string>
 	<string name="visa_image_null">Visa photo Not null</string>
@@ -194,6 +196,7 @@
 
 	<string name="update">Update</string>
 	<string name="later">Later</string>
+	<string name="close">Close program</string>
 	<string name="software_version_update">Software version update</string>
 	<string name="begin_download">Start the download</string>
 	<string name="download_complete_please_install">The download is complete, please install!</string>

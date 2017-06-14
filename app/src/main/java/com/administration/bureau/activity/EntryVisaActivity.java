@@ -85,8 +85,8 @@ public class EntryVisaActivity extends BaseActivity {
     @BindView(R.id.stay_reason_et)
     EditText stayReasonEt;
     //停留有效期
-    @BindView(R.id.stay_expired_date_et)
-    EditText stayExpiredDateEt;
+//    @BindView(R.id.stay_expired_date_et)
+//    EditText stayExpiredDateEt;
     private int selectImg;
 
     @Override
@@ -153,9 +153,9 @@ public class EntryVisaActivity extends BaseActivity {
 //        if(!TextUtils.isEmpty(infoEntity.getEntry_date())){
 //            entryDateEt.setText(infoEntity.getEntry_date());
 //        }
-        if(!TextUtils.isEmpty(infoEntity.getStay_expired_date())){
-            stayExpiredDateEt.setText(infoEntity.getStay_expired_date());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getStay_expired_date())){
+//            stayExpiredDateEt.setText(infoEntity.getStay_expired_date());
+//        }
     }
 
     @Override
@@ -172,8 +172,8 @@ public class EntryVisaActivity extends BaseActivity {
 //        String entryDate = entryDateEt.getText().toString();
 //        infoEntity.setEntry_date(entryDate);
         //停留有效期
-        String stayExpiredDate = stayExpiredDateEt.getText().toString();
-        infoEntity.setStay_expired_date(stayExpiredDate);
+//        String stayExpiredDate = stayExpiredDateEt.getText().toString();
+//        infoEntity.setStay_expired_date(stayExpiredDate);
     }
 
     @OnClick({R.id.entry_page_layout, R.id.visa_page_layout})
@@ -192,7 +192,7 @@ public class EntryVisaActivity extends BaseActivity {
         showSelectPicDialog(true);
     }
 
-    @OnTouch({R.id.visa_expired_date_et, R.id.stay_expired_date_et})
+    @OnTouch({R.id.visa_expired_date_et})
     protected boolean selectDate(TextView textView, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_UP)
             super.selectDate(textView);

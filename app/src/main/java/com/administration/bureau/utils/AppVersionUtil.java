@@ -19,6 +19,7 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.view.KeyEvent;
 import android.widget.RemoteViews;
 
 import com.administration.bureau.App;
@@ -66,7 +67,7 @@ public class AppVersionUtil {
     }
 
 	public void showNoticeDialog(){
-		showNoticeDialog(UPDATE_MSG, activity.getString(R.string.update), activity.getString(R.string.later));
+		showNoticeDialog(UPDATE_MSG, activity.getString(R.string.update), activity.getString(R.string.close));
 	}
 
 	private void showNoticeDialog(String msg, String okBtn, String cencelBtn) {
@@ -87,10 +88,22 @@ public class AppVersionUtil {
 				try {
 					nManager.cancel(NOTIFY_ID);
 				} catch (Exception e) {}
-
+				System.exit(0);
 			}
 		});
 		AlertDialog noticeDialog = builder.create();
+		//禁用返回键和搜索按键,阻止dialog的取消
+		noticeDialog.setCancelable(false);
+		noticeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+
+			@Override
+			public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+				if(keyCode == KeyEvent.KEYCODE_SEARCH){
+					return true;
+				}
+				return false;
+			}
+		});
 		noticeDialog.show();
 	}
     

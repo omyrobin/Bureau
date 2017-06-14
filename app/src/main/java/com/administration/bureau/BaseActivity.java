@@ -378,7 +378,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("firstname",infoEntity.getFirstname());
         params.put("lastname",infoEntity.getLastname());
         params.put("chinese_name",infoEntity.getChinese_name());
-//        params.put("gender",infoEntity.getGender());
+        params.put("gender",infoEntity.getGender());
 //        params.put("birthday",infoEntity.getBirthday());
         params.put("birthplace",infoEntity.getBirthplace());
         params.put("occupation",infoEntity.getOccupation());
@@ -396,7 +396,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 //        params.put("entry_date",infoEntity.getEntry_date());
 //        params.put("entry_port",infoEntity.getEntry_port());
         params.put("stay_reason",infoEntity.getStay_reason());
-        params.put("stay_expired_date",infoEntity.getStay_expired_date());
+//        params.put("stay_expired_date",infoEntity.getStay_expired_date());
         params.put("checkout_date",infoEntity.getCheckout_date());
         params.put("house_address",infoEntity.getHouse_address());
         params.put("house_type",infoEntity.getHouse_type());
@@ -407,8 +407,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             for(int i=0; i<infoEntity.getHouse_contract_image().length; i++){
                 params.put("house_contract_image"+"["+i+"]",infoEntity.getHouse_contract_image()[i]);
             }
-
-
         }else{
 //            params.put("checkin_date",infoEntity.getCheckin_date());
 //            params.put("police_station",infoEntity.getPolice_station());
@@ -465,10 +463,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort(getString(R.string.last_name_null));
             return false;
         }
-//        if(TextUtils.isEmpty(infoEntity.getGender())){
-//            ToastUtil.showShort(getString(R.string.gender_null));
-//            return false;
-//        }
+        if(TextUtils.isEmpty(infoEntity.getGender())){
+            ToastUtil.showShort(getString(R.string.gender_null));
+            return false;
+        }
 //        if(!TextUtils.isEmpty(infoEntity.getFirstname())){
 //            return false;
 //        }
@@ -495,12 +493,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort(getString(R.string.phone_null));
             return false;
         }
-//        if(!TextUtils.isEmpty(infoEntity.getEmergency_contact())){
-//            return false;
-//        }
-//        if(!TextUtils.isEmpty(infoEntity.getEmergency_phone())){
-//            return false;
-//        }
+        if(TextUtils.isEmpty(infoEntity.getEmergency_contact())){
+            ToastUtil.showShort(getString(R.string.emergency_contact_null));
+            return false;
+        }
+        if(TextUtils.isEmpty(infoEntity.getEmergency_phone())){
+            ToastUtil.showShort(getString(R.string.emergency_phone_null));
+            return false;
+        }
         return true;
     }
 

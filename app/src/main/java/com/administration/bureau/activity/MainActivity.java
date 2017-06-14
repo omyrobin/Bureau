@@ -179,6 +179,7 @@ public class MainActivity extends BaseActivity{
         RetrofitClient.client().request(observable, new ProgressSubscriber<String>(this) {
             @Override
             protected void onSuccess(String s) {
+                Log.i("service_version", s);
                 int service_version = Integer.valueOf(s.replace(".",""));
                 int app_version = Integer.valueOf(App.getInstance().getVersionName().replace(".",""));
                 if(service_version > app_version){

@@ -55,7 +55,7 @@ public class BaseInfoActivity extends BaseActivity {
     TextView titleTv;
     @BindView(R.id.toolbar_action_tv)
     TextView actionTv;
-    //护照信息页照片
+    //本人照片
     @BindView(R.id.avatar_img)
     ImageView avatarImg;
     //护照信息页照片
@@ -80,17 +80,17 @@ public class BaseInfoActivity extends BaseActivity {
 //    @BindView(R.id.person_area_type_et)
 //    EditText personAreaTypeEt;
     //英文姓
-    @BindView(R.id.firstname_et)
-    EditText firstnameEt;
-    //英文名
     @BindView(R.id.lastname_et)
     EditText lastnameEt;
+    //英文名
+    @BindView(R.id.firstname_et)
+    EditText firstnameEt;
     //中文名
     @BindView(R.id.chinese_name_et)
     EditText chineseNameEt;
     //性别
-//    @BindView(R.id.gender_et)
-//    EditText genderEt;
+    @BindView(R.id.gender_et)
+    EditText genderEt;
     //出生日期
 //    @BindView(R.id.birthday_et)
 //    EditText birthdayEt;
@@ -152,7 +152,7 @@ public class BaseInfoActivity extends BaseActivity {
         return true;
     }
 
-    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.occupation_et})
+    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.occupation_et,R.id.gender_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
@@ -204,16 +204,16 @@ public class BaseInfoActivity extends BaseActivity {
 //                    });
 //                    break;
 
-//                case R.id.gender_et:
-//                    adapter = new DataAdapter(this,transformToList(App.getInstance().getGender()));
-//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-//                        @Override
-//                        public void itemClickPosition(DataEntity dataEntity) {
-//                            genderEt.setText(dataEntity.getValue());
-//                            infoEntity.setGender(dataEntity.getKey());
-//                        }
-//                    });
-//                    break;
+                case R.id.gender_et:
+                    adapter = new DataAdapter(this,transformToList(App.getInstance().getGender()));
+                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+                        @Override
+                        public void itemClickPosition(DataEntity dataEntity) {
+                            genderEt.setText(dataEntity.getValue());
+                            infoEntity.setGender(dataEntity.getKey());
+                        }
+                    });
+                    break;
 
                 case R.id.occupation_et:
                     adapter =  new DataAdapter(this,transformToList(App.getInstance().getOccupation()));
@@ -253,9 +253,9 @@ public class BaseInfoActivity extends BaseActivity {
 //        if(!TextUtils.isEmpty(infoEntity.getPerson_area_type())){
 //            personAreaTypeEt.setText(App.getInstance().getPerson_area_type().get(infoEntity.getPerson_area_type()));
 //        }
-//        if(!TextUtils.isEmpty(infoEntity.getGender())){
-//            genderEt.setText(App.getInstance().getGender().get(infoEntity.getGender()));
-//        }
+        if(!TextUtils.isEmpty(infoEntity.getGender())){
+            genderEt.setText(App.getInstance().getGender().get(infoEntity.getGender()));
+        }
         if(!TextUtils.isEmpty(infoEntity.getOccupation())){
             occupationEt.setText(App.getInstance().getOccupation().get(infoEntity.getOccupation()));
         }
@@ -311,11 +311,11 @@ public class BaseInfoActivity extends BaseActivity {
         String credentialExpiredDate = credentialExpiredDateEt.getText().toString();
         infoEntity.setCredential_expired_date(credentialExpiredDate);
         //英文姓
-        String firstname= firstnameEt.getText().toString();
-        infoEntity.setFirstname(firstname);
-        //英文名
         String lastname = lastnameEt.getText().toString();
         infoEntity.setLastname(lastname);
+        //英文名
+        String firstname= firstnameEt.getText().toString();
+        infoEntity.setFirstname(firstname);
         //中文名
         String chinestname = chineseNameEt.getText().toString();
         infoEntity.setChinese_name(chinestname);
