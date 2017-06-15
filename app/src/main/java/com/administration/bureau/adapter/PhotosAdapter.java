@@ -85,8 +85,6 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
                             ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 } else{
                     listener.onClick(position);
-                    notifyDataSetChanged();
-
                 }
             }
         });

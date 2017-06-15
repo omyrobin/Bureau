@@ -169,7 +169,7 @@ public class AppVersionUtil {
 	                if (!file.exists()) {
 	                    file.mkdirs();
 	                }
-	                File mApkFile = new File(file, "poison.apk");
+	                File mApkFile = new File(file, "fangshan.apk");
 	                int length = conn.getContentLength();
 	                InputStream is = conn.getInputStream();
 	                FileOutputStream fos1 = new FileOutputStream(mApkFile);  
@@ -217,7 +217,7 @@ public class AppVersionUtil {
      */
     private void installApk() {
     	File file = new File(FileUtil.getCacheFile(), "apk");
-        File apkfile = new File(file, "poison.apk");
+        File apkfile = new File(file, "fangshan.apk");
         if (!apkfile.exists()) {
             return;
         }

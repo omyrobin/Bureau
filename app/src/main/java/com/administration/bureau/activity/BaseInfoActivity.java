@@ -27,6 +27,7 @@ import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.interfaces.IItemClickPosition;
 import com.administration.bureau.model.PostService;
+import com.administration.bureau.utils.AllCapTransformationMethod;
 import com.administration.bureau.utils.BitmapUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
@@ -106,7 +107,7 @@ public class BaseInfoActivity extends BaseActivity {
     //本人联系电话
     @BindView(R.id.phone_et)
     EditText phoneEt;
-    //紧急联系人
+    //紧急联系人姓名
     @BindView(R.id.emergency_contact_et)
     EditText emergencyContactEt;
     //紧急联系人电话
@@ -142,7 +143,7 @@ public class BaseInfoActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-
+        credentialEt.setTransformationMethod(new AllCapTransformationMethod());
     }
 
     @OnTouch({R.id.credential_expired_date_et})

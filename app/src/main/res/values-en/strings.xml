@@ -36,7 +36,7 @@
 	<string name="occupation">Occupation</string>
 	<string name="working_mechanism">Working mechanism</string>
 	<string name="my_phone_number">My phone number</string>
-	<string name="emergency_contact">Emergency contact</string>
+	<string name="emergency_contact">Emergency contact name</string>
 	<string name="emergency_phone">Emergency phone number</string>
 
 	<string name="entry_page_photo">Entry page photo</string>
@@ -150,7 +150,7 @@
 	<string name="occupation_null">Occupation Not null</string>
 	<string name="working_organization_null">Working organization Not null</string>
 	<string name="phone_null">My phone number Not null</string>
-	<string name="emergency_contact_null">Emergency contact Not null</string>
+	<string name="emergency_contact_null">Emergency contact name Not null</string>
 	<string name="emergency_phone_null">Emergency phone Not null</string>
 
 	<string name="enter_image_null">Entry page photo Not null</string>

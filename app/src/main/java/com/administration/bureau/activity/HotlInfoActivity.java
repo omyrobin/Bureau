@@ -416,6 +416,7 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
                         adapter.setPhotoCount();
                         photosNumberTv.setText(getString(R.string.photo_number,adapter.getPhotoCount()));
                         infoEntity.setHouse_contract_image(net_photos.toArray(new String[net_photos.size()]));//房屋租赁合同
+                        adapter.notifyDataSetChanged();
                     }
                 })
                 .setNegativeButton(getString(R.string.cancle),null)
