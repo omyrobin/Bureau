@@ -46,7 +46,7 @@
 
             </RelativeLayout>-->
 
-            <RelativeLayout
+           <!-- <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -70,9 +70,7 @@
                     android:editable="false"
                     android:hint="@string/stay_valid_not_set"
                     android:textSize="13sp" />
-
-
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -154,7 +152,7 @@
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>-->
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -178,7 +176,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"

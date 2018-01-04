@@ -35,13 +35,18 @@ public interface PostService {
     @Multipart
     Observable<Response<BaseResponse<UploadEntity>>> uploadFile(@Url String url, @Part MultipartBody.Part file, @Header("Authorization") String token);
 
-    @POST("sms")
+    @POST("http://119.29.159.231:8080/api/sms")
     @FormUrlEncoded
-    Observable<Response<BaseResponse<ArrayList<String>>>> getCode(@Field("phone") String page);
+    Observable<Response<BaseResponse<ArrayList<String>>>> getCode(@Field("code") String code, @Field("phone") String phone);
 
     @POST
     @FormUrlEncoded
     Observable<Response<BaseResponse<UserEntity>>> registerUser(@Url String url, @Field("phone") String phone, @Field("verify_code") String verify_code);
+
+    @POST("http://119.29.159.231:8080/api/login")
+    @FormUrlEncoded
+    Observable<Response<BaseResponse<UserEntity>>> registerUserAgeOf16(@Field("passport") String passport);
+
 
     @POST("user/{user_id}/registrant")
     @FormUrlEncoded

@@ -1,5 +1,6 @@
 package com.administration.bureau.http;
 
+import android.os.Looper;
 import android.util.Log;
 
 import com.administration.bureau.entity.BaseResponse;
@@ -28,7 +29,7 @@ public class ResponseHelper {
             public Observable<T> call(Observable<Response<BaseResponse<T>>> tObservable) {
                 return tObservable.flatMap(new Func1<Response<BaseResponse<T>>, Observable<T>>() {
                     @Override
-                    public Observable<T> call(Response<BaseResponse<T>> result) {
+                    public Observable<T> call(final Response<BaseResponse<T>> result) {
                         if (result.body().getCode() == 0) {
                             return createData(result.body().getData());
                         }else {

@@ -74,6 +74,7 @@
 	<string name="code">Code</string>
 	<string name="get_code">Get Code</string>
 	<string name="register">Register</string>
+	<string name="age_of_16">Age of 16</string>
 
 
 	<string name="date_of_departure">Date of departure</string>
@@ -204,5 +205,7 @@
 	<string name="stop_the_downloading">Have to stop the downloading</string>
 	<string name="continue_to_download">The network connection is unusual,Continue to download?</string>
 	<string name="have_the_latest_software_package">Have the latest software package</string>
+    <string name="passport">护照号</string>
+	<string name="autocode">验证码</string>
 
 </resources>

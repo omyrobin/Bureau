@@ -7,14 +7,42 @@
 
     <include layout="@layout/tool_bar"/>
 
-    <EditText
-        android:id="@+id/phone_number_et"
+    <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/colorAccent"
-        android:hint="@string/phone_number"
-        android:inputType="phone" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/phone_n"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/country_number_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="+86" />
+
+        <EditText
+            android:id="@+id/phone_number_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:backgroundTint="@color/colorAccent"
+            android:gravity="center_horizontal|right"
+            android:hint="@string/phone_number"
+            android:inputType="phone" />
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_margin="10dp"
@@ -22,9 +50,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <TextView
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/autocode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
         <EditText
-            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_horizontal|right"
             android:backgroundTint="@color/colorAccent"
+            android:background="@null"
             android:hint="@string/code"
             android:id="@+id/auth_code_et"
             android:inputType="number"
@@ -56,6 +94,15 @@
         android:textSize="16sp"
         android:text="登录"
         android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/age_of_16_tv"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="@string/age_of_16"
+        android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

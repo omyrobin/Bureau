@@ -1,6 +1,7 @@
 package com.administration.bureau.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -11,16 +12,20 @@ import android.widget.TextView;
 import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
+import com.administration.bureau.adapter.DataAdapter;
 import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.DataEntity;
 import com.administration.bureau.entity.StatusChangeEvent;
 import com.administration.bureau.entity.UserEntity;
 import com.administration.bureau.entity.eventbus.UserLoginEvent;
 import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
+import com.administration.bureau.interfaces.IItemClickPosition;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
+import com.administration.bureau.widget.ListAlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -46,14 +51,16 @@ public class RegisterUserActivity extends BaseActivity{
     Toolbar toolbar;
     @BindView(R.id.toolbar_title_tv)
     TextView titleTv;
+    @BindView(R.id.country_number_tv)
+    TextView countryNumberTv;
     @BindView(R.id.phone_number_et)
     EditText phoneNumberEt;
     @BindView(R.id.auth_code_et)
     TextView authCodeEt;
+    @BindView(R.id.age_of_16_tv)
+    TextView ageOf16Tv;
 
-    private static final int MSG_SET_ALIAS = 1001;
-
-    private String code;
+    private boolean ageof16 = true;
 
     @Override
     protected int getLayoutId() {
@@ -74,29 +81,51 @@ public class RegisterUserActivity extends BaseActivity{
 
     }
 
-    @OnClick({R.id.register_user_tv, R.id.auth_code_tv})
+    @OnClick({R.id.country_number_tv,R.id.register_user_tv, R.id.auth_code_tv, R.id.age_of_16_tv})
     public void actionBtn(TextView view){
         String phoneNumber = phoneNumberEt.getText().toString();
+        String country_code = countryNumberTv.getText().toString().replace("+","");
+        String authCode = authCodeEt.getText().toString();
         switch (view.getId()){
             case R.id.register_user_tv:
-                String authCode = authCodeEt.getText().toString();
                 registerUser(phoneNumber, authCode);
                 break;
 
             case R.id.auth_code_tv:
 
                 if(isMobile(phoneNumber)){
-                    getCode(phoneNumber);
+                    getCode(country_code,phoneNumber);
                 }else{
                     ToastUtil.showShort(getString(R.string.correct_phone_number));
                 }
                 break;
+
+            case R.id.age_of_16_tv:
+                ageof16 = true;
+                Intent intent = new Intent(RegisterUserActivity.this, RegisterUserAgeOf16Activity.class);
+                startActivity(intent);
+                finish();
+                break;
+
+            default:
+                DataAdapter adapter;
+                ListAlertDialog dialog = null;
+                adapter = new DataAdapter(this,transformToListAZ(App.getInstance().getCountry()));
+                dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+                    @Override
+                    public void itemClickPosition(DataEntity dataEntity) {
+                        countryNumberTv.setText(dataEntity.getKey());
+                    }
+                });
+                if(dialog!=null)
+                    dialog.show();
+                break;
         }
     }
 
-    private void getCode(String phoneNumber){
+    private void getCode(String code,String phoneNumber){
         PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
-        Observable<Response<BaseResponse<ArrayList<String>>>> observable = postService.getCode(phoneNumber);
+        Observable<Response<BaseResponse<ArrayList<String>>>> observable = postService.getCode(code,phoneNumber);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ArrayList<String>>(this) {
             @Override
             protected void onSuccess(ArrayList<String> s) {
@@ -110,19 +139,6 @@ public class RegisterUserActivity extends BaseActivity{
         });
     }
 
-//    private void showCodeDialog(){
-//        AlertDialog dialog = new AlertDialog.Builder(this)
-//                .setTitle(getString(R.string.have_not_yet_opened))
-//                .setMessage(getString(R.string.auto_input))
-//                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        authCodeEt.setText("123123");
-//                        dialog.dismiss();
-//                    }
-//                }).create();
-//        dialog.show();
-//    }
 
     private void registerUser(String phoneNumber, String authCode){
         Observable<Response<BaseResponse<UserEntity>>> observable = RetrofitManager.getRetrofit().create(PostService.class).registerUser("login", phoneNumber, authCode);
@@ -155,46 +171,4 @@ public class RegisterUserActivity extends BaseActivity{
         b = m.matches();
         return b;
     }
-
-    private void setAlias() {
-        // 调用 Handler 来异步设置别名
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, App.getInstance().getUserEntity().getUser().getPhone()));
-    }
-
-    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
-        @Override
-        public void gotResult(int code, String alias, Set<String> tags) {
-            String logs ;
-            switch (code) {
-                case 0:
-                    logs = "Set tag and alias success";
-                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
-                    if(App.getInstance().getUserEntity()!=null)
-                        SharedPreferencesUtil.setParam(RegisterUserActivity.this,App.getInstance().getUserEntity().getUser().getPhone(),true);
-                    break;
-                case 6002:
-                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
-                    // 延迟 60 秒来调用 Handler 设置别名
-                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
-                    break;
-                default:
-                    logs = "Failed with errorCode = " + code;
-            }
-        }
-    };
-
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(android.os.Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case MSG_SET_ALIAS:
-                    // 调用 JPush 接口来设置别名。
-                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 }

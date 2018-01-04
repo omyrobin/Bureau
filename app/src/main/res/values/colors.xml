@@ -13,4 +13,6 @@
     <color name="colorEnabled">#B4B4B4</color>
     <color name="colorRed">#FF0000</color>
 
+    <color name="gary">#898989</color>
+    <color name="darkgrey"> #C0C0C0</color>
 </resources>

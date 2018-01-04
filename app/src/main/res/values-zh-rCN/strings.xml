@@ -204,5 +204,7 @@
 	<string name="stop_the_downloading">已停止下载！</string>
 	<string name="continue_to_download">网络连接异常！是否继续下载？</string>
 	<string name="have_the_latest_software_package">有最新的软件包</string>
+    <string name="passport">护照号</string>
+	<string name="autocode">验证码</string>
 
 </resources>

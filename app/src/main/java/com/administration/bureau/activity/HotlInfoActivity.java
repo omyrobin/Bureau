@@ -72,8 +72,8 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
     @BindView(R.id.contract_of_tenancy_sw)
     SwitchCompat contractOfTenancySw;
     //拟定离开日期
-    @BindView(R.id.check_out_date_et)
-    EditText checkOutDateEt;
+//    @BindView(R.id.check_out_date_et)
+//    EditText checkOutDateEt;
     //有租赁合同的Layout
     @BindView(R.id.house_have_layout)
     View houseHaveLayout;
@@ -99,8 +99,8 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
 //    @BindView(R.id.community_et)
 //    EditText communityEt;
     //住房种类
-    @BindView(R.id.house_type_et)
-    EditText houseTypeEt;
+//    @BindView(R.id.house_type_et)
+//    EditText houseTypeEt;
     //房主国家
     @BindView(R.id.landlord_country_et)
     EditText landlordCountryEt;
@@ -153,12 +153,12 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         }
     }
 
-    @OnTouch({R.id.check_out_date_et})
-    protected boolean selectDate(TextView textView, MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP)
-            super.selectDate(textView);
-        return true;
-    }
+//    @OnTouch({R.id.check_out_date_et})
+//    protected boolean selectDate(TextView textView, MotionEvent event) {
+//        if(event.getAction() == MotionEvent.ACTION_UP)
+//            super.selectDate(textView);
+//        return true;
+//    }
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
@@ -201,12 +201,16 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         });
     }
 
-    @OnTouch({R.id.house_type_et,R.id.landlord_country_et,R.id.landlord_gender_et})
+    @OnTouch({R.id.house_address_et, R.id.landlord_country_et,R.id.landlord_gender_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
         if(event.getAction() == MotionEvent.ACTION_UP){
             switch (editView.getId()){
+                case R.id.house_address_et:
+                    Intent intent = new Intent(this, MapActivity.class);
+                    startActivity(intent);
+                    break;
 //                case R.id.police_station_et:
 //                    adapter = new DataAdapter(this, transformToList(App.getInstance().getPolice_station()));
 //                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
@@ -231,16 +235,16 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
 //                    });
 //                    break;
 
-                case R.id.house_type_et:
-                    adapter = new DataAdapter(this, transformToList(App.getInstance().getHouse_type()));
-                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            houseTypeEt.setText(dataEntity.getValue());
-                            infoEntity.setHouse_type(dataEntity.getKey());
-                        }
-                    });
-                    break;
+//                case R.id.house_type_et:
+//                    adapter = new DataAdapter(this, transformToList(App.getInstance().getHouse_type()));
+//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            houseTypeEt.setText(dataEntity.getValue());
+//                            infoEntity.setHouse_type(dataEntity.getKey());
+//                        }
+//                    });
+//                    break;
 
                 case R.id.landlord_country_et:
                     adapter = new DataAdapter(this, transformToListAZ(App.getInstance().getCountry()));
@@ -340,9 +344,9 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
 //        if(!TextUtils.isEmpty(infoEntity.getCheckin_date())){
 //            checkInDateEt.setText(infoEntity.getCheckin_date());
 //        }
-        if(!TextUtils.isEmpty(infoEntity.getCheckout_date())){
-            checkOutDateEt.setText(infoEntity.getCheckout_date());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getCheckout_date())){
+//            checkOutDateEt.setText(infoEntity.getCheckout_date());
+//        }
         if(!TextUtils.isEmpty(infoEntity.getHouse_address())){
             houseAddressEt.setText(infoEntity.getHouse_address());
         }
@@ -352,9 +356,9 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
 //        if(!TextUtils.isEmpty(infoEntity.getCommunity())){
 //            communityEt.setText(App.getInstance().getAllCommunity().get(infoEntity.getPolice_station()).get(infoEntity.getCommunity()));
 //        }
-        if(!TextUtils.isEmpty(infoEntity.getHouse_type())){
-            houseTypeEt.setText(App.getInstance().getHouse_type().get(infoEntity.getHouse_type()));
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getHouse_type())){
+//            houseTypeEt.setText(App.getInstance().getHouse_type().get(infoEntity.getHouse_type()));
+//        }
         if(!TextUtils.isEmpty(infoEntity.getLandlord_country())){
             landlordCountryEt.setText(App.getInstance().getCountry().get(infoEntity.getLandlord_country()));
         }
@@ -386,8 +390,8 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
 //        String checkInDate = checkInDateEt.getText().toString();
 //        infoEntity.setCheckin_date(checkInDate);
         //拟定离开日期
-        String checkOutDate = checkOutDateEt.getText().toString();
-        infoEntity.setCheckout_date(checkOutDate);
+//        String checkOutDate = checkOutDateEt.getText().toString();
+//        infoEntity.setCheckout_date(checkOutDate);
         //详细地址
         String houseAddress = houseAddressEt.getText().toString();
         infoEntity.setHouse_address(houseAddress);

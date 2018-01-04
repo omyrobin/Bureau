@@ -64,17 +64,17 @@ public class EntryVisaActivity extends BaseActivity {
     @BindView(R.id.visa_page_img)
     ImageView visaPageImg;
     //签证（注）种类layout
-    @BindView(R.id.visa_type_layout)
-    ViewGroup visaTypelayout;
+//    @BindView(R.id.visa_type_layout)
+//    ViewGroup visaTypelayout;
     //签证（注）有效期layout
-    @BindView(R.id.visa_expired_date_layout)
-    ViewGroup visaExpiredDateLayout;
+//    @BindView(R.id.visa_expired_date_layout)
+//    ViewGroup visaExpiredDateLayout;
     //签证（注）种类
-    @BindView(R.id.visa_type_et)
-    EditText visaTypeEt;
+//    @BindView(R.id.visa_type_et)
+//    EditText visaTypeEt;
     //签证（注）有效期
-    @BindView(R.id.visa_expired_date_et)
-    EditText visaExpiredDateEt;
+//    @BindView(R.id.visa_expired_date_et)
+//    EditText visaExpiredDateEt;
     //入境日期
 //    @BindView(R.id.entry_date_et)
 //    EditText entryDateEt;
@@ -82,8 +82,8 @@ public class EntryVisaActivity extends BaseActivity {
 //    @BindView(R.id.entry_port_et)
 //    EditText entryPortEt;
     //停留事由
-    @BindView(R.id.stay_reason_et)
-    EditText stayReasonEt;
+//    @BindView(R.id.stay_reason_et)
+//    EditText stayReasonEt;
     //停留有效期
 //    @BindView(R.id.stay_expired_date_et)
 //    EditText stayExpiredDateEt;
@@ -124,32 +124,32 @@ public class EntryVisaActivity extends BaseActivity {
         if("1".equals(infoEntity.getCredential_type())|| "7".equals(infoEntity.getCredential_type())|| "11".equals(infoEntity.getCredential_type())){
             entryPageLayout.setVisibility(View.GONE);
             visaPageLayout.setVisibility(View.GONE);
-            visaTypelayout.setVisibility(View.GONE);
-            visaExpiredDateLayout.setVisibility(View.GONE);
+//            visaTypelayout.setVisibility(View.GONE);
+//            visaExpiredDateLayout.setVisibility(View.GONE);
         }else{
             entryPageLayout.setVisibility(View.VISIBLE);
             visaPageLayout.setVisibility(View.VISIBLE);
-            visaTypelayout.setVisibility(View.VISIBLE);
-            visaExpiredDateLayout.setVisibility(View.VISIBLE);
+//            visaTypelayout.setVisibility(View.VISIBLE);
+//            visaExpiredDateLayout.setVisibility(View.VISIBLE);
             if(!TextUtils.isEmpty(infoEntity.getEnter_image())){
                 Glide.with(this).load(infoEntity.getEnter_image()).into(entryPageImg);
             }
             if(!TextUtils.isEmpty(infoEntity.getVisa_image())){
                 Glide.with(this).load(infoEntity.getVisa_image()).into(visaPageImg);
             }
-            if(!TextUtils.isEmpty(infoEntity.getVisa_type())){
-                visaTypeEt.setText(App.getInstance().getVisa_type().get(infoEntity.getVisa_type()));
-            }
-            if(!TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
-                visaExpiredDateEt.setText(infoEntity.getVisa_expired_date());
-            }
+//            if(!TextUtils.isEmpty(infoEntity.getVisa_type())){
+//                visaTypeEt.setText(App.getInstance().getVisa_type().get(infoEntity.getVisa_type()));
+//            }
+//            if(!TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
+//                visaExpiredDateEt.setText(infoEntity.getVisa_expired_date());
+//            }
         }
 //        if(!TextUtils.isEmpty(infoEntity.getEntry_port())){
 //            entryPortEt.setText(App.getInstance().getEntry_port().get(infoEntity.getEntry_port()));
 //        }
-        if(!TextUtils.isEmpty(infoEntity.getStay_reason())){
-            stayReasonEt.setText(App.getInstance().getStay_reason().get(infoEntity.getStay_reason()));
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getStay_reason())){
+//            stayReasonEt.setText(App.getInstance().getStay_reason().get(infoEntity.getStay_reason()));
+//        }
 //        if(!TextUtils.isEmpty(infoEntity.getEntry_date())){
 //            entryDateEt.setText(infoEntity.getEntry_date());
 //        }
@@ -166,8 +166,8 @@ public class EntryVisaActivity extends BaseActivity {
 
     private void setEntryVisaParams(){
         //签证（注）有效期
-        String visaExpiredDate = visaExpiredDateEt.getText().toString();
-        infoEntity.setVisa_expired_date(visaExpiredDate);
+//        String visaExpiredDate = visaExpiredDateEt.getText().toString();
+//        infoEntity.setVisa_expired_date(visaExpiredDate);
         //入境日期
 //        String entryDate = entryDateEt.getText().toString();
 //        infoEntity.setEntry_date(entryDate);
@@ -192,29 +192,29 @@ public class EntryVisaActivity extends BaseActivity {
         showSelectPicDialog(true);
     }
 
-    @OnTouch({R.id.visa_expired_date_et})
-    protected boolean selectDate(TextView textView, MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP)
-            super.selectDate(textView);
-        return true;
-    }
+//    @OnTouch({R.id.visa_expired_date_et})
+//    protected boolean selectDate(TextView textView, MotionEvent event) {
+//        if(event.getAction() == MotionEvent.ACTION_UP)
+//            super.selectDate(textView);
+//        return true;
+//    }
 
-    @OnTouch({R.id.visa_type_et,R.id.stay_reason_et})
-    protected boolean selectPosition(TextView editView, MotionEvent event){
-        DataAdapter adapter;
-        ListAlertDialog dialog = null;
-        if(event.getAction() == MotionEvent.ACTION_UP){
-            switch (editView.getId()){
-                case R.id.visa_type_et:
-                    adapter = new DataAdapter(this, transformToList(App.getInstance().getVisa_type()));
-                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            visaTypeEt.setText(dataEntity.getValue());
-                            infoEntity.setVisa_type(dataEntity.getKey());
-                        }
-                    });
-                    break;
+//    @OnTouch({R.id.visa_type_et,R.id.stay_reason_et})
+//    protected boolean selectPosition(TextView editView, MotionEvent event){
+//        DataAdapter adapter;
+//        ListAlertDialog dialog = null;
+//        if(event.getAction() == MotionEvent.ACTION_UP){
+//            switch (editView.getId()){
+//                case R.id.visa_type_et:
+//                    adapter = new DataAdapter(this, transformToList(App.getInstance().getVisa_type()));
+//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            visaTypeEt.setText(dataEntity.getValue());
+//                            infoEntity.setVisa_type(dataEntity.getKey());
+//                        }
+//                    });
+//                    break;
 
 //                case R.id.entry_port_et:
 //                    adapter = new DataAdapter(this, transformToListAZ(App.getInstance().getEntry_port()));
@@ -227,22 +227,22 @@ public class EntryVisaActivity extends BaseActivity {
 //                    });
 //                    break;
 
-                case R.id.stay_reason_et:
-                    adapter = new DataAdapter(this, transformToList(App.getInstance().getStay_reason()));
-                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                        @Override
-                        public void itemClickPosition(DataEntity dataEntity) {
-                            stayReasonEt.setText(dataEntity.getValue());
-                            infoEntity.setStay_reason(dataEntity.getKey());
-                        }
-                    });
-                    break;
-            }
-        }
-        if(dialog!=null)
-            dialog.show();
-        return true;
-    }
+//                case R.id.stay_reason_et:
+//                    adapter = new DataAdapter(this, transformToList(App.getInstance().getStay_reason()));
+//                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                        @Override
+//                        public void itemClickPosition(DataEntity dataEntity) {
+//                            stayReasonEt.setText(dataEntity.getValue());
+//                            infoEntity.setStay_reason(dataEntity.getKey());
+//                        }
+//                    });
+//                    break;
+//            }
+//        }
+//        if(dialog!=null)
+//            dialog.show();
+//        return true;
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

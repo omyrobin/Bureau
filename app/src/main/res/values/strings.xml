@@ -71,9 +71,11 @@
     <string name="registeration_info">提交登记注册资料</string>
 
     <string name="phone_number">请输入手机号</string>
+    <string name="passport_number">请输入护照号</string>
     <string name="code">输入验证码</string>
     <string name="get_code">获取验证码</string>
     <string name="register">注册</string>
+    <string name="age_of_16">我不满16周岁</string>
 
     <string name="date_of_departure">离开日期</string>
     <string name="reason_for_leaving">离开事由</string>
@@ -203,5 +205,9 @@
     <string name="stop_the_downloading">已停止下载！</string>
     <string name="continue_to_download">网络连接异常！是否继续下载？</string>
     <string name="have_the_latest_software_package">有最新的软件包</string>
+    <string name="passport">护照号</string>
+    <string name="autocode">验证码</string>
+    <string name="phone_n">手机号</string>
+
 
 </resources>

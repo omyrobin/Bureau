@@ -156,7 +156,7 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -182,7 +182,7 @@
                     android:textColor="@color/colorText"
                     android:textSize="13sp" />
             </RelativeLayout>
-
+-->
             <!-- <RelativeLayout
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -287,7 +287,7 @@
                     android:textSize="13sp" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -310,7 +310,7 @@
                     android:gravity="right"
                     android:hint="@string/chinese_name_not_set"
                     android:textSize="13sp" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -443,7 +443,7 @@
                     android:textSize="13sp" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1px"
@@ -467,7 +467,7 @@
                     android:hint="@string/not_set"
                     android:inputType="phone"
                     android:textSize="13sp" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"

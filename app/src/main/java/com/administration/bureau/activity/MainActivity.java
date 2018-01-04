@@ -104,7 +104,11 @@ public class MainActivity extends BaseActivity{
     }
 
     @Override
-    protected void protectApp() {}
+    protected void protectApp() {
+        Intent intent = new Intent(this, LaunchActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected int getLayoutId() {

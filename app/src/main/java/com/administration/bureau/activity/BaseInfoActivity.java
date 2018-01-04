@@ -72,8 +72,8 @@ public class BaseInfoActivity extends BaseActivity {
     @BindView(R.id.credential_et)
     EditText credentialEt;
     //证件有效期
-    @BindView(R.id.credential_expired_date_et)
-    EditText credentialExpiredDateEt;
+//    @BindView(R.id.credential_expired_date_et)
+//    EditText credentialExpiredDateEt;
     //人员类型
 //    @BindView(R.id.person_type_et)
 //    EditText personTypeEt;
@@ -87,8 +87,8 @@ public class BaseInfoActivity extends BaseActivity {
     @BindView(R.id.firstname_et)
     EditText firstnameEt;
     //中文名
-    @BindView(R.id.chinese_name_et)
-    EditText chineseNameEt;
+//    @BindView(R.id.chinese_name_et)
+//    EditText chineseNameEt;
     //性别
     @BindView(R.id.gender_et)
     EditText genderEt;
@@ -105,8 +105,8 @@ public class BaseInfoActivity extends BaseActivity {
     @BindView(R.id.working_organization_et)
     EditText workingOrganizationEt;
     //本人联系电话
-    @BindView(R.id.phone_et)
-    EditText phoneEt;
+//    @BindView(R.id.phone_et)
+//    EditText phoneEt;
     //紧急联系人姓名
     @BindView(R.id.emergency_contact_et)
     EditText emergencyContactEt;
@@ -143,17 +143,40 @@ public class BaseInfoActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        credentialEt.setTransformationMethod(new AllCapTransformationMethod());
+        setTransformationMethod();
     }
 
-    @OnTouch({R.id.credential_expired_date_et})
-    protected boolean selectDate(TextView textView, MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP)
-            super.selectDate(textView);
-        return true;
+    private void setTransformationMethod(){
+        AllCapTransformationMethod allCapTransformationMethod = new AllCapTransformationMethod();
+        credentialEt.setTransformationMethod(allCapTransformationMethod);
+        lastnameEt.setTransformationMethod(allCapTransformationMethod);
+        firstnameEt.setTransformationMethod(allCapTransformationMethod);
     }
 
-    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.occupation_et,R.id.gender_et})
+//    @OnTouch({R.id.credential_expired_date_et})
+//    protected boolean selectDate(TextView textView, MotionEvent event) {
+//        if(event.getAction() == MotionEvent.ACTION_UP)
+//            super.selectDate(textView);
+//        return true;
+//    }
+
+    @OnClick({R.id.passport_info_layout, R.id.user_shelf_layout})
+    public void selectPicFrom(ViewGroup viewGroup){
+        switch (viewGroup.getId()){
+            case R.id.user_shelf_layout:
+                selectImg = 1;
+                App.getInstance().samplePhotoIndex = Constant.PASSPORT_INFO;
+                showSelectPicDialog(false);
+                break;
+
+            case R.id.passport_info_layout:
+                selectImg = 2;
+                showSelectPicDialog(true);
+                break;
+        }
+    }
+
+    @OnTouch({R.id.country_et,R.id.credential_type_et,R.id.occupation_et, R.id.gender_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
@@ -263,18 +286,18 @@ public class BaseInfoActivity extends BaseActivity {
         if(!TextUtils.isEmpty(infoEntity.getCredential())){
             credentialEt.setText(infoEntity.getCredential());
         }
-        if(!TextUtils.isEmpty(infoEntity.getCredential_expired_date())){
-            credentialExpiredDateEt.setText(infoEntity.getCredential_expired_date());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getCredential_expired_date())){
+//            credentialExpiredDateEt.setText(infoEntity.getCredential_expired_date());
+//        }
         if(!TextUtils.isEmpty(infoEntity.getFirstname())){
             firstnameEt.setText(infoEntity.getFirstname());
         }
         if(!TextUtils.isEmpty(infoEntity.getLastname())){
             lastnameEt.setText(infoEntity.getLastname());
         }
-        if(!TextUtils.isEmpty(infoEntity.getChinese_name())){
-            chineseNameEt.setText(infoEntity.getChinese_name());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getChinese_name())){
+//            chineseNameEt.setText(infoEntity.getChinese_name());
+//        }
 //        if(!TextUtils.isEmpty(infoEntity.getBirthday())){
 //            birthdayEt.setText(infoEntity.getBirthday());
 //        }
@@ -287,9 +310,9 @@ public class BaseInfoActivity extends BaseActivity {
         if(!TextUtils.isEmpty(infoEntity.getWorking_organization())){
             workingOrganizationEt.setText(infoEntity.getWorking_organization());
         }
-        if(!TextUtils.isEmpty(infoEntity.getPhone())){
-            phoneEt.setText(infoEntity.getPhone());
-        }
+//        if(!TextUtils.isEmpty(infoEntity.getPhone())){
+//            phoneEt.setText(infoEntity.getPhone());
+//        }
         if(!TextUtils.isEmpty(infoEntity.getEmergency_contact())){
             emergencyContactEt.setText(infoEntity.getEmergency_contact());
         }
@@ -309,8 +332,8 @@ public class BaseInfoActivity extends BaseActivity {
         String credential_num = credentialEt.getText().toString();
         infoEntity.setCredential(credential_num);
         //证件有效期
-        String credentialExpiredDate = credentialExpiredDateEt.getText().toString();
-        infoEntity.setCredential_expired_date(credentialExpiredDate);
+//        String credentialExpiredDate = credentialExpiredDateEt.getText().toString();
+//        infoEntity.setCredential_expired_date(credentialExpiredDate);
         //英文姓
         String lastname = lastnameEt.getText().toString();
         infoEntity.setLastname(lastname);
@@ -318,8 +341,8 @@ public class BaseInfoActivity extends BaseActivity {
         String firstname= firstnameEt.getText().toString();
         infoEntity.setFirstname(firstname);
         //中文名
-        String chinestname = chineseNameEt.getText().toString();
-        infoEntity.setChinese_name(chinestname);
+//        String chinestname = chineseNameEt.getText().toString();
+//        infoEntity.setChinese_name(chinestname);
         //出生日期
 //        String birthday= birthdayEt.getText().toString();
 //        infoEntity.setBirthday(birthday);
@@ -330,8 +353,8 @@ public class BaseInfoActivity extends BaseActivity {
         String workingOrganization= workingOrganizationEt.getText().toString();
         infoEntity.setWorking_organization(workingOrganization);
         //本人联系电话
-        String phone= phoneEt.getText().toString();
-        infoEntity.setPhone(phone);
+//        String phone= phoneEt.getText().toString();
+//        infoEntity.setPhone(phone);
         //紧急联系人
         String emergencyContact = emergencyContactEt.getText().toString();
         infoEntity.setEmergency_contact(emergencyContact);
@@ -340,27 +363,12 @@ public class BaseInfoActivity extends BaseActivity {
         infoEntity.setEmergency_phone(emergencyPhone);
     }
 
-    @OnClick({R.id.passport_info_layout, R.id.user_shelf_layout})
-    public void selectPicFrom(ViewGroup viewGroup){
-        switch (viewGroup.getId()){
-            case R.id.user_shelf_layout:
-                selectImg = 1;
-                App.getInstance().samplePhotoIndex = Constant.PASSPORT_INFO;
-                showSelectPicDialog(false);
-                break;
-
-            case R.id.passport_info_layout:
-                selectImg = 2;
-                showSelectPicDialog(true);
-                break;
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
-            getUntreatedFile(requestCode, data);
-            Bitmap bitmap = BitmapUtil.commpressBitmap(untreatedFile);
+            String url = getUntreatedFile(requestCode, data);
+            ToastUtil.showShort(url);
+            Bitmap bitmap = BitmapUtil.commpressBitmap(url);
             if(selectImg == 1){
                 avatarImg.setImageBitmap(bitmap);
             }else{

@@ -9,17 +9,16 @@ android {
     aaptOptions.useNewCruncher = false
 
     defaultConfig {
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"
+        }
         applicationId "com.administration.bureau"
         minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 18
-        versionName "1.0.18"
+        targetSdkVersion 22
+        versionCode 20
+        versionName "1.0.20"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
-        }
-
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
                 JPUSH_APPKEY : "9d4bd539def624ce93e92fc4",
@@ -29,7 +28,15 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            // release模式下，不显示log
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            // 开启混淆
+            minifyEnabled true
+            // 开启ZipAlign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            // 混淆文件位置
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -70,4 +77,11 @@ dependencies {
     compile 'cn.jiguang.sdk:jcore:1.1.2'
 
     compile 'com.yanzhenjie:album:1.0.0'
+
+    //3D地图so及jar
+    compile 'com.amap.api:3dmap:latest.integration'
+    //定位功能
+    compile 'com.amap.api:location:latest.integration'
+    //搜索功能
+    compile 'com.amap.api:search:latest.integration'
 }

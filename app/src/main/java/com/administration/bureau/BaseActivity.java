@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -26,7 +27,9 @@ import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.administration.bureau.activity.BaseInfoActivity;
 import com.administration.bureau.activity.MainActivity;
+import com.administration.bureau.activity.RegisterUserActivity;
 import com.administration.bureau.activity.SamplePhotoActivity;
 import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
@@ -41,6 +44,7 @@ import com.administration.bureau.model.PutService;
 import com.administration.bureau.utils.FileUtil;
 import com.administration.bureau.utils.KitKatUri;
 import com.administration.bureau.utils.ProviderUtil;
+import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.pic.ISelectPic;
 import com.administration.bureau.widget.pic.SelectPicDialog;
@@ -54,8 +58,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import retrofit2.Response;
 import rx.Observable;
 
@@ -73,12 +80,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 
     private AlertDialog premissionsDialog;
 
+    private static final int MSG_SET_ALIAS = 1001;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         if(App.mAppStatus == -1){
-//            protectApp();
+            protectApp();
         }
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutId());
@@ -144,6 +153,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         mDialog.show();
     }
 
+    /**
+     * 拍照
+     */
     @Override
     public void selectOneItem() {
         mDialog.dismiss();
@@ -167,6 +179,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         }
     }
 
+    /**
+     * 从相册选择
+     */
     @Override
     public void selectTwoItem() {
         mDialog.dismiss();
@@ -372,34 +387,36 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         params.put("country",infoEntity.getCountry());
         params.put("credential",infoEntity.getCredential());
         params.put("credential_type",infoEntity.getCredential_type());
-        params.put("credential_expired_date",infoEntity.getCredential_expired_date());
+//        params.put("credential_expired_date",infoEntity.getCredential_expired_date());
 //        params.put("person_type",infoEntity.getPerson_type());
 //        params.put("person_area_type",infoEntity.getPerson_area_type());
         params.put("firstname",infoEntity.getFirstname());
         params.put("lastname",infoEntity.getLastname());
-        params.put("chinese_name",infoEntity.getChinese_name());
+//        params.put("chinese_name",infoEntity.getChinese_name());
         params.put("gender",infoEntity.getGender());
 //        params.put("birthday",infoEntity.getBirthday());
         params.put("birthplace",infoEntity.getBirthplace());
-        params.put("occupation",infoEntity.getOccupation());
-        params.put("working_organization",infoEntity.getWorking_organization());
-        params.put("phone",infoEntity.getPhone());
+        if(!TextUtils.isEmpty(infoEntity.getOccupation()))
+            params.put("occupation",infoEntity.getOccupation());
+        if(!TextUtils.isEmpty(infoEntity.getWorking_organization()))
+            params.put("working_organization",infoEntity.getWorking_organization());
+//        params.put("phone",infoEntity.getPhone());
         params.put("emergency_contact",infoEntity.getEmergency_contact());
         params.put("emergency_phone",infoEntity.getEmergency_phone());
 
         if(!"1".equals(infoEntity.getCredential_type()) && !"7".equals(infoEntity.getCredential_type()) && !"11".equals(infoEntity.getCredential_type())){
             params.put("enter_image",infoEntity.getEnter_image());
             params.put("visa_image",infoEntity.getVisa_image());
-            params.put("visa_type",infoEntity.getVisa_type());
-            params.put("visa_expired_date",infoEntity.getVisa_expired_date());
+//            params.put("visa_type",infoEntity.getVisa_type());
+//            params.put("visa_expired_date",infoEntity.getVisa_expired_date());
         }
 //        params.put("entry_date",infoEntity.getEntry_date());
 //        params.put("entry_port",infoEntity.getEntry_port());
-        params.put("stay_reason",infoEntity.getStay_reason());
+//        params.put("stay_reason",infoEntity.getStay_reason());
 //        params.put("stay_expired_date",infoEntity.getStay_expired_date());
-        params.put("checkout_date",infoEntity.getCheckout_date());
+//        params.put("checkout_date",infoEntity.getCheckout_date());
         params.put("house_address",infoEntity.getHouse_address());
-        params.put("house_type",infoEntity.getHouse_type());
+//        params.put("house_type",infoEntity.getHouse_type());
         if(App.getInstance().isHave()){
             Gson gson = new Gson();
             params.put("landlord_identity_image",infoEntity.getLandlord_identity_image());
@@ -447,10 +464,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort(getString(R.string.credential_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getCredential_expired_date())){
-            ToastUtil.showShort(getString(R.string.credential_expired_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getCredential_expired_date())){
+//            ToastUtil.showShort(getString(R.string.credential_expired_null));
+//            return false;
+//        }
 //        if(TextUtils.isEmpty(infoEntity.getPerson_type())){
 //            ToastUtil.showShort("人员类型不能为空");
 //            return false;
@@ -481,26 +498,26 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort(getString(R.string.birthplace_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getOccupation())){
-            ToastUtil.showShort(getString(R.string.occupation_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getWorking_organization())){
-            ToastUtil.showShort(getString(R.string.working_organization_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getPhone())){
-            ToastUtil.showShort(getString(R.string.phone_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getEmergency_contact())){
-            ToastUtil.showShort(getString(R.string.emergency_contact_null));
-            return false;
-        }
-        if(TextUtils.isEmpty(infoEntity.getEmergency_phone())){
-            ToastUtil.showShort(getString(R.string.emergency_phone_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getOccupation())){
+//            ToastUtil.showShort(getString(R.string.occupation_null));
+//            return false;
+//        }
+//        if(TextUtils.isEmpty(infoEntity.getWorking_organization())){
+//            ToastUtil.showShort(getString(R.string.working_organization_null));
+//            return false;
+//        }
+//        if(TextUtils.isEmpty(infoEntity.getPhone())){
+//            ToastUtil.showShort(getString(R.string.phone_null));
+//            return false;
+//        }
+//        if(TextUtils.isEmpty(infoEntity.getEmergency_contact())){
+//            ToastUtil.showShort(getString(R.string.emergency_contact_null));
+//            return false;
+//        }
+//        if(TextUtils.isEmpty(infoEntity.getEmergency_phone())){
+//            ToastUtil.showShort(getString(R.string.emergency_phone_null));
+//            return false;
+//        }
         return true;
     }
 
@@ -517,14 +534,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
                 ToastUtil.showShort(getString(R.string.visa_image_null));
                 return false;
             }
-            if(TextUtils.isEmpty(infoEntity.getVisa_type())){
-                ToastUtil.showShort(getString(R.string.visa_type_null));
-                return false;
-            }
-            if(TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
-                ToastUtil.showShort(getString(R.string.visa_expired_null));
-                return false;
-            }
+//            if(TextUtils.isEmpty(infoEntity.getVisa_type())){
+//                ToastUtil.showShort(getString(R.string.visa_type_null));
+//                return false;
+//            }
+//            if(TextUtils.isEmpty(infoEntity.getVisa_expired_date())){
+//                ToastUtil.showShort(getString(R.string.visa_expired_null));
+//                return false;
+//            }
         }
 //        if(TextUtils.isEmpty(infoEntity.getEntry_date())){
 //            ToastUtil.showShort(getString(R.string.entry_date_null));
@@ -534,10 +551,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 //            ToastUtil.showShort(getString(R.string.entry_port_null));
 //            return false;
 //        }
-        if(TextUtils.isEmpty(infoEntity.getStay_reason())){
-            ToastUtil.showShort(getString(R.string.stay_reason_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getStay_reason())){
+//            ToastUtil.showShort(getString(R.string.stay_reason_null));
+//            return false;
+//        }
         return true;
     }
 
@@ -549,10 +566,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
 //            ToastUtil.showShort(getString(R.string.check_in_date_null));
 //            return false;
 //        }
-        if(TextUtils.isEmpty(infoEntity.getCheckout_date())){
-            ToastUtil.showShort(getString(R.string.check_out_date_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getCheckout_date())){
+//            ToastUtil.showShort(getString(R.string.check_out_date_null));
+//            return false;
+//        }
 //        if(TextUtils.isEmpty(infoEntity.getPolice_station())){
 //            ToastUtil.showShort("所属派出所不能为空");
 //            return false;
@@ -564,10 +581,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             ToastUtil.showShort(getString(R.string.address_null));
             return false;
         }
-        if(TextUtils.isEmpty(infoEntity.getHouse_type())){
-            ToastUtil.showShort(getString(R.string.house_typr_null));
-            return false;
-        }
+//        if(TextUtils.isEmpty(infoEntity.getHouse_type())){
+//            ToastUtil.showShort(getString(R.string.house_typr_null));
+//            return false;
+//        }
         if(App.getInstance().isHave()){
             if(TextUtils.isEmpty(infoEntity.getLandlord_identity_image())){
                 ToastUtil.showShort(getString(R.string.landlord_identity_pic_null));
@@ -601,5 +618,47 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         }
         return true;
     }
+
+    protected void setAlias() {
+        // 调用 Handler 来异步设置别名
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, App.getInstance().getUserEntity().getUser().getPhone()));
+    }
+
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs ;
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    if(App.getInstance().getUserEntity()!=null)
+                        SharedPreferencesUtil.setParam(BaseActivity.this,App.getInstance().getUserEntity().getUser().getPhone(),true);
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+            }
+        }
+    };
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
 }
