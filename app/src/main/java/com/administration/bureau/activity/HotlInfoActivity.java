@@ -201,8 +201,7 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         });
     }
 
-    //R.id.house_address_et,
-    @OnTouch({R.id.landlord_country_et,R.id.landlord_gender_et})
+    @OnTouch({R.id.house_address_et, R.id.landlord_country_et,R.id.landlord_gender_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
