@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -14,7 +14,7 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"
         }
         applicationId "com.administration.bureau"
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 20
         versionName "1.0.20"
@@ -47,20 +47,20 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     // RxAndroid
     compile 'io.reactivex:rxjava:1.1.6'
     // RxJava
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
     // Retrofit网络处理
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     // Retrofit的gson库
     compile 'com.squareup.retrofit2:converter-scalars:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     // Retrofit的rx解析库
-    compile 'com.squareup.okhttp3:okhttp:3.3.1'
-    compile 'com.squareup.okio:okio:1.9.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // 黄油刀注解
     compile 'com.jakewharton:butterknife:8.4.0'
