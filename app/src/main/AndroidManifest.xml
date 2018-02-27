@@ -248,10 +248,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|stateHidden" />
 
-        <activity
-            android:name=".activity.MapActivity"
-            android:launchMode="singleTop">
-        </activity>
+        <!--<activity-->
+            <!--android:name=".activity.MapActivity"-->
+            <!--android:launchMode="singleTop">-->
+        <!--</activity>-->
 
         <activity android:name=".activity.NewsListActivity"
             android:launchMode="singleTop">

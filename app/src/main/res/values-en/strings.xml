@@ -71,6 +71,7 @@
 	<string name="registeration_info">Submit registration information</string>
 
 	<string name="phone_number">Phone number</string>
+	<string name="passport_number">Please enter your passport number</string>
 	<string name="code">Code</string>
 	<string name="get_code">Get Code</string>
 	<string name="register">Register</string>
@@ -205,7 +206,8 @@
 	<string name="stop_the_downloading">Have to stop the downloading</string>
 	<string name="continue_to_download">The network connection is unusual,Continue to download?</string>
 	<string name="have_the_latest_software_package">Have the latest software package</string>
-    <string name="passport">护照号</string>
-	<string name="autocode">验证码</string>
+    <string name="passport">Passport Number</string>
+	<string name="autocode">Auth Code</string>
+	<string name="phone_n">Phone number</string>
 
 </resources>

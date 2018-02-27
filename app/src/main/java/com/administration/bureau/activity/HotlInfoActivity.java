@@ -34,7 +34,6 @@ import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.interfaces.IItemClickPosition;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.BitmapUtil;
-import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
 import com.bumptech.glide.Glide;
 import com.yanzhenjie.album.Album;
