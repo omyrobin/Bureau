@@ -1,5 +1,6 @@
 package com.administration.bureau.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by omyrobin on 2017/4/14.
  */
 
-public class ArticleEntity {
+public class ArticleEntity implements Serializable{
 
     /**
      * total : 2
@@ -112,7 +113,7 @@ public class ArticleEntity {
         this.banners = banners;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 1
          * title : 房山公安分局党委书记、分局长李宝虎当选为房山区人民政府副区长
@@ -123,6 +124,7 @@ public class ArticleEntity {
          * cover :
          * language : 0
          * created_at : 2017-04-11 09:37:59
+         * updated_at : 2017-04-06 23:48:08
          */
 
         private int id;
@@ -134,6 +136,7 @@ public class ArticleEntity {
         private String cover;
         private int language;
         private String created_at;
+        private String updated_at;
 
         public int getId() {
             return id;
@@ -205,6 +208,14 @@ public class ArticleEntity {
 
         public void setCreated_at(String created_at) {
             this.created_at = created_at;
+        }
+
+        public String getUpdated_at() {
+            return updated_at;
+        }
+
+        public void setUpdated_at(String updated_at) {
+            this.updated_at = updated_at;
         }
     }
 }

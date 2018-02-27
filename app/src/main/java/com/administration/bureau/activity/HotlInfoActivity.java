@@ -201,16 +201,18 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         });
     }
 
-    @OnTouch({R.id.house_address_et, R.id.landlord_country_et,R.id.landlord_gender_et})
+    @OnTouch({R.id.landlord_country_et,R.id.landlord_gender_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
         if(event.getAction() == MotionEvent.ACTION_UP){
             switch (editView.getId()){
-                case R.id.house_address_et:
-                    Intent intent = new Intent(this, MapActivity.class);
-                    startActivity(intent);
-                    break;
+                //暂时隐藏地图选择
+//                case R.id.house_address_et:
+//                    Intent intent = new Intent(this, MapActivity.class);
+//                    startActivity(intent);
+//                    break;
+
 //                case R.id.police_station_et:
 //                    adapter = new DataAdapter(this, transformToList(App.getInstance().getPolice_station()));
 //                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
