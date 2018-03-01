@@ -35,7 +35,7 @@ public interface PostService {
     @Multipart
     Observable<Response<BaseResponse<UploadEntity>>> uploadFile(@Url String url, @Part MultipartBody.Part file, @Header("Authorization") String token);
 
-    @POST("http://119.29.159.231:8080/api/sms")
+    @POST("sms")
     @FormUrlEncoded
     Observable<Response<BaseResponse<ArrayList<String>>>> getCode(@Field("code") String code, @Field("phone") String phone);
 

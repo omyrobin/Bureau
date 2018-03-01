@@ -52,8 +52,8 @@ public class RegisterUserActivity extends BaseActivity{
     Toolbar toolbar;
     @BindView(R.id.toolbar_title_tv)
     TextView titleTv;
-    @BindView(R.id.country_number_tv)
-    TextView countryNumberTv;
+//    @BindView(R.id.country_number_tv)
+//    TextView countryNumberTv;
     @BindView(R.id.phone_number_et)
     EditText phoneNumberEt;
     @BindView(R.id.auth_code_et)
@@ -87,7 +87,7 @@ public class RegisterUserActivity extends BaseActivity{
     @OnClick({R.id.country_number_tv,R.id.register_user_tv, R.id.auth_code_tv, R.id.age_of_16_tv})
     public void actionBtn(TextView view){
         String phoneNumber = phoneNumberEt.getText().toString();
-        String country_code = countryNumberTv.getText().toString().replace("+","");
+//        String country_code = countryNumberTv.getText().toString().replace("+","");
         String authCode = authCodeEt.getText().toString();
         switch (view.getId()){
             case R.id.register_user_tv:
@@ -97,7 +97,7 @@ public class RegisterUserActivity extends BaseActivity{
             case R.id.auth_code_tv:
 
                 if(isMobile(phoneNumber)){
-                    getCode(country_code,phoneNumber);
+                    getCode("86",phoneNumber);
                 }else{
                     ToastUtil.showShort(getString(R.string.correct_phone_number));
                 }
@@ -111,17 +111,17 @@ public class RegisterUserActivity extends BaseActivity{
                 break;
 
             default:
-                DataAdapter adapter;
-                ListAlertDialog dialog = null;
-                adapter = new DataAdapter(this,transformToListAZ(App.getInstance().getCountry()));
-                dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
-                    @Override
-                    public void itemClickPosition(DataEntity dataEntity) {
-                        countryNumberTv.setText(dataEntity.getKey());
-                    }
-                });
-                if(dialog!=null)
-                    dialog.show();
+//                DataAdapter adapter;
+//                ListAlertDialog dialog = null;
+//                adapter = new DataAdapter(this,transformToListAZ(App.getInstance().getCountry()));
+//                dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
+//                    @Override
+//                    public void itemClickPosition(DataEntity dataEntity) {
+//                        countryNumberTv.setText(dataEntity.getKey());
+//                    }
+//                });
+//                if(dialog!=null)
+//                    dialog.show();
                 break;
         }
     }
