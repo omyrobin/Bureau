@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.administration.bureau.App;
 import com.administration.bureau.R;
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
 
 
 /**

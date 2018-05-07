@@ -162,18 +162,18 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 bannerVp.addOnPageChangeListener(bannerAdaper);
                 bannerVp.setCurrentItem(bannerEntities.size() * 100,false);
                 bannerAdaper.sendMessage();
-                if(App.getInstance().getInfoEntity().getStatus()== 0){
-                    ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_wait);
-                }else if(App.getInstance().getInfoEntity().getStatus() == 1){
-                    ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_reject);
-                }else if(App.getInstance().getInfoEntity().getStatus() == 3){
-                    ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_approve);
-                }else{
-                    ((BannerViewHolder) holder).registerTv.setText(R.string.registeration);
-                }
-                ((BannerViewHolder) holder).lawTv.setText(R.string.foreign_laws);
-                ((BannerViewHolder) holder).messageBoardTv.setText(R.string.leave_message);
             }
+            if(App.getInstance().getInfoEntity().getStatus()== 0){
+                ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_wait);
+            }else if(App.getInstance().getInfoEntity().getStatus() == 1){
+                ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_reject);
+            }else if(App.getInstance().getInfoEntity().getStatus() == 2 || App.getInstance().getInfoEntity().getStatus() == 3){
+                ((BannerViewHolder) holder).registerTv.setText(R.string.check_state_approve);
+            }else{
+                ((BannerViewHolder) holder).registerTv.setText(R.string.registeration);
+            }
+            ((BannerViewHolder) holder).lawTv.setText(R.string.foreign_laws);
+            ((BannerViewHolder) holder).messageBoardTv.setText(R.string.leave_message);
         }else if(holder instanceof NewsViewHolder){
             if(position != 1){
                 ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.GONE);

@@ -3,6 +3,8 @@ package com.administration.bureau.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -11,12 +13,14 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
+import com.administration.bureau.adapter.RejectAdapter;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.http.ProgressSubscriber;
@@ -51,8 +55,8 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.toolbar_title_tv)
     TextView titleTv;
     //拒绝原因
-    @BindView(R.id.reject_reason_tv)
-    TextView rejectReasonTv;
+    @BindView(R.id.reject_rl)
+    RelativeLayout rejectReasonRl;
     //基本信息
     @BindView(R.id.base_info_tv)
     TextView baseInfoTv;
@@ -87,9 +91,8 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        if(infoEntity.getStatus() == 1 && !TextUtils.isEmpty(infoEntity.getReject_reason())){
-            rejectReasonTv.setVisibility(View.VISIBLE);
-            rejectReasonTv.setText(infoEntity.getReject_reason());
+        if(infoEntity.getStatus() == 1 && !infoEntity.getReject_fields().isEmpty()){
+            rejectReasonRl.setVisibility(View.VISIBLE);
         }
         baseInfoTv.setText(R.string.base_info);
         entryVisaTv.setText(R.string.visa_note_info);
@@ -132,10 +135,14 @@ public class RegisterActivity extends BaseActivity {
         ToastUtil.isShow = true;
     }
 
-    @OnClick({R.id.base_info_layout, R.id.entry_visa_layout, R.id.hotel_info_layout,R.id.registration_info_tv})
+    @OnClick({R.id.reject_rl, R.id.base_info_layout, R.id.entry_visa_layout, R.id.hotel_info_layout,R.id.registration_info_tv})
     public void actionTo(View view){
         Intent intent;
         switch (view.getId()){
+            case R.id.reject_rl:
+                intent = new Intent(this,RejectActivity.class);
+                startActivity(intent);
+                break;
             case R.id.base_info_layout:
                 intent = new Intent(this,BaseInfoActivity.class);
                 startActivityForResult(intent,0);

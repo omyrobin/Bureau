@@ -7,15 +7,32 @@
 
     <include layout="@layout/tool_bar"/>
 
-    <TextView
+    <RelativeLayout
         android:visibility="gone"
-        android:id="@+id/reject_reason_tv"
+        android:id="@+id/reject_rl"
         android:background="@color/colorRed"
-        android:padding="10dp"
-        android:textSize="16sp"
-        android:textColor="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/reject_reason_tv"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:text="@string/reasons_for_rejection"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@null"
+            android:src="@drawable/more"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/base_info_layout"

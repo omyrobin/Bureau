@@ -1,5 +1,6 @@
 package com.administration.bureau.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,6 +104,7 @@ public class UserRegisterInfoEntity {
     private String leave_reason;
     private String destination;
     private String reject_reason;
+    private ArrayList<RejectEntity> reject_fields;
     private String created_at;
     private String updated_at;
     private String person_type;
@@ -508,5 +510,13 @@ public class UserRegisterInfoEntity {
 
     public void setCommunity(String community) {
         this.community = community;
+    }
+
+    public ArrayList<RejectEntity> getReject_fields() {
+        return reject_fields;
+    }
+
+    public void setReject_fields(ArrayList<RejectEntity> reject_fields) {
+        this.reject_fields = reject_fields;
     }
 }

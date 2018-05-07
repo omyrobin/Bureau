@@ -171,6 +171,11 @@
         </activity>
 
         <activity
+            android:name=".activity.RejectActivity"
+            android:launchMode="singleTop">
+        </activity>
+
+        <activity
             android:name=".activity.BaseInfoActivity"
             android:launchMode="singleTop">
         </activity>

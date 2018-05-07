@@ -15,6 +15,8 @@
 	<string name="check_state_approve">Approved</string>
 	<string name="electronic_certificate_download">Electronic Certificate Download</string>
 
+	<string name="reasons_for_rejection">Reasons for Rejection</string>
+
 	<string name="my_photo">My photo</string>
 	<string name="passport_photo">Passport information page photo(Hong Kong, Macao and Taiwan pass)</string>
 	<string name="country">Country / Region</string>

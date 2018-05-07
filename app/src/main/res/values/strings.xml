@@ -15,6 +15,8 @@
     <string name="check_state_approve">审核状态：通过</string>
     <string name="electronic_certificate_download">电子证书可下载</string>
 
+    <string name="reasons_for_rejection">拒绝理由</string>
+
     <string name="my_photo">本人照片</string>
     <string name="passport_photo">护照信息页照片（港澳台通行证）</string>
     <string name="country">国家 / 地区</string>

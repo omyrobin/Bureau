@@ -20,18 +20,18 @@ import com.administration.bureau.adapter.InfoWinAdapter;
 import com.administration.bureau.utils.AMapUtil;
 import com.administration.bureau.utils.DialogUtil;
 import com.administration.bureau.utils.ToastUtil;
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.CameraUpdate;
-import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.UiSettings;
-import com.amap.api.maps2d.model.BitmapDescriptor;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
-import com.amap.api.maps2d.model.CameraPosition;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.maps2d.model.MarkerOptions;
-import com.amap.api.maps2d.model.MyLocationStyle;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptor;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -88,7 +88,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     private List<PoiItem> poiItems;// poi数据
     private GeocodeSearch geocoderSearch;
     private Marker screenMarker;
-//    private MarkerOptions otMarkerOptions;
+    private MarkerOptions otMarkerOptions;
     private double mLocationLatitude, mLocationLongitude;
     private boolean isFirst = true;
 
@@ -184,12 +184,12 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         LatLng latLng = cameraPosition.target;
         Point screenPosition = aMap.getProjection().toScreenLocation(latLng);
         screenMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
-//        screenMarker.setClickable(false);
-//        if(otMarkerOptions == null){
-//            otMarkerOptions = new MarkerOptions();
-//        }
-//        otMarkerOptions.position(latLng);
-        screenMarker.setPosition(latLng);
+        screenMarker.setClickable(false);
+        if(otMarkerOptions == null){
+            otMarkerOptions = new MarkerOptions();
+        }
+        otMarkerOptions.position(latLng);
+//        screenMarker.setPosition(latLng);
 
         //逆地理查询
         lp = new LatLonPoint(latLng.latitude, latLng.longitude);
