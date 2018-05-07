@@ -1,5 +1,6 @@
 package com.administration.bureau.activity;
 
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.location.Location;
@@ -7,9 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,9 +37,13 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.animation.Animation;
+import com.amap.api.maps.model.animation.TranslateAnimation;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.geocoder.GeocodeAddress;
+import com.amap.api.services.geocoder.GeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
@@ -56,7 +65,7 @@ import butterknife.OnClick;
  */
 
 public class MapActivity extends BaseActivity implements AMap.OnCameraChangeListener, AMap.OnMyLocationChangeListener,
-        AMap.OnMarkerDragListener, AMap.InfoWindowAdapter, DialogUtil.OnDialogCallBack, GeocodeSearch.OnGeocodeSearchListener,Inputtips.InputtipsListener,TextWatcher {
+        DialogUtil.OnDialogCallBack, GeocodeSearch.OnGeocodeSearchListener,Inputtips.InputtipsListener,TextWatcher {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -66,10 +75,10 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     TextView actionTv;
     @BindView(R.id.map)
     MapView mMapView;
-//    @BindView(R.id.input_edittext)
-//    AutoCompleteTextView mSearchText;
-    @BindView(R.id.submit_edittext)
-    EditText mSubmitEt;
+    @BindView(R.id.input_edittext)
+    AutoCompleteTextView mSearchText;
+//    @BindView(R.id.submit_edittext)
+//    EditText mSubmitEt;
     @BindView(R.id.poi_detail)
     RelativeLayout mPoiDetail;
     //初始化地图控制器对象
@@ -88,9 +97,10 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     private List<PoiItem> poiItems;// poi数据
     private GeocodeSearch geocoderSearch;
     private Marker screenMarker;
-    private MarkerOptions otMarkerOptions;
+//    private MarkerOptions otMarkerOptions;
     private double mLocationLatitude, mLocationLongitude;
     private boolean isFirst = true;
+    private String addressName;//逆地理编码得到的地址
 
 
     @Override
@@ -105,6 +115,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         titleTv.setText(R.string.address);
+        actionTv.setText(R.string.use);
     }
 
     @Override
@@ -113,9 +124,34 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
-//        mSearchText.addTextChangedListener(this);// 添加文本输入框监听事件
+        initSearch();
         initGeocodeSearch();
         initMapConfig();
+    }
+
+    private void initSearch(){
+        // 添加文本输入框监听事件
+        mSearchText.addTextChangedListener(this);
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    getFromLocationName(mSearchText.getText().toString());
+                    closeInputMethod();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void closeInputMethod(){
+        //得到InputMethodManager的实例
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        //如果开启
+        if (imm.isActive()) {
+            //关闭软键盘，开启方法相同，这个方法是切换开启与关闭状态的
+            imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     private void initGeocodeSearch(){
@@ -127,6 +163,12 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
         RegeocodeQuery query = new RegeocodeQuery(lp, 200,GeocodeSearch.AMAP);
         geocoderSearch.getFromLocationAsyn(query);
+    }
+
+    private void getFromLocationName(String name) {
+        // name表示地址，第二个参数表示查询城市，中文或者中文全拼，citycode、adcode
+        GeocodeQuery query = new GeocodeQuery(name, "010");
+        geocoderSearch.getFromLocationNameAsyn(query);
     }
 
     private void initMapConfig(){
@@ -153,7 +195,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     @Override
     public void submit(String houseNumber) {
         infoEntity = App.getInstance().getInfoEntity();
-        infoEntity.setHouse_address(mSubmitEt.getText().toString() + houseNumber);
+        infoEntity.setHouse_address(addressName + houseNumber);
         finish();
     }
 
@@ -185,10 +227,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         Point screenPosition = aMap.getProjection().toScreenLocation(latLng);
         screenMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
         screenMarker.setClickable(false);
-        if(otMarkerOptions == null){
-            otMarkerOptions = new MarkerOptions();
-        }
-        otMarkerOptions.position(latLng);
+        screenMarkerJump(aMap, screenMarker);
 //        screenMarker.setPosition(latLng);
 
         //逆地理查询
@@ -197,19 +236,32 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         aMap.setInfoWindowAdapter(new InfoWinAdapter());
     }
 
-    @Override
-    public void onMarkerDragStart(Marker marker) {
-
-    }
-
-    @Override
-    public void onMarkerDrag(Marker marker) {
-
-    }
-
-    @Override
-    public void onMarkerDragEnd(Marker marker) {
-
+    public void screenMarkerJump(AMap aMap, Marker screenMarker) {
+        if (screenMarker != null) {
+            final LatLng latLng = screenMarker.getPosition();
+            Point point = aMap.getProjection().toScreenLocation(latLng);
+            point.y -= 50;
+            LatLng target = aMap.getProjection().fromScreenLocation(point);
+            //使用TranslateAnimation,填写一个需要移动的目标点
+            Animation animation = new TranslateAnimation(target);
+            animation.setInterpolator(new Interpolator() {
+                @Override
+                public float getInterpolation(float input) {
+                    // 模拟重加速度的interpolator
+                    if (input <= 0.5) {
+                        return (float) (0.5f - 2 * (0.5 - input) * (0.5 - input));
+                    } else {
+                        return (float) (0.5f - Math.sqrt((input - 0.5f) * (1.5f - input)));
+                    }
+                }
+            });
+            //整个移动所需要的时间
+            animation.setDuration(600);
+            //设置动画
+            screenMarker.setAnimation(animation);
+            //开始动画
+            screenMarker.startAnimation();
+        }
     }
 
     @Override
@@ -234,13 +286,10 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
 
     @Override
     public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
-        String addressName;
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
             if (result != null && result.getRegeocodeAddress() != null
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
                 addressName = result.getRegeocodeAddress().getFormatAddress();
-                mSubmitEt.setText(addressName);
-                mSubmitEt.setSelection(mSubmitEt.getText().length());
                 aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AMapUtil.convertToLatLng(lp), aMap.getCameraPosition().zoom));
                 screenMarker.setTitle("位置");
                 screenMarker.setSnippet(addressName);
@@ -250,18 +299,19 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     }
 
     @Override
-    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
-
-    }
-
-    @Override
-    public View getInfoWindow(Marker marker) {
-        return null;
-    }
-
-    @Override
-    public View getInfoContents(Marker marker) {
-        return null;
+    public void onGeocodeSearched(GeocodeResult result, int rCode) {
+        if (rCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (result != null && result.getGeocodeAddressList() != null
+                    && result.getGeocodeAddressList().size() > 0) {
+                GeocodeAddress address = result.getGeocodeAddressList().get(0);
+                LatLng latLng = new LatLng(address.getLatLonPoint().getLatitude(), address.getLatLonPoint().getLongitude());
+                Point screenPosition = aMap.getProjection().toScreenLocation(latLng);
+                screenMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
+                aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(AMapUtil.convertToLatLng(address.getLatLonPoint()), aMap.getCameraPosition().zoom));
+                screenMarker.setClickable(false);
+                screenMarkerJump(aMap, screenMarker);
+            }
+        }
     }
 
     @Override
@@ -278,7 +328,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     public void afterTextChanged(Editable s) {
         String newText = s.toString().trim();
         if (!AMapUtil.IsEmptyOrNullString(newText)) {
-            InputtipsQuery inputquery = new InputtipsQuery(newText, "北京");
+            InputtipsQuery inputquery = new InputtipsQuery(newText, "010");
             Inputtips inputTips = new Inputtips(this, inputquery);
             inputTips.setInputtipsListener(this);
             inputTips.requestInputtipsAsyn();
@@ -288,26 +338,27 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     @Override
     public void onGetInputtips(List<Tip> tipList, int rCode) {
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {// 正确返回
-            List<String> listString = new ArrayList<String>();
+            List<String> listString = new ArrayList<>();
             for (int i = 0; i < tipList.size(); i++) {
                 listString.add(tipList.get(i).getName());
             }
-            ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.route_inputs, listString);
-//            mSearchText.setAdapter(aAdapter);
+            ArrayAdapter<String> aAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.route_inputs, listString);
+            mSearchText.setAdapter(aAdapter);
             aAdapter.notifyDataSetChanged();
         }
     }
 
-    @OnClick(R.id.btn_submit)
+    @OnClick({R.id.btn_search, R.id.toolbar_action_tv})
     public void onClick(View view){
         switch (view.getId()){
-            case R.id.btn_submit:
-                DialogUtil util = new DialogUtil(this, this);
-                util.showDilog(mSubmitEt.getText().toString());
+            case R.id.btn_search:
+                getFromLocationName(mSearchText.getText().toString());
+                closeInputMethod();
                 break;
 
             default:
-
+                DialogUtil util = new DialogUtil(this, this);
+                util.showDilog(addressName);
                 break;
         }
     }
@@ -318,7 +369,6 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         mMapView.onResume();
         aMap.setOnCameraChangeListener(this);
     }
-
 
     @Override
     protected void onPause() {
@@ -337,5 +387,4 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         super.onDestroy();
         mMapView.onDestroy();
     }
-
 }
