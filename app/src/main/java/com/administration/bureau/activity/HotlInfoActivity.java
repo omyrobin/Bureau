@@ -34,7 +34,6 @@ import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.interfaces.IItemClickPosition;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.BitmapUtil;
-import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
 import com.bumptech.glide.Glide;
 import com.yanzhenjie.album.Album;
@@ -211,6 +210,7 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
                     Intent intent = new Intent(this, MapActivity.class);
                     startActivity(intent);
                     break;
+
 //                case R.id.police_station_et:
 //                    adapter = new DataAdapter(this, transformToList(App.getInstance().getPolice_station()));
 //                    dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
@@ -349,6 +349,9 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
 //        }
         if(!TextUtils.isEmpty(infoEntity.getHouse_address())){
             houseAddressEt.setText(infoEntity.getHouse_address());
+        }
+        if(!TextUtils.isEmpty(App.getInstance().getLocation())){
+
         }
 //        if(!TextUtils.isEmpty(infoEntity.getPolice_station())){
 //            policeStationEt.setText(App.getInstance().getPolice_station().get(infoEntity.getPolice_station()));

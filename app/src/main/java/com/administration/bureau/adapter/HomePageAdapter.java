@@ -21,9 +21,9 @@ import com.administration.bureau.R;
 import com.administration.bureau.activity.ArticleDetialActivity;
 import com.administration.bureau.activity.CertificateActivity;
 import com.administration.bureau.activity.LawsActivity;
-import com.administration.bureau.activity.MainActivity;
 import com.administration.bureau.activity.MessageBoardActivity;
 import com.administration.bureau.activity.MoreActivity;
+import com.administration.bureau.activity.NewsListActivity;
 import com.administration.bureau.activity.PublicNotiveActivity;
 import com.administration.bureau.activity.RegisterActivity;
 import com.administration.bureau.activity.RegisterUserActivity;
@@ -33,8 +33,6 @@ import com.administration.bureau.activity.TravelActivity;
 import com.administration.bureau.entity.ArticleEntity;
 import com.administration.bureau.entity.BannerEntity;
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -79,6 +77,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     private ArticleEntity travelData;
 
+    private ArticleEntity data;
+
     public HomePageAdapter(Context context, ArrayList<BannerEntity> bannerEntities) {
         this.context = context;
         this.bannerEntities = bannerEntities;
@@ -86,9 +86,12 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     }
 
     public void setArticleData(ArticleEntity data){
+        this.data = data;
         for (int i=0 ;i< data.getData().size();i++){
             if(data.getData().get(i).getType() == 2){
-                news.add(data.getData().get(i));
+                if(news.size() < 5){
+                    news.add(data.getData().get(i));
+                }
             }else{
                 travels.add(data.getData().get(i));
             }
@@ -96,17 +99,17 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public void setNewsData(ArticleEntity newsData) {
-        this.newsData = newsData;
-        news = newsData.getData();
-        notifyDataSetChanged();
-    }
-
-    public void setTravelData(ArticleEntity travelData) {
-        this.travelData = travelData;
-        travels = travelData.getData();
-        notifyDataSetChanged();
-    }
+//    public void setNewsData(ArticleEntity newsData) {
+//        this.newsData = newsData;
+//        news = newsData.getData();
+//        notifyDataSetChanged();
+//    }
+//
+//    public void setTravelData(ArticleEntity travelData) {
+//        this.travelData = travelData;
+//        travels = travelData.getData();
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public int getItemCount() {
@@ -174,9 +177,17 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         }else if(holder instanceof NewsViewHolder){
             if(position != 1){
                 ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.GONE);
+                ((NewsViewHolder) holder).newsMoreTv.setVisibility(View.GONE);
             }else{
                 ((NewsViewHolder) holder).newsBigTitleTv.setVisibility(View.VISIBLE);
                 ((NewsViewHolder) holder).newsBigTitleTv.setText(R.string.fangshan_news);
+                ((NewsViewHolder) holder).newsMoreTv.setText(R.string.more);
+                ((NewsViewHolder) holder).newsMoreTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NewsListActivity.newInstance(context);
+                    }
+                });
             }
             if(!TextUtils.isEmpty(news.get(position-1).getCover())){
                 ((NewsViewHolder) holder).newsPicImg.setVisibility(View.VISIBLE);
@@ -223,6 +234,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         ImageView newsPicImg;
         @BindView(R.id.news_title_tv)
         TextView newsTitleTv;
+        @BindView(R.id.news_more_tv)
+        TextView newsMoreTv;
         @BindView(R.id.news_date_tv)
         TextView newsDateTv;
 

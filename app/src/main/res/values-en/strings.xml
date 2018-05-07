@@ -22,6 +22,7 @@
 	<string name="chinese_name_not_set">necessary for HKG/MAC/TWN/JPN/PRK/KOR</string>
 	<string name="stay_valid_not_set">Before the visa(note) validity</string>
 	<string name="house_address_not_set">Exact address including house number</string>
+	<string name="house_number">House number</string>
 	<string name="certificates_type">Certificates Type</string>
 	<string name="certificates_number">Certificates Number</string>
 	<string name="validity_certificate">Validity of Certificate</string>
@@ -71,6 +72,7 @@
 	<string name="registeration_info">Submit registration information</string>
 
 	<string name="phone_number">Phone number</string>
+	<string name="passport_number">Please enter your passport number</string>
 	<string name="code">Code</string>
 	<string name="get_code">Get Code</string>
 	<string name="register">Register</string>
@@ -83,7 +85,7 @@
 
 	<string name="log_out">Log out</string>
 
-	<string name="fangshan_news">FangShan News</string>
+	<string name="fangshan_news">News Information</string>
 	<string name="fangshang_tourist_culture">FangShang Tourist culture</string>
 	<string name="foreign_laws">Laws and Regulations</string>
 	<string name="leave_message">Leave message</string>
@@ -205,7 +207,8 @@
 	<string name="stop_the_downloading">Have to stop the downloading</string>
 	<string name="continue_to_download">The network connection is unusual,Continue to download?</string>
 	<string name="have_the_latest_software_package">Have the latest software package</string>
-    <string name="passport">护照号</string>
-	<string name="autocode">验证码</string>
+    <string name="passport">Passport Number</string>
+	<string name="autocode">Auth Code</string>
+	<string name="phone_n">Phone number</string>
 
 </resources>

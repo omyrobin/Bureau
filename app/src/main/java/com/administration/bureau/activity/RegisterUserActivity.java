@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.DataAdapter;
+import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.DataEntity;
 import com.administration.bureau.entity.StatusChangeEvent;
@@ -28,8 +31,13 @@ import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,6 +82,8 @@ public class RegisterUserActivity extends BaseActivity{
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        //暂时隐藏新功能
+//        ageOf16Tv.setVisibility(View.GONE);
     }
 
     @Override
@@ -94,7 +104,7 @@ public class RegisterUserActivity extends BaseActivity{
             case R.id.auth_code_tv:
 
                 if(isMobile(phoneNumber)){
-                    getCode(country_code,phoneNumber);
+                    getCode("86",phoneNumber);
                 }else{
                     ToastUtil.showShort(getString(R.string.correct_phone_number));
                 }
@@ -110,11 +120,29 @@ public class RegisterUserActivity extends BaseActivity{
             default:
                 DataAdapter adapter;
                 ListAlertDialog dialog = null;
-                adapter = new DataAdapter(this,transformToListAZ(App.getInstance().getCountry()));
+                String country = App.locale == 0 ? Constant.CN_COUNTRY_PHONE: Constant.EN_COUNTRY_PHONE;
+                ArrayList<DataEntity> dataEntities = new ArrayList<>();
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(country);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(jsonObject!=null){
+                    Iterator keys = jsonObject.keys();
+                    while (keys.hasNext()){
+                        String key = (String) keys.next();
+                        String value = jsonObject.optString(key);
+                        DataEntity dataEntity = new DataEntity(value, key);
+                        dataEntities.add(dataEntity);
+                    }
+                    Collections.sort(dataEntities);
+                }
+                adapter = new DataAdapter(this,dataEntities);
                 dialog = new ListAlertDialog(this, adapter, new IItemClickPosition() {
                     @Override
                     public void itemClickPosition(DataEntity dataEntity) {
-                        countryNumberTv.setText(dataEntity.getKey());
+                        countryNumberTv.setText("+" + dataEntity.getKey());
                     }
                 });
                 if(dialog!=null)

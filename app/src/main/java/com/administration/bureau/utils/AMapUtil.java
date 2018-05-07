@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.administration.bureau.utils;
 
@@ -126,7 +126,7 @@ public class AMapUtil {
 
 	public static final String HtmlBlack = "#000000";
 	public static final String HtmlGray = "#808080";
-	
+
 	public static String getFriendlyTime(int second) {
 		if (second > 3600) {
 			int hour = second / 3600;
@@ -139,7 +139,7 @@ public class AMapUtil {
 		}
 		return second + "秒";
 	}
-	
+
 
 		public static String getBusPathTitle(BusPath busPath) {
 			if (busPath == null) {
@@ -157,13 +157,13 @@ public class AMapUtil {
 					   if (busline == null) {
 							continue;
 						}
-					  
+
 					   String buslineName = getSimpleBusLineName(busline.getBusLineName());
 					   title.append(buslineName);
 					   title.append(" / ");
 				}
 //					RouteBusLineItem busline = busStep.getBusLines().get(0);
-				   
+
 					sb.append(title.substring(0, title.length() - 3));
 					sb.append(" > ");
 				}
@@ -189,7 +189,7 @@ public class AMapUtil {
 			String walkDis = getFriendlyLength((int) walkDistance);
 			return String.valueOf(time + " | " + subDis + " | 步行" + walkDis);
 		}
-		
+
 		public static String getSimpleBusLineName(String busLineName) {
 			if (busLineName == null) {
 				return String.valueOf("");

@@ -17,6 +17,7 @@ import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.PostService;
+import com.administration.bureau.utils.AllCapTransformationMethod;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
 
@@ -58,7 +59,7 @@ public class RegisterUserAgeOf16Activity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-
+        passporeNumberEt.setTransformationMethod(new AllCapTransformationMethod());
     }
 
     @OnClick(R.id.register_user_age_of_16_tv)
@@ -88,7 +89,7 @@ public class RegisterUserAgeOf16Activity extends BaseActivity {
 
             @Override
             protected void onFailure(String message) {
-//                ToastUtil.showShort(message);
+                ToastUtil.showShort(message);
             }
         });
     }

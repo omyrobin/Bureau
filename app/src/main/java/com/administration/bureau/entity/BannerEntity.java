@@ -1,10 +1,12 @@
 package com.administration.bureau.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by omyrobin on 2017/4/14.
  */
 
-public class BannerEntity {
+public class BannerEntity implements Serializable {
 
     /**
      * id : 1

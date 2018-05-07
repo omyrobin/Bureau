@@ -70,6 +70,8 @@ public class App extends Application {
 
     public int samplePhotoIndex;
 
+    private String location;
+
     public static App getInstance(){
        return mApp;
     }
@@ -295,5 +297,13 @@ public class App extends Application {
 
     public boolean isHave() {
         return have;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }

@@ -22,6 +22,7 @@
 	<string name="chinese_name_not_set">港澳台、日本、朝鲜、韩国必填</string>
 	<string name="stay_valid_not_set">早于签证（注）有效期</string>
 	<string name="house_address_not_set">地址详细到门牌号</string>
+	<string name="house_number">门牌号</string>
 	<string name="certificates_type">证件类型</string>
 	<string name="certificates_number">证件号码</string>
 	<string name="validity_certificate">证件有效期</string>
@@ -71,9 +72,11 @@
 	<string name="registeration_info">提交登记注册资料</string>
 
 	<string name="phone_number">请输入手机号</string>
+	<string name="passport_number">请输入护照号</string>
 	<string name="code">输入验证码</string>
 	<string name="get_code">获取验证码</string>
 	<string name="register">注册</string>
+	<string name="age_of_16">我不满16周岁</string>
 
 	<string name="date_of_departure">离开日期</string>
 	<string name="reason_for_leaving">离开事由</string>
@@ -83,7 +86,7 @@
 
 	<string name="foreign_laws">法律法规</string>
 	<string name="leave_message">留言板</string>
-	<string name="fangshan_news">房山新闻</string>
+	<string name="fangshan_news">新闻资讯</string>
 	<string name="fangshang_tourist_culture">房山旅游文化</string>
 	<string name="public_notice">公示公告</string>
 	<string name="service_information">服务指南</string>
@@ -206,5 +209,6 @@
 	<string name="have_the_latest_software_package">有最新的软件包</string>
     <string name="passport">护照号</string>
 	<string name="autocode">验证码</string>
+	<string name="phone_n">手机号</string>
 
 </resources>
