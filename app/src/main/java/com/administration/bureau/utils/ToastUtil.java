@@ -18,7 +18,7 @@ public class ToastUtil {
     static {
         Context context = App.getInstance();
         toast = Toast.makeText(context, "" ,Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER,0,0);
+        toast.setGravity(Gravity.CENTER,0,200);
     }
 
     /**

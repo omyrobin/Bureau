@@ -22,6 +22,7 @@
 	<string name="chinese_name_not_set">necessary for HKG/MAC/TWN/JPN/PRK/KOR</string>
 	<string name="stay_valid_not_set">Before the visa(note) validity</string>
 	<string name="house_address_not_set">Exact address including house number</string>
+	<string name="house_number">House number</string>
 	<string name="certificates_type">Certificates Type</string>
 	<string name="certificates_number">Certificates Number</string>
 	<string name="validity_certificate">Validity of Certificate</string>

@@ -200,13 +200,12 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         });
     }
 
-    @OnTouch({R.id.house_address_et,R.id.landlord_country_et,R.id.landlord_gender_et})
+    @OnTouch({R.id.house_address_et, R.id.landlord_country_et,R.id.landlord_gender_et})
     protected boolean selectPosition(TextView editView, MotionEvent event){
         DataAdapter adapter;
         ListAlertDialog dialog = null;
         if(event.getAction() == MotionEvent.ACTION_UP){
             switch (editView.getId()){
-                //暂时隐藏地图选择
                 case R.id.house_address_et:
                     Intent intent = new Intent(this, MapActivity.class);
                     startActivity(intent);
@@ -350,6 +349,9 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
 //        }
         if(!TextUtils.isEmpty(infoEntity.getHouse_address())){
             houseAddressEt.setText(infoEntity.getHouse_address());
+        }
+        if(!TextUtils.isEmpty(App.getInstance().getLocation())){
+
         }
 //        if(!TextUtils.isEmpty(infoEntity.getPolice_station())){
 //            policeStationEt.setText(App.getInstance().getPolice_station().get(infoEntity.getPolice_station()));

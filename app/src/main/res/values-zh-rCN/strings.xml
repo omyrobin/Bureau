@@ -22,6 +22,7 @@
 	<string name="chinese_name_not_set">港澳台、日本、朝鲜、韩国必填</string>
 	<string name="stay_valid_not_set">早于签证（注）有效期</string>
 	<string name="house_address_not_set">地址详细到门牌号</string>
+	<string name="house_number">门牌号</string>
 	<string name="certificates_type">证件类型</string>
 	<string name="certificates_number">证件号码</string>
 	<string name="validity_certificate">证件有效期</string>
