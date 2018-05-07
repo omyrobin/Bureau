@@ -77,8 +77,6 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     MapView mMapView;
     @BindView(R.id.input_edittext)
     AutoCompleteTextView mSearchText;
-//    @BindView(R.id.submit_edittext)
-//    EditText mSubmitEt;
     @BindView(R.id.poi_detail)
     RelativeLayout mPoiDetail;
     //初始化地图控制器对象
@@ -86,15 +84,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     public MyLocationStyle myLocationStyle;
     //定义一个UiSettings对象
     private UiSettings mUiSettings;
-    private double latitude;
-    private double longitude;
-    private String keyWord;
-    private int currentPage = 0;// 当前页面，从0开始计数
-    private PoiSearch.Query query;// Poi查询条件类
-    private PoiSearch poiSearch;
     private LatLonPoint lp;
-    private PoiResult poiResult; // poi返回的结果
-    private List<PoiItem> poiItems;// poi数据
     private GeocodeSearch geocoderSearch;
     private Marker screenMarker;
 //    private MarkerOptions otMarkerOptions;
@@ -186,8 +176,6 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         //设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         aMap.setMyLocationEnabled(true);
 
-        myLocationStyle.showMyLocation(true);
-
         mUiSettings = aMap.getUiSettings();
         mUiSettings.setZoomGesturesEnabled(true);
     }
@@ -278,6 +266,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
                     }
                     isFirst = false;
                 }
+                ToastUtil.showShort("定位成功");
             } else {
                 ToastUtil.showShort("定位失败，请检查您的定位权限");
             }
@@ -367,7 +356,12 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     protected void onResume() {
         super.onResume();
         mMapView.onResume();
-        aMap.setOnCameraChangeListener(this);
+        aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
+            @Override
+            public void onMapLoaded() {
+                aMap.setOnCameraChangeListener(MapActivity.this);
+            }
+        });
     }
 
     @Override
