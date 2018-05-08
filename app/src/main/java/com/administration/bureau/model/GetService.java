@@ -10,12 +10,14 @@ import com.administration.bureau.entity.UserRegisterInfoEntity;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -46,5 +48,9 @@ public interface GetService {
 
     @GET("article/{article_id}")
     Observable<Response<BaseResponse<ArticleDetialEntity>>> getArticleDetial(@Path("article_id") int article_id, @Header("Accept-Language") String language);
+
+    @Streaming
+    @GET
+    Observable<ResponseBody> downloadFile(@Url String  fileUrl, @Query("abi") String abi);
 
 }

@@ -143,7 +143,7 @@ public class MineFragment extends BaseFragment implements OnRowClickListener {
                     intent = new Intent(getActivity(), RegisterUserActivity.class);
                     startActivity(intent);
                 }else{
-                    if(App.getInstance().getInfoEntity().getStatus() == 3 || App.getInstance().getInfoEntity().getStatus() == 2){
+                    if(App.getInstance().getInfoEntity().getStatus() == 3 ){
                         intent = new Intent(getActivity(), CertificateActivity.class);
                         startActivity(intent);
                     }else if(App.getInstance().getInfoEntity().getStatus() == 0){

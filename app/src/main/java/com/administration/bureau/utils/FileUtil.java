@@ -1,9 +1,17 @@
 package com.administration.bureau.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by omyrobin on 2017/4/7.
@@ -58,4 +66,48 @@ public class FileUtil {
         }
     }
 
+    public static void write(InputStream inputStream, File file) throws IOException{
+        int index;
+        byte[] bytes = new byte[1024];
+        FileOutputStream downloadFile = new FileOutputStream(file);
+        while ((index = inputStream.read(bytes)) != -1) {
+            downloadFile.write(bytes, 0, index);
+            downloadFile.flush();
+        }
+        downloadFile.close();
+        inputStream.close();
+    }
+
+    public static boolean copyLibraryFile(Context context, File fromFile, File toFile) {
+        boolean copyIsFinish = false;
+        try {
+            FileInputStream is = new FileInputStream(fromFile);
+            if (toFile.exists()) {
+                if (toFile.length() == is.available()) {
+                    return true;
+                }
+            }
+            FileOutputStream fos = new FileOutputStream(toFile);
+            byte[] temp = new byte[1024];
+            int i = 0;
+            while ((i = is.read(temp)) > 0) {
+                fos.write(temp, 0, i);
+            }
+            fos.close();
+            is.close();
+            copyIsFinish = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return copyIsFinish;
+    }
+
+    public static boolean hasSoFile(Context context) {
+        File dir = context.getDir("libs", Activity.MODE_PRIVATE);
+        File privateSoFile = new File(dir.getAbsolutePath() + File.separator + "MAP.so");
+        if(!privateSoFile.exists()){
+            return false;
+        }
+        return true;
+    }
 }

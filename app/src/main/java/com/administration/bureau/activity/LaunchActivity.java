@@ -12,6 +12,7 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.constant.Constant;
+import com.administration.bureau.download.DownService;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 
 import butterknife.BindView;
@@ -25,6 +26,8 @@ public class LaunchActivity extends BaseActivity {
 
     @BindView(R.id.language_select_layout)
     ViewGroup languageSelectLayout;
+
+    Intent intent = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,9 +49,11 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
+        intent = new Intent(this, DownService.class);
+        startService(intent);
 
         new Handler().postDelayed(new Runnable() {
-            Intent intent;
+
             @Override
             public void run() {
                 if(App.locale != -1){

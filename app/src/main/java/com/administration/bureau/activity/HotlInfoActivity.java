@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
@@ -34,6 +35,8 @@ import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.interfaces.IItemClickPosition;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.BitmapUtil;
+import com.administration.bureau.utils.FileUtil;
+import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
 import com.bumptech.glide.Glide;
 import com.yanzhenjie.album.Album;
@@ -207,8 +210,12 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         if(event.getAction() == MotionEvent.ACTION_UP){
             switch (editView.getId()){
                 case R.id.house_address_et:
-                    Intent intent = new Intent(this, MapActivity.class);
-                    startActivity(intent);
+                    if(FileUtil.hasSoFile(this)){
+                        Intent intent = new Intent(this, MapActivity.class);
+                        startActivity(intent);
+                    }else {
+                        ToastUtil.showShort("地图相关组件正在加载中,请稍后重试");
+                    }
                     break;
 
 //                case R.id.police_station_et:

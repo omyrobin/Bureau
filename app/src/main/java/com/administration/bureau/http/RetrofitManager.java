@@ -36,8 +36,8 @@ public class RetrofitManager {
     public static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
     public static final String ENCODING_GZIP = "gzip";
     public static final int DEFAULT_TIMEOUT = 15;
-    public volatile static Retrofit retrofit;
-    public volatile static OkHttpClient client;
+    private volatile static Retrofit retrofit;
+    private volatile static OkHttpClient client;
     private static Map<String, String> headersMap;
 
     public static Retrofit getRetrofit(){
@@ -73,18 +73,17 @@ public class RetrofitManager {
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(logging)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request()
-                                .newBuilder()
-//                                .addHeader(HEADER_CONTENT_TYPE, "application/x-www-from-urlencoded; charset=UTF-8")
-                                .addHeader(HEADER_CONTENT_TYPE, "application/json; charset=UTF-8")
-                                .addHeader(HEADER_ACCEPT, "application/json")
-                                .build();
-                        return chain.proceed(request);
-                    }
-                })
+//                .addInterceptor(new Interceptor() {
+//                    @Override
+//                    public Response intercept(Chain chain) throws IOException {
+//                        Request request = chain.request()
+//                                .newBuilder()
+//                                .addHeader(HEADER_CONTENT_TYPE, "application/json; charset=UTF-8")
+//                                .addHeader(HEADER_ACCEPT, "application/json")
+//                                .build();
+//                        return chain.proceed(request);
+//                    }
+//                })
                 .build();
         return client;
     }
