@@ -213,5 +213,7 @@
     <string name="passport">Passport Number</string>
 	<string name="autocode">Auth Code</string>
 	<string name="phone_n">Phone number</string>
+    <string name="community_police">community police</string>
+	<string name="police_inspector">police inspector</string>
 
 </resources>

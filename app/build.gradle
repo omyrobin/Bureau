@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.3"
 
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -77,7 +77,7 @@ dependencies {
 
     compile 'com.yanzhenjie:album:1.0.0'
     //3D地图so及jar
-//    compile 'com.amap.api:3dmap:latest.integration'
+    compile 'com.amap.api:3dmap:latest.integration'
 //    compile 'com.amap.api:map2d:latest.integration'
     //定位功能
 //    compile 'com.amap.api:location:latest.integration'

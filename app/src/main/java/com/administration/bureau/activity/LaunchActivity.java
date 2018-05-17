@@ -49,8 +49,8 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        intent = new Intent(this, DownService.class);
-        startService(intent);
+//        intent = new Intent(this, DownService.class);
+//        startService(intent);
 
         new Handler().postDelayed(new Runnable() {
 

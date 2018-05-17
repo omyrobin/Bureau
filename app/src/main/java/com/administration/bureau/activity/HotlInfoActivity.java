@@ -210,12 +210,14 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         if(event.getAction() == MotionEvent.ACTION_UP){
             switch (editView.getId()){
                 case R.id.house_address_et:
-                    if(FileUtil.hasSoFile(this)){
-                        Intent intent = new Intent(this, MapActivity.class);
-                        startActivity(intent);
-                    }else {
-                        ToastUtil.showShort("地图相关组件正在加载中,请稍后重试");
-                    }
+                    Intent intent = new Intent(this, MapActivity.class);
+                    startActivity(intent);
+//                    if(FileUtil.hasSoFile(this)){
+//                        Intent intent = new Intent(this, MapActivity.class);
+//                        startActivity(intent);
+//                    }else {
+//                        ToastUtil.showShort("地图相关组件正在加载中,请稍后重试");
+//                    }
                     break;
 
 //                case R.id.police_station_et:

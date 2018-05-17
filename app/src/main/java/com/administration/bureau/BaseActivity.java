@@ -433,6 +433,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             params.put("landlord_name",infoEntity.getLandlord_name());
             params.put("landlord_gender",infoEntity.getLandlord_gender());
             params.put("landlord_phone",infoEntity.getLandlord_phone());
+            //提交坐标
         }
 
 

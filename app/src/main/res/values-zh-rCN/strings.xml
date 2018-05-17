@@ -213,5 +213,7 @@
     <string name="passport">护照号</string>
 	<string name="autocode">验证码</string>
 	<string name="phone_n">手机号</string>
+    <string name="community_police">社区民警</string>
+	<string name="police_inspector">派出所所长</string>
 
 </resources>
