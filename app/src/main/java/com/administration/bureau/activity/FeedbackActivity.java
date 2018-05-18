@@ -16,6 +16,7 @@ import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.ToastUtil;
+import com.administration.bureau.widget.RoleDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,7 +27,7 @@ import rx.Observable;
  * Created by omyrobin on 2017/4/21.
  */
 
-public class FeedbackActivity extends BaseActivity{
+public class FeedbackActivity extends BaseActivity implements RoleDialog.ISendMessage{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -59,7 +60,8 @@ public class FeedbackActivity extends BaseActivity{
             startActivity(intent);
             return;
         }
-        senMessage();
+        RoleDialog dialog = new RoleDialog(this, this);
+        dialog.show();
     }
 
     @Override
@@ -67,12 +69,13 @@ public class FeedbackActivity extends BaseActivity{
 
     }
 
-    private void senMessage(){
+    @Override
+    public void senMessage(int role) {
         PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
         int user_id = App.getInstance().getUserEntity().getUser().getId();
         String content = sendMessageEt.getText().toString();
         String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
-        Observable<Response<BaseResponse<ContentEntity>>> observable = postService.sendMessage(user_id, content, token);
+        Observable<Response<BaseResponse<ContentEntity>>> observable = postService.sendMessage(user_id, content, role, token);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ContentEntity>(this,true) {
             @Override
             protected void onSuccess(ContentEntity contentEntity) {

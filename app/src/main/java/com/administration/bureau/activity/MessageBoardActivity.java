@@ -22,6 +22,7 @@ import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.ToastUtil;
+import com.administration.bureau.widget.RoleDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,7 +33,7 @@ import rx.Observable;
  * Created by omyrobin on 2017/4/21.
  */
 
-public class MessageBoardActivity extends BaseActivity implements View.OnClickListener{
+public class MessageBoardActivity extends BaseActivity implements RoleDialog.ISendMessage {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -42,7 +43,6 @@ public class MessageBoardActivity extends BaseActivity implements View.OnClickLi
     TextView actionTv;
     @BindView(R.id.send_message_et)
     EditText sendMessageEt;
-    private int selectIndex;
 
     @Override
     protected int getLayoutId() {
@@ -66,7 +66,8 @@ public class MessageBoardActivity extends BaseActivity implements View.OnClickLi
             startActivity(intent);
             return;
         }
-        showMessageObject();
+        RoleDialog dialog = new RoleDialog(this, this);
+        dialog.show();
     }
 
     @Override
@@ -74,37 +75,13 @@ public class MessageBoardActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private void showMessageObject(){
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_message_object,null);
-        RadioGroup radioGroup = view.findViewById(R.id.rg_message_object);
-        for (int i = 0; i < radioGroup.getChildCount(); i++) {
-            radioGroup.getChildAt(i).setOnClickListener(this);
-        }
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-            }
-        });
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setView(view)
-                .setTitle("选择留言对象")
-                .setNegativeButton(R.string.cancle,null)
-                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        senMessage();
-                    }
-                }).create();
-        dialog.show();
-    }
-
-    private void senMessage(){
+    @Override
+    public void senMessage(int role) {
         PostService postService = RetrofitManager.getRetrofit().create(PostService.class);
         int user_id = App.getInstance().getUserEntity().getUser().getId();
         String content = sendMessageEt.getText().toString();
         String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
-        Observable<Response<BaseResponse<ContentEntity>>> observable = postService.sendMessage(user_id, content, token);
+        Observable<Response<BaseResponse<ContentEntity>>> observable = postService.sendMessage(user_id, content, role,token);
         RetrofitClient.client().request(observable, new ProgressSubscriber<ContentEntity>(this,true) {
             @Override
             protected void onSuccess(ContentEntity contentEntity) {
@@ -117,22 +94,5 @@ public class MessageBoardActivity extends BaseActivity implements View.OnClickLi
                 ToastUtil.showShort(getString(R.string.send_failure));
             }
         });
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.rb_bureau:
-                selectIndex = 0;
-                break;
-
-            case R.id.rb_community_police:
-                selectIndex = 1;
-                break;
-
-            default:
-                selectIndex = 2;
-                break;
-        }
     }
 }
