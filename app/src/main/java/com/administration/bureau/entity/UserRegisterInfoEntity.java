@@ -111,6 +111,8 @@ public class UserRegisterInfoEntity {
     private String person_area_type;
     private String police_station;
     private String community;
+    private String location;
+    private String location_address;
 
     public int getId() {
         return id;
@@ -518,5 +520,21 @@ public class UserRegisterInfoEntity {
 
     public void setReject_fields(ArrayList<RejectEntity> reject_fields) {
         this.reject_fields = reject_fields;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLocation_address() {
+        return location_address;
+    }
+
+    public void setLocation_address(String location_address) {
+        this.location_address = location_address;
     }
 }

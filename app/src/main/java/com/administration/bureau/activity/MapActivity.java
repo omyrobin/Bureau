@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -88,6 +89,7 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
     private double mLocationLatitude, mLocationLongitude;
     private boolean isFirst = true;
     private String addressName;//逆地理编码得到的地址
+    private boolean isFirstAdd = true;
 
 
     @Override
@@ -280,6 +282,15 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
                 screenMarker.setTitle("位置");
                 screenMarker.setSnippet(addressName);
                 screenMarker.showInfoWindow();
+                if(isFirstAdd){
+                    double latitude = lp.getLatitude();
+                    double longitude = lp.getLongitude();
+                    Log.e("TAG",  latitude + "," + longitude);
+                    infoEntity.setLocation(latitude + "," + longitude);
+                    infoEntity.setLocation_address(addressName);
+
+                    isFirstAdd = false;
+                }
             }
         }
     }
