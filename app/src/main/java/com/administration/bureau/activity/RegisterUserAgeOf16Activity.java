@@ -81,6 +81,7 @@ public class RegisterUserAgeOf16Activity extends BaseActivity {
                 //TODO 通知Homepage刷新
                 EventBus.getDefault().post(new UserLoginEvent());
                 EventBus.getDefault().post(new StatusChangeEvent());
+                //暂时没有手机号
                 if(!(boolean) SharedPreferencesUtil.getParam(RegisterUserAgeOf16Activity.this,App.getInstance().getUserEntity().getUser().getPhone(),false)){
                     setAlias();
                 }

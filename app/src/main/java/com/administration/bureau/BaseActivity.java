@@ -401,6 +401,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
         if(!TextUtils.isEmpty(infoEntity.getWorking_organization()))
             params.put("working_organization",infoEntity.getWorking_organization());
 //        params.put("phone",infoEntity.getPhone());
+        params.put("phone",App.getInstance().getUserEntity().getUser().getPhone());
         params.put("emergency_contact",infoEntity.getEmergency_contact());
         params.put("emergency_phone",infoEntity.getEmergency_phone());
 
@@ -433,13 +434,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ISelectP
             params.put("landlord_name",infoEntity.getLandlord_name());
             params.put("landlord_gender",infoEntity.getLandlord_gender());
             params.put("landlord_phone",infoEntity.getLandlord_phone());
-            //提交坐标
-            params.put("location",infoEntity.getLocation());
-            params.put("location_address",infoEntity.getLocation_address());
         }
-
-
-        Log.i("TAG",infoEntity.toString());
+        //提交坐标
+        params.put("location",infoEntity.getLocation());
+        params.put("location_address",infoEntity.getLocation_address());
         return params;
     }
 
