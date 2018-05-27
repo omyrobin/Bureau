@@ -126,7 +126,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Required SDK核心功能-->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"

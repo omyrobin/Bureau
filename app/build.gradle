@@ -77,8 +77,7 @@ dependencies {
 
     compile 'com.yanzhenjie:album:1.0.0'
     //3D地图so及jar
-    compile 'com.amap.api:3dmap:latest.integration'
-//    compile 'com.amap.api:map2d:latest.integration'
+//    compile 'com.amap.api:3dmap:latest.integration'
     //定位功能
 //    compile 'com.amap.api:location:latest.integration'
     //搜索功能

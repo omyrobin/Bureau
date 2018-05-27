@@ -216,4 +216,6 @@
     <string name="community_police">community police</string>
 	<string name="police_inspector">police inspector</string>
 
+	<string name="load_map">Map related components are being loaded, please wait patiently</string>
+
 </resources>

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
@@ -210,14 +211,13 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
         if(event.getAction() == MotionEvent.ACTION_UP){
             switch (editView.getId()){
                 case R.id.house_address_et:
-                    Intent intent = new Intent(this, MapActivity.class);
-                    startActivity(intent);
-//                    if(FileUtil.hasSoFile(this)){
-//                        Intent intent = new Intent(this, MapActivity.class);
-//                        startActivity(intent);
-//                    }else {
-//                        ToastUtil.showShort("地图相关组件正在加载中,请稍后重试");
-//                    }
+                    if(FileUtil.hasSoFile(this)){
+                        Intent intent = new Intent(this, MapActivity.class);
+                        startActivity(intent);
+                    }else {
+                        String message = getResources().getString(R.string.load_map);
+                        ToastUtil.showShort(message);
+                    }
                     break;
 
 //                case R.id.police_station_et:

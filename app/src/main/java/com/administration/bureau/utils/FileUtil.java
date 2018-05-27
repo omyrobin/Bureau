@@ -105,7 +105,7 @@ public class FileUtil {
     public static boolean hasSoFile(Context context) {
         File dir = context.getDir("libs", Activity.MODE_PRIVATE);
         File privateSoFile = new File(dir.getAbsolutePath() + File.separator + "MAP.so");
-        if(!privateSoFile.exists()){
+        if(!privateSoFile.exists() || privateSoFile.length() < 4000){
             return false;
         }
         return true;

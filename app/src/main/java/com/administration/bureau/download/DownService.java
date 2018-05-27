@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
 
 public class DownService extends Service {
 
-    private static String URL = "http://192.168.10.169:8080/download";
+    private static String URL = "http://119.29.159.231:8080/api/so";
 
     @Override
     public void onCreate() {

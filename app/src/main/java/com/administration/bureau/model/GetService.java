@@ -51,6 +51,6 @@ public interface GetService {
 
     @Streaming
     @GET
-    Observable<ResponseBody> downloadFile(@Url String  fileUrl, @Query("abi") String abi);
+    Observable<ResponseBody> downloadFile(@Url String  fileUrl, @Query("type") String type);
 
 }

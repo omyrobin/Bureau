@@ -215,5 +215,9 @@
     <string name="community_police">社区民警</string>
     <string name="police_inspector">派出所所长</string>
 
+    <string name="load_map">地图相关组件正在加载中,请耐心等待</string>
+
+
+
 
 </resources>
