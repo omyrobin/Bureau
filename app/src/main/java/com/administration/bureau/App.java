@@ -13,6 +13,7 @@ import com.administration.bureau.constant.Constant;
 import com.administration.bureau.entity.UserEntity;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.utils.FileUtil;
+import com.administration.bureau.utils.LocationUtils;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.google.gson.Gson;
 
@@ -88,6 +89,7 @@ public class App extends Application {
         FileUtil.instance(this);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        LocationUtils.init(this);
 
     }
 

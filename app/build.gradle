@@ -3,7 +3,7 @@ apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "26.0.3"
 
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -16,8 +16,8 @@ android {
         applicationId "com.administration.bureau"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 200
-        versionName "2.0.00"
+        versionCode 201
+        versionName "2.0.01"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
@@ -79,7 +79,7 @@ dependencies {
     //3D地图so及jar
 //    compile 'com.amap.api:3dmap:latest.integration'
     //定位功能
-//    compile 'com.amap.api:location:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
     //搜索功能
     compile 'com.amap.api:search:latest.integration'
 }

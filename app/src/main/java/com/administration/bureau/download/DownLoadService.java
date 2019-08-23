@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.administration.bureau.http.RetrofitManager;
 import com.administration.bureau.model.GetService;
@@ -28,9 +27,9 @@ import rx.schedulers.Schedulers;
  * Created by wubo on 2018/5/8.
  */
 
-public class DownService extends Service {
+public class DownLoadService extends Service {
 
-    private static String URL = "http://119.29.159.231:8080/api/so";
+    private static String URL = "http://94.191.124.237:8800/api/so";
 
     @Override
     public void onCreate() {
@@ -147,7 +146,7 @@ public class DownService extends Service {
             downLoadSo(URL, abi, getSdCardSoFile());
         }else{
             System.load(getPrivateSoFile().getAbsolutePath());
-            DownService.this.stopSelf();
+            DownLoadService.this.stopSelf();
         }
     }
 
@@ -155,10 +154,10 @@ public class DownService extends Service {
      * copy下载的so文件到data/data/packgername/app_libs目录中
      */
     private void copyAndload(){
-        if (FileUtil.copyLibraryFile(DownService.this, getSdCardSoFile(), getPrivateSoFile())){
+        if (FileUtil.copyLibraryFile(DownLoadService.this, getSdCardSoFile(), getPrivateSoFile())){
             System.load(getPrivateSoFile().getAbsolutePath());
         }
-        DownService.this.stopSelf();
+        DownLoadService.this.stopSelf();
     }
 
     @Override

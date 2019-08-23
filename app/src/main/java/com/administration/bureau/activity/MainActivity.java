@@ -1,14 +1,13 @@
 package com.administration.bureau.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.entity.eventbus.CancelEvent;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
 import com.administration.bureau.entity.eventbus.UserLoginEvent;
-import com.administration.bureau.entity.eventbus.UserLogoutEvent;
 import com.administration.bureau.entity.eventbus.UserRegisterEvent;
 import com.administration.bureau.fragment.HomePageFragment;
 import com.administration.bureau.fragment.MessageFragment;
@@ -31,8 +29,14 @@ import com.administration.bureau.fragment.MineFragment;
 import com.administration.bureau.http.ProgressSubscriber;
 import com.administration.bureau.http.RetrofitClient;
 import com.administration.bureau.http.RetrofitManager;
+import com.administration.bureau.keeplive.DService;
+import com.administration.bureau.keeplive.JobSchedulerService;
+import com.administration.bureau.keeplive.SrceenReceiver;
 import com.administration.bureau.model.GetService;
+import com.administration.bureau.model.PutService;
+import com.administration.bureau.update.UpDateLocationService;
 import com.administration.bureau.utils.AppVersionUtil;
+import com.administration.bureau.utils.ServiceRunningManager;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.google.gson.Gson;
@@ -41,8 +45,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -77,6 +82,8 @@ public class MainActivity extends BaseActivity{
 
     private long exitTime = 0;
 
+    private SrceenReceiver screenReceiver;
+
     @Subscribe
     public void onMessageEvent(UserRegisterEvent event){
         requestStatus();
@@ -96,11 +103,6 @@ public class MainActivity extends BaseActivity{
     public void onMessageEvent(LanguageEvent event){
         initializeToolbar();
         reqeustSpinnerData();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -137,6 +139,38 @@ public class MainActivity extends BaseActivity{
         tabViws.get(currPos).setSelected(true);
         addToFragmentList();
         addFragmentToActivity(currPos);
+
+        registerScreenReceiver();
+        startJobService();
+        startUpDateLocation();
+    }
+
+    private void registerScreenReceiver(){
+        // 动态注册广播接收者
+        screenReceiver = new SrceenReceiver();
+        // 创建IntentFilter对象
+        IntentFilter filter = new IntentFilter("finish");
+        // 添加要注册的action
+        filter.addAction("android.intent.action.SCREEN_OFF");
+        filter.addAction("android.intent.action.SCREEN_ON");
+        // 动态注册广播接收者
+        registerReceiver(screenReceiver, filter);
+    }
+
+    private void startJobService(){
+        Intent intent = new Intent(this, JobSchedulerService.class);
+        startService(intent);
+    }
+
+    private void startUpDateLocation(){
+        String serviceName = "com.administration.bureau.update.UpDateLocationService";
+        if(!ServiceRunningManager.getInstance().isServiceRunning(this, serviceName)){
+            Intent intent = new Intent(this, UpDateLocationService.class);
+            startService(intent);
+
+            Intent intent1 = new Intent(this, DService.class);
+            startService(intent1);
+        }
     }
 
     private void hideAllFragment() {
@@ -217,6 +251,31 @@ public class MainActivity extends BaseActivity{
             @Override
             protected void onFailure(String message) {
 
+            }
+        });
+
+        updatePhoneInfo();
+    }
+
+    private void updatePhoneInfo() {
+        if(App.getInstance().getUserEntity() == null)
+            return;
+        int user_id = App.getInstance().getUserEntity().getUser().getId();
+        String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
+        HashMap<String, Object> parms = new HashMap<>();
+        parms.put("phone_band", "品牌：" + Build.BRAND + "   型号:"+Build.MODEL);
+        parms.put("os_version", "Android版本：" + Build.VERSION.RELEASE);
+        Observable<Response<BaseResponse<String>>> observable = RetrofitManager.getRetrofit().create(PutService.class).putUseUpdate(user_id, parms, token);
+        RetrofitClient.client().request(observable, new ProgressSubscriber <String>(this) {
+
+            @Override
+            protected void onSuccess(String s) {
+
+            }
+
+            @Override
+            protected void onFailure(String message) {
+                Log.i("TAG", message);
             }
         });
     }
@@ -333,6 +392,7 @@ public class MainActivity extends BaseActivity{
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        unregisterReceiver(screenReceiver);
     }
 
 }

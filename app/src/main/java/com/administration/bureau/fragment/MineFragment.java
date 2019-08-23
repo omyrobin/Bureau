@@ -27,6 +27,7 @@ import com.administration.bureau.entity.StatusChangeEvent;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 import com.administration.bureau.entity.eventbus.LanguageEvent;
 import com.administration.bureau.entity.eventbus.UserLogoutEvent;
+import com.administration.bureau.update.UpDateLocationService;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ContainerView;

@@ -2,8 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.administration.bureau" >
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <!--网络变化-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+
+    <!--文件挂载-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <!--拍照 录视频-->
+    <uses-permission android:name="android.permission.V"/>
+
 
     <!-- Required -->
     <permission
@@ -65,7 +80,7 @@
 
         <!--<service android:name="com.amap.api.location.APSService"/>-->
 
-        <service android:name=".download.DownService"/>
+        <service android:name=".download.DownLoadService"/>
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -272,6 +287,37 @@
         <activity android:name=".activity.NewsListActivity"
             android:launchMode="singleTop">
         </activity>
+
+        <service android:name="com.amap.api.location.APSService"
+            android:process=":keeplive"></service>
+
+        <activity
+            android:name=".keeplive.OnePiexlActivity"
+            android:process=":keeplive"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:finishOnTaskLaunch="false"
+            android:launchMode="singleInstance"
+            android:theme="@style/OnePiexlActivityStyle"></activity>
+
+        <service
+            android:name=".update.UpDateLocationService"
+            android:process=":keeplive"/>
+
+        <service
+            android:name=".keeplive.JobSchedulerService"
+            android:process=":keeplive"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".keeplive.DService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:process=":keeplive">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

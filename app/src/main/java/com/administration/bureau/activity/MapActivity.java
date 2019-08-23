@@ -1,6 +1,7 @@
 package com.administration.bureau.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.location.Location;
@@ -23,6 +24,7 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.adapter.InfoWinAdapter;
+import com.administration.bureau.update.UpDateLocationService;
 import com.administration.bureau.utils.AMapUtil;
 import com.administration.bureau.utils.DialogUtil;
 import com.administration.bureau.utils.ToastUtil;
@@ -116,6 +118,15 @@ public class MapActivity extends BaseActivity implements AMap.OnCameraChangeList
         initSearch();
         initGeocodeSearch();
         initMapConfig();
+        updateLocation();
+    }
+
+    /**
+     * 开始上传地理位置
+     */
+    private void updateLocation() {
+        Intent intent = new Intent(this, UpDateLocationService.class);
+        startService(intent);
     }
 
     private void initSearch(){

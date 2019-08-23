@@ -12,7 +12,7 @@ import com.administration.bureau.App;
 import com.administration.bureau.BaseActivity;
 import com.administration.bureau.R;
 import com.administration.bureau.constant.Constant;
-import com.administration.bureau.download.DownService;
+import com.administration.bureau.download.DownLoadService;
 import com.administration.bureau.utils.SharedPreferencesUtil;
 
 import butterknife.BindView;
@@ -49,7 +49,7 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     protected void initializeActivity(Bundle savedInstanceState) {
-        intent = new Intent(this, DownService.class);
+        intent = new Intent(this, DownLoadService.class);
         startService(intent);
 
         new Handler().postDelayed(new Runnable() {
