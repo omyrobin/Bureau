@@ -40,20 +40,22 @@ public class JobSchedulerService extends JobService {
         Log.i("TAG","JobSchedulerService 开始启动service");
         String serviceName = "com.administration.bureau.update.UpDateLocationService";
         if(!ServiceRunningManager.getInstance().isServiceRunning(this, serviceName)){
+            Log.i("TAG","JobSchedulerService 开始启动service   UpDateLocationService ");
             startService(new Intent(this,UpDateLocationService.class));
         }
+        setJobSechedule();
         jobFinished(params, false);
-        return false;
+        return true;
     }
 
     @Override
     public boolean onStopJob(JobParameters params) {
         Log.i("TAG","JobSchedulerService onStopJob()******");
         String serviceName = "com.administration.bureau.update.UpDateLocationService";
-        if(!!ServiceRunningManager.getInstance().isServiceRunning(this, serviceName)){
+        if(!ServiceRunningManager.getInstance().isServiceRunning(this, serviceName)){
             startService(new Intent(this,UpDateLocationService.class));
         }
-        return false;
+        return true;
     }
 
     private void setJobSechedule(){

@@ -36,11 +36,9 @@ public interface GetService {
     Observable<Response<BaseResponse<ArticleEntity>>> getArticle(@Url String banner,@Query("type") int type, @Header("Accept-Language") String language);
 
     @GET("user/{user_id}/registrant")
-//    @Headers("Accept: application/json")
     Observable<Response<BaseResponse<UserRegisterInfoEntity>>> getStatus(@Path("user_id") int user_id, @Header("Authorization") String token, @Header("Accept-Language") String language);
 
     @GET("user/{user_id}/notification")
-//    @Headers("Accept: application/json")
     Observable<Response<BaseResponse<MessageEntity>>> getMessage(@Path("user_id") int user_id, @Header("Authorization") String token, @Header("Accept-Language") String language);
 
     @GET

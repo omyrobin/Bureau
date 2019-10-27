@@ -37,6 +37,7 @@ import com.administration.bureau.interfaces.IItemClickPosition;
 import com.administration.bureau.model.PostService;
 import com.administration.bureau.utils.BitmapUtil;
 import com.administration.bureau.utils.FileUtil;
+import com.administration.bureau.utils.MobileInfoUtils;
 import com.administration.bureau.utils.ToastUtil;
 import com.administration.bureau.widget.ListAlertDialog;
 import com.bumptech.glide.Glide;
@@ -147,6 +148,8 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
     @OnClick(R.id.toolbar_action_tv)
     public void actionTo(){
         setHotlinfoParams();
+        //自启动弹窗
+        permissionDialog();
         if(isBaseInfoCompleted() && isEntryVisaCompleted() && isHotlInfoCompleted()){
             if(App.getInstance().getInfoEntity().getStatus() == 1){
                 registrationInfoAgain();
@@ -154,6 +157,24 @@ public class HotlInfoActivity extends BaseActivity implements PhotosAdapter.OnRv
                 registrationInfo();
             }
         }
+    }
+
+    private void permissionDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("重要提示")
+                .setMessage("为了保障您能在第一时间收到信息反馈，请打开自启动权限及时获知审核动态")
+                .setPositiveButton("去设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MobileInfoUtils.jumpStartInterface(HotlInfoActivity.this);
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
     }
 
 //    @OnTouch({R.id.check_out_date_et})

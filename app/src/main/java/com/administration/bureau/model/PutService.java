@@ -2,6 +2,7 @@ package com.administration.bureau.model;
 
 import com.administration.bureau.entity.BaseResponse;
 import com.administration.bureau.entity.SpinnerData;
+import com.administration.bureau.entity.TraceEntity;
 import com.administration.bureau.entity.UserRegisterInfoEntity;
 
 import java.util.ArrayList;
@@ -34,6 +35,6 @@ public interface PutService {
 
     @PUT("user/location/{id}")
     @FormUrlEncoded
-    Observable<Response<BaseResponse<ArrayList<ArrayList<String>>>>> updateLocation(@Path ("id") int id, @Field("longitude") Double longitude, @Field("latitude") Double latitude,@Header("Authorization") String token);
+    Observable<Response<BaseResponse<TraceEntity>>> updateLocation(@Path ("id") int id, @Field("longitude") Double longitude, @Field("latitude") Double latitude, @Header("Authorization") String token);
 }
 

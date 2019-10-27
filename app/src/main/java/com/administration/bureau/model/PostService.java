@@ -55,4 +55,7 @@ public interface PostService {
     @POST("user/{user_id}/message")
     @FormUrlEncoded
     Observable<Response<BaseResponse<ContentEntity>>> sendMessage(@Path("user_id") int user_id, @Field("content") String content, @Field("role") int role, @Header("Authorization") String token);
+
+    @POST("refresh")
+    Observable<Response<BaseResponse<UserEntity>>> refreshToken(@Header("Authorization") String token);
 }

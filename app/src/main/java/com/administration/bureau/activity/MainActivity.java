@@ -1,5 +1,7 @@
 package com.administration.bureau.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -82,8 +84,6 @@ public class MainActivity extends BaseActivity{
 
     private long exitTime = 0;
 
-    private SrceenReceiver screenReceiver;
-
     @Subscribe
     public void onMessageEvent(UserRegisterEvent event){
         requestStatus();
@@ -139,38 +139,10 @@ public class MainActivity extends BaseActivity{
         tabViws.get(currPos).setSelected(true);
         addToFragmentList();
         addFragmentToActivity(currPos);
+//        //启动位置更新服务
+////        startUpDateLocation();
 
-        registerScreenReceiver();
-        startJobService();
-        startUpDateLocation();
-    }
 
-    private void registerScreenReceiver(){
-        // 动态注册广播接收者
-        screenReceiver = new SrceenReceiver();
-        // 创建IntentFilter对象
-        IntentFilter filter = new IntentFilter("finish");
-        // 添加要注册的action
-        filter.addAction("android.intent.action.SCREEN_OFF");
-        filter.addAction("android.intent.action.SCREEN_ON");
-        // 动态注册广播接收者
-        registerReceiver(screenReceiver, filter);
-    }
-
-    private void startJobService(){
-        Intent intent = new Intent(this, JobSchedulerService.class);
-        startService(intent);
-    }
-
-    private void startUpDateLocation(){
-        String serviceName = "com.administration.bureau.update.UpDateLocationService";
-        if(!ServiceRunningManager.getInstance().isServiceRunning(this, serviceName)){
-            Intent intent = new Intent(this, UpDateLocationService.class);
-            startService(intent);
-
-            Intent intent1 = new Intent(this, DService.class);
-            startService(intent1);
-        }
     }
 
     private void hideAllFragment() {
@@ -392,7 +364,6 @@ public class MainActivity extends BaseActivity{
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        unregisterReceiver(screenReceiver);
     }
 
 }

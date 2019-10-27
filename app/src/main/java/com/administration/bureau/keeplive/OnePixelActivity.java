@@ -1,7 +1,6 @@
 package com.administration.bureau.keeplive;
 
 import android.content.Context;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
@@ -15,7 +14,7 @@ import android.view.WindowManager;
  * Created by wubo on 2019/3/18.
  */
 
-public class OnePiexlActivity extends AppCompatActivity {
+public class OnePixelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,15 +39,10 @@ public class OnePiexlActivity extends AppCompatActivity {
      * 检查屏幕状态  isScreenOn为true  屏幕“亮”结束该Activity
      */
     private void checkScreen() {
-        PowerManager pm = (PowerManager) OnePiexlActivity.this.getSystemService(Context.POWER_SERVICE);
+        PowerManager pm = (PowerManager) OnePixelActivity.this.getSystemService(Context.POWER_SERVICE);
         boolean isScreenOn = pm.isScreenOn();
         if (isScreenOn) {
             finish();
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-}
+ }

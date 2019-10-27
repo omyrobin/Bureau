@@ -4,8 +4,16 @@ package com.administration.bureau.http;
 import android.content.Context;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.util.Log;
 
+import com.administration.bureau.App;
 import com.administration.bureau.constant.Url;
+import com.administration.bureau.entity.BaseResponse;
+import com.administration.bureau.entity.UserEntity;
+import com.administration.bureau.model.PostService;
+import com.administration.bureau.utils.ToastUtil;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,6 +30,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import rx.Observable;
+import rx.Observer;
 
 /**
  * Created by omyrobin on 2016/9/17.
@@ -73,17 +83,38 @@ public class RetrofitManager {
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(logging)
-//                .addInterceptor(new Interceptor() {
-//                    @Override
-//                    public Response intercept(Chain chain) throws IOException {
-//                        Request request = chain.request()
-//                                .newBuilder()
-//                                .addHeader(HEADER_CONTENT_TYPE, "application/json; charset=UTF-8")
-//                                .addHeader(HEADER_ACCEPT, "application/json")
-//                                .build();
-//                        return chain.proceed(request);
-//                    }
-//                })
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request.Builder requestBuilder = chain.request().newBuilder();
+                        Response response = chain.proceed(requestBuilder.build());
+                        if(response.code() == 401){
+                            String token = "Bearer "+ App.getInstance().getUserEntity().getToken();
+                            if(!TextUtils.isEmpty(token)){
+                                Log.i("TAG", "token 过期请退出重新登录");
+                                Observable<retrofit2.Response<BaseResponse<UserEntity>>> observable =  RetrofitManager.getRetrofit().create(PostService.class).refreshToken(token);
+                                observable.subscribe(new Observer<retrofit2.Response<BaseResponse<UserEntity>>>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(retrofit2.Response<BaseResponse<UserEntity>> baseResponseResponse) {
+                                        Log.i("TAG", "@@@@@@@@@@@@@@@@@@@@@@@@" + baseResponseResponse.body().getCode());
+                                    }
+                                });
+                                return response;
+                            }
+                        }
+                        return response;
+                    }
+                })
                 .build();
         return client;
     }
